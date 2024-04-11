@@ -30,17 +30,17 @@ struct PluralityDefinitionZoneValueIntervalOfFloats : PluralityDefinitionZoneVal
 		guard let bracket1 = scanner.xl_scanCharacters(from: bracketsCharset), bracket1.count == 1 else {return nil}
 		assert(bracket1 == "[" || bracket1 == "]")
 		
-		let loc1 = scanner.scanLocation
+		let loc1 = scanner.currentIndex
 		start = scanner.xl_scanCharacters(from: floatCharSet)
 			.flatMap{ PluralValue(string: $0) }
 			.flatMap{ (value: $0, included: bracket1 == "[") }
-		guard start != nil || scanner.scanLocation == loc1 else {return nil}
+		guard start != nil || scanner.currentIndex == loc1 else {return nil}
 		
 		guard scanner.xl_scanString("→") != nil else {return nil}
 		
-		let loc2 = scanner.scanLocation
+		let loc2 = scanner.currentIndex
 		let endValue = scanner.xl_scanCharacters(from: floatCharSet).flatMap{ PluralValue(string: $0) }
-		guard endValue != nil || scanner.scanLocation == loc2 else {return nil}
+		guard endValue != nil || scanner.currentIndex == loc2 else {return nil}
 		
 		guard let bracket2 = scanner.xl_scanCharacters(from: bracketsCharset), bracket2.count == 1 else {return nil}
 		assert(bracket2 == "[" || bracket2 == "]")

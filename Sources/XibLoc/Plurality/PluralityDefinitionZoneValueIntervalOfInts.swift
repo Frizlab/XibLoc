@@ -26,15 +26,15 @@ struct PluralityDefinitionZoneValueIntervalOfInts : PluralityDefinitionZoneValue
 		
 		let intCharSet = CharacterSet(charactersIn: "-0123456789")
 		
-		let loc1 = scanner.scanLocation
+		let loc1 = scanner.currentIndex
 		startValue = scanner.xl_scanCharacters(from: intCharSet).flatMap{ PluralValue(string: $0) }
-		guard startValue != nil || scanner.scanLocation == loc1 else {return nil}
+		guard startValue != nil || scanner.currentIndex == loc1 else {return nil}
 		
 		guard scanner.xl_scanString("→") != nil else {return nil}
 		
-		let loc2 = scanner.scanLocation
+		let loc2 = scanner.currentIndex
 		endValue = scanner.xl_scanCharacters(from: intCharSet).flatMap{ PluralValue(string: $0) }
-		guard endValue != nil || scanner.scanLocation == loc2 else {return nil}
+		guard endValue != nil || scanner.currentIndex == loc2 else {return nil}
 		
 		assert(startValue?.isInt ?? true)
 		assert(endValue?.isInt ?? true)

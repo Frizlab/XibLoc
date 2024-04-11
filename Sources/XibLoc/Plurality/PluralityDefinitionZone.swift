@@ -59,9 +59,9 @@ struct PluralityDefinitionZone : CustomDebugStringConvertible, Sendable {
 		if !scanner.isAtEnd {
 #if canImport(os)
 			if #available(macOS 10.12, tvOS 10.0, iOS 10.0, watchOS 3.0, *) {
-				Conf.oslog.flatMap{ os_log("Got garbage after end of plurality definition zone string: %@", log: $0, type: .info, (scanner.string as NSString).substring(from: scanner.scanLocation)) }}
+				Conf.oslog.flatMap{ os_log("Got garbage after end of plurality definition zone string: %@", log: $0, type: .info, String(scanner.string[scanner.currentIndex...])) }}
 #endif
-			Conf.logger?.warning("Got garbage after end of plurality definition zone string: \((scanner.string as NSString).substring(from: scanner.scanLocation))")
+			Conf.logger?.warning("Got garbage after end of plurality definition zone string: \(String(scanner.string[scanner.currentIndex...]))")
 		}
 		
 		index = i
