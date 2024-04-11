@@ -17,7 +17,7 @@ import Foundation
 
 
 
-protocol PluralityDefinitionZoneValue : CustomDebugStringConvertible {
+protocol PluralityDefinitionZoneValue : CustomDebugStringConvertible, Sendable {
 	
 	init?(string: String)
 	

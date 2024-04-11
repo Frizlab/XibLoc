@@ -29,11 +29,11 @@ public typealias XibLocColor = UIColor
 
 
 
-public struct StringAttributesChangesDescription {
+public struct StringAttributesChangesDescription : Sendable {
 	
 	@available(macOS 12, iOS 15, tvOS 15, watchOS 8, *)
-	public typealias   ChangeApplicationHandler = (_ modified: inout AttributedString, _ range: Range<AttributedString.Index>) -> Void
-	public typealias NSChangeApplicationHandler = (_ modified: NSMutableAttributedString, _ range: NSRange /* An ObjC range */) -> Void
+	public typealias   ChangeApplicationHandler = @Sendable (_ modified: inout AttributedString, _ range: Range<AttributedString.Index>) -> Void
+	public typealias NSChangeApplicationHandler = @Sendable (_ modified: NSMutableAttributedString, _ range: NSRange /* An ObjC range */) -> Void
 	
 	public enum StringAttributesChangeDescription {
 		
@@ -103,7 +103,7 @@ public struct StringAttributesChangesDescription {
 		get {_changes as! [ChangeApplicationHandler]}
 		set {_changes = newValue}
 	}
-	private var _changes: [Any]!
+	private var _changes: [Sendable]!
 	
 	public var nschanges: [NSChangeApplicationHandler]
 	

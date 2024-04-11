@@ -1,20 +1,30 @@
-// swift-tools-version:5.3
+// swift-tools-version:5.8
 import PackageDescription
 
+
+//let swiftSettings: [SwiftSetting] = []
+let swiftSettings: [SwiftSetting] = [.enableExperimentalFeature("StrictConcurrency")]
 
 let package = Package(
 	name: "XibLoc",
 	defaultLocalization: "en",
+	platforms: [.macOS(.v10_15), .iOS(.v13), .tvOS(.v13), .watchOS(.v6)],
 	products: [
 		.library(name: "XibLoc", targets: ["XibLoc"])
 	],
 	dependencies: [
-		.package(url: "https://github.com/apple/swift-log.git", from: "1.2.0")
+		.package(url: "https://github.com/apple/swift-log.git",    from: "1.2.0"),
+		.package(url: "https://github.com/Frizlab/SafeGlobal.git", from: "0.2.0")
 	],
 	targets: [
 		.target(name: "XibLoc", dependencies: [
-			.product(name: "Logging", package: "swift-log")
-		]),
-		.testTarget(name: "XibLocTests", dependencies: ["XibLoc"], exclude: ["XibLocTestsObjC.m"], resources: [Resource.process("Helpers/en.lproj/Localizable.strings")])
+			.product(name: "Logging",    package: "swift-log"),
+			.product(name: "SafeGlobal", package: "SafeGlobal")
+		], swiftSettings: swiftSettings),
+		.testTarget(
+			name: "XibLocTests", dependencies: ["XibLoc"], exclude: ["XibLocTestsObjC.m"],
+			resources: [Resource.process("Helpers/en.lproj/Localizable.strings")],
+			swiftSettings: swiftSettings
+		)
 	]
 )

@@ -19,6 +19,7 @@ import os.log
 #endif
 
 import Logging
+import SafeGlobal
 
 
 
@@ -42,9 +43,9 @@ public enum XibLocConfig {
 	
 #if canImport(os)
 	@available(macOS 10.12, tvOS 10.0, iOS 10.0, watchOS 3.0, *)
-	public static var oslog: OSLog? = .default
+	@SafeGlobal nonisolated(unsafe) public static var oslog: OSLog? = .default
 #endif
-	public static var logger: Logging.Logger? = {
+	@SafeGlobal public static var logger: Logging.Logger? = {
 #if canImport(os)
 		if #available(macOS 10.12, tvOS 10.0, iOS 10.0, watchOS 3.0, *) {
 			return nil
@@ -53,27 +54,27 @@ public enum XibLocConfig {
 		return Logger(label: "com.happn.XibLoc")
 	}()
 	
-	public static var defaultNumberFormatterForInts: NumberFormatter = {
+	@SafeGlobal public static var defaultNumberFormatterForInts: NumberFormatter = {
 		let f = NumberFormatter()
 		f.numberStyle = .none
 		return f
 	}()
 	
-	public static var defaultNumberFormatterForFloats: NumberFormatter = {
+	@SafeGlobal public static var defaultNumberFormatterForFloats: NumberFormatter = {
 		let f = NumberFormatter()
 		f.numberStyle = .decimal
 		return f
 	}()
 	
-	public static var defaultEscapeToken: String? = "~"
-	public static var defaultPluralityDefinition = PluralityDefinition(matchingNothing: ())
+	@SafeGlobal public static var defaultEscapeToken: String? = "~"
+	@SafeGlobal public static var defaultPluralityDefinition = PluralityDefinition(matchingNothing: ())
 	
 #if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
 	@available(macOS 12, iOS 15, tvOS 15, watchOS 8, *)
-	public static var defaultStr2AttrStrAttributes: AttributeContainer = .init()
-	public static var defaultStr2NSAttrStrAttributes: [NSAttributedString.Key: Any]? = nil
-	public static var defaultBoldAttrsChangesDescription: StringAttributesChangesDescription? = .init(change: .setBold)
-	public static var defaultItalicAttrsChangesDescription: StringAttributesChangesDescription? = .init(change: .setItalic)
+	@SafeGlobal public static var defaultStr2AttrStrAttributes: AttributeContainer = .init()
+	@SafeGlobal public static var defaultStr2NSAttrStrAttributes: [NSAttributedString.Key: Any]? = nil
+	@SafeGlobal public static var defaultBoldAttrsChangesDescription: StringAttributesChangesDescription? = .init(change: .setBold)
+	@SafeGlobal public static var defaultItalicAttrsChangesDescription: StringAttributesChangesDescription? = .init(change: .setItalic)
 #endif
 	
 	/**
@@ -84,7 +85,7 @@ public enum XibLocConfig {
 	 
 	 - Important: Do **not** modify the objects in this cache. The property should
 	  only be modified if needed when your app starts, to customize the cache. */
-	public static var cache: NSCache<ErasedParsedXibLocInitInfoWrapper, ParsedXibLocWrapper>? = {
+	@SafeGlobal public static var cache: NSCache<ErasedParsedXibLocInitInfoWrapper, ParsedXibLocWrapper>? = {
 		let c = NSCache<ErasedParsedXibLocInitInfoWrapper, ParsedXibLocWrapper>()
 		c.countLimit = 1500
 		return c

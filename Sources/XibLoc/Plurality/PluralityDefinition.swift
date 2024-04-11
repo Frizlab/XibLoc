@@ -151,7 +151,7 @@ import Logging
       ```
       With `<zone1:zone2:zone3:zone4:zone5>`:
        - For 1, the value will be zone3. zone1 matches first, but has a lower priority than zone3. */
-public struct PluralityDefinition : CustomDebugStringConvertible {
+public struct PluralityDefinition : CustomDebugStringConvertible, Sendable {
 	
 	let zones: [PluralityDefinitionZone]
 	

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -29,6 +29,7 @@
 		7B6B353324671651008DC972 /* ParsedXibLoc+InitCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6B353224671651008DC972 /* ParsedXibLoc+InitCache.swift */; };
 		7B6D4EA22915F13000384845 /* Range+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6D4EA12915F13000384845 /* Range+Utils.swift */; };
 		7B6D4EA429169F5B00384845 /* AttrStrTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6D4EA329169F5B00384845 /* AttrStrTests.swift */; };
+		7B8518D02BC8ADAF00A1081C /* SafeGlobal in Frameworks */ = {isa = PBXBuildFile; productRef = 7B8518CF2BC8ADAF00A1081C /* SafeGlobal */; };
 		7B8A96ED2017528C00481B45 /* OneWordTokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8A96EC2017528C00481B45 /* OneWordTokens.swift */; };
 		7B8A96F2201752B400481B45 /* MultipleWordsTokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8A96F1201752B400481B45 /* MultipleWordsTokens.swift */; };
 		7B8B339C246564DB00690AD7 /* PluralValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8B339B246564DB00690AD7 /* PluralValue.swift */; };
@@ -136,6 +137,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7B11B577246B51F700257726 /* Logging in Frameworks */,
+				7B8518D02BC8ADAF00A1081C /* SafeGlobal in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -349,6 +351,7 @@
 			name = XibLoc;
 			packageProductDependencies = (
 				7B11B576246B51F700257726 /* Logging */,
+				7B8518CF2BC8ADAF00A1081C /* SafeGlobal */,
 			);
 			productName = "happnLogger-macOS";
 			productReference = 7B8BD01A20026E8C009BE667 /* XibLoc.framework */;
@@ -404,6 +407,7 @@
 			);
 			mainGroup = 7B661F9220026ACC00486182;
 			packageReferences = (
+				7B8518CE2BC8ADAF00A1081C /* XCRemoteSwiftPackageReference "SafeGlobal" */,
 				7B11B575246B51F700257726 /* XCRemoteSwiftPackageReference "swift-log" */,
 			);
 			productRefGroup = 7B661F9C20026ACC00486182 /* Products */;
@@ -575,18 +579,18 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				ONLY_ACTIVE_ARCH = YES;
 				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = "watchsimulator watchos macosx iphonesimulator iphoneos driverkit appletvsimulator appletvos";
+				SUPPORTED_PLATFORMS = "xrsimulator xros watchsimulator watchos macosx iphonesimulator iphoneos driverkit appletvsimulator appletvos";
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-				TVOS_DEPLOYMENT_TARGET = 11.0;
+				TVOS_DEPLOYMENT_TARGET = 13.0;
 				VERSION_INFO_PREFIX = HPN;
-				WATCHOS_DEPLOYMENT_TARGET = 4.0;
+				WATCHOS_DEPLOYMENT_TARGET = 6.0;
 			};
 			name = Debug;
 		};
@@ -640,18 +644,18 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = "watchsimulator watchos macosx iphonesimulator iphoneos driverkit appletvsimulator appletvos";
+				SUPPORTED_PLATFORMS = "xrsimulator xros watchsimulator watchos macosx iphonesimulator iphoneos driverkit appletvsimulator appletvos";
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
-				TVOS_DEPLOYMENT_TARGET = 11.0;
+				TVOS_DEPLOYMENT_TARGET = 13.0;
 				VALIDATE_PRODUCT = YES;
 				VERSION_INFO_PREFIX = HPN;
-				WATCHOS_DEPLOYMENT_TARGET = 4.0;
+				WATCHOS_DEPLOYMENT_TARGET = 6.0;
 			};
 			name = Release;
 		};
@@ -671,7 +675,6 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MARKETING_VERSION = "$(DYLIB_CURRENT_VERSION)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.happn.XibLoc;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -695,7 +698,6 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MARKETING_VERSION = "$(DYLIB_CURRENT_VERSION)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.happn.XibLoc;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -786,6 +788,14 @@
 				minimumVersion = 1.2.0;
 			};
 		};
+		7B8518CE2BC8ADAF00A1081C /* XCRemoteSwiftPackageReference "SafeGlobal" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Frizlab/SafeGlobal.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.3.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -793,6 +803,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 7B11B575246B51F700257726 /* XCRemoteSwiftPackageReference "swift-log" */;
 			productName = Logging;
+		};
+		7B8518CF2BC8ADAF00A1081C /* SafeGlobal */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7B8518CE2BC8ADAF00A1081C /* XCRemoteSwiftPackageReference "SafeGlobal" */;
+			productName = SafeGlobal;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

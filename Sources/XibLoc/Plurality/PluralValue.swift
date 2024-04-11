@@ -38,7 +38,7 @@ import Foundation
  See [the doc](https://developer.apple.com/documentation/swift/comparable) for more info about the `Comparable` protocol.
  
  We still implement the `==`, `<` and other comparison operators on `PluralValue` just not using the `Comparable` protocol. */
-public struct PluralValue {
+public struct PluralValue : Sendable {
 	
 	public struct NumberFormat {
 		

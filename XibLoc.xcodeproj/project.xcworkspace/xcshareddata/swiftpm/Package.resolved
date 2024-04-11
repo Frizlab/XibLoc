@@ -1,5 +1,15 @@
 {
+  "originHash" : "0c5f63934a0888f7904da169918bd8a17b32a6f9e53e66f65ef648f14b802788",
   "pins" : [
+    {
+      "identity" : "safeglobal",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Frizlab/SafeGlobal.git",
+      "state" : {
+        "revision" : "aed1d6c7db070320e0d8e332c29bddfabb26e414",
+        "version" : "0.3.0"
+      }
+    },
     {
       "identity" : "swift-log",
       "kind" : "remoteSourceControl",
@@ -8,7 +18,16 @@
         "revision" : "6fe203dc33195667ce1759bf0182975e4653ba1c",
         "version" : "1.4.4"
       }
+    },
+    {
+      "identity" : "swift-syntax",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-syntax.git",
+      "state" : {
+        "revision" : "fa8f95c2d536d6620cc2f504ebe8a6167c9fc2dd",
+        "version" : "510.0.1"
+      }
     }
   ],
-  "version" : 2
+  "version" : 3
 }

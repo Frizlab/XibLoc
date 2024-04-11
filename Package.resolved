@@ -1,16 +1,32 @@
 {
-  "object": {
-    "pins": [
-      {
-        "package": "swift-log",
-        "repositoryURL": "https://github.com/apple/swift-log.git",
-        "state": {
-          "branch": null,
-          "revision": "6fe203dc33195667ce1759bf0182975e4653ba1c",
-          "version": "1.4.4"
-        }
+  "pins" : [
+    {
+      "identity" : "safeglobal",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Frizlab/SafeGlobal.git",
+      "state" : {
+        "revision" : "aed1d6c7db070320e0d8e332c29bddfabb26e414",
+        "version" : "0.3.0"
       }
-    ]
-  },
-  "version": 1
+    },
+    {
+      "identity" : "swift-log",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-log.git",
+      "state" : {
+        "revision" : "6fe203dc33195667ce1759bf0182975e4653ba1c",
+        "version" : "1.4.4"
+      }
+    },
+    {
+      "identity" : "swift-syntax",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-syntax.git",
+      "state" : {
+        "revision" : "fa8f95c2d536d6620cc2f504ebe8a6167c9fc2dd",
+        "version" : "510.0.1"
+      }
+    }
+  ],
+  "version" : 2
 }

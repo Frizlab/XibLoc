@@ -22,7 +22,7 @@ import Logging
 
 
 
-struct PluralityDefinitionZone : CustomDebugStringConvertible {
+struct PluralityDefinitionZone : CustomDebugStringConvertible, Sendable {
 	
 	let zoneValues: [PluralityDefinitionZoneValue]
 	
