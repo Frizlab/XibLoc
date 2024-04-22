@@ -94,7 +94,7 @@ struct PluralityDefinitionZoneValueGlob : PluralityDefinitionZoneValue {
 	}
 	
 	var debugDescription: String {
-		return "HCPluralityDefinitionZoneValueGlob: value = \(value)"
+		return "PluralityDefinitionZoneValueGlob: value = \(value)"
 	}
 	
 	private enum ValueType {

@@ -42,7 +42,7 @@ struct PluralityDefinitionZoneValueNumber : PluralityDefinitionZoneValue {
 	}
 	
 	var debugDescription: String {
-		return "HCPluralityDefinitionZoneValueNumber: value = \(refValue)"
+		return "PluralityDefinitionZoneValueNumber: value = \(refValue)"
 	}
 	
 	private let refValue: PluralValue
