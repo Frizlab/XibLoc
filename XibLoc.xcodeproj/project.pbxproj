@@ -382,9 +382,10 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
+				CLASSPREFIX = FRZ;
 				LastSwiftUpdateCheck = 0920;
 				LastUpgradeCheck = 1620;
-				ORGANIZATIONNAME = happn;
+				ORGANIZATIONNAME = Frizlab;
 				TargetAttributes = {
 					7B8BD01920026E8C009BE667 = {
 						CreatedOnToolsVersion = 9.2;
