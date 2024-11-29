@@ -17,6 +17,8 @@ limitations under the License. */
 
 import Foundation
 
+import GlobalConfModule
+
 
 
 public typealias Str2NSAttrStrXibLocInfo = XibLocResolvingInfo<String, NSMutableAttributedString>
@@ -27,7 +29,7 @@ extension XibLocResolvingInfo where SourceType == String, ReturnType == NSMutabl
 	 Convenience init for an Str2NSAttrStrXibLocInfo.
 	 
 	 Takes an str2str xib loc info and convert it to an str2attrstr xib loc info with no additional tokens. */
-	public init(strResolvingInfo: Str2StrXibLocInfo = Str2StrXibLocInfo(), defaultAttributes: [NSAttributedString.Key: Any]? = XibLocConfig.defaultStr2NSAttrStrAttributes) {
+	public init(strResolvingInfo: Str2StrXibLocInfo = Str2StrXibLocInfo(), defaultAttributes: [NSAttributedString.Key: Any]? = Conf[\.xibLoc.defaultStr2NSAttrStrAttributes]) {
 		let simpleSourceTypeReplacements = strResolvingInfo.simpleSourceTypeReplacements.merging(strResolvingInfo.simpleReturnTypeReplacements, uniquingKeysWith: { _, _ in
 			fatalError("The given str2str xib loc info was not valid: it had source and return type replacements which had the same tokens!")
 		})

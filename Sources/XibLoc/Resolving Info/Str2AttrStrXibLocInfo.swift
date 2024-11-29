@@ -17,6 +17,8 @@ limitations under the License. */
 
 import Foundation
 
+import GlobalConfModule
+
 
 
 @available(macOS 12, iOS 15, tvOS 15, watchOS 8, *)
@@ -29,7 +31,7 @@ extension XibLocResolvingInfo where SourceType == String, ReturnType == Attribut
 	 Convenience init for an Str2AttrStrXibLocInfo.
 	 
 	 Takes an str2str xib loc info and convert it to an str2attrstr xib loc info with no additional tokens. */
-	public init(strResolvingInfo: Str2StrXibLocInfo = Str2StrXibLocInfo(), defaultAttributes: AttributeContainer = XibLocConfig.defaultStr2AttrStrAttributes) {
+	public init(strResolvingInfo: Str2StrXibLocInfo = Str2StrXibLocInfo(), defaultAttributes: AttributeContainer = Conf[\.xibLoc.defaultStr2AttrStrAttributes]) {
 		let simpleSourceTypeReplacements = strResolvingInfo.simpleSourceTypeReplacements.merging(strResolvingInfo.simpleReturnTypeReplacements, uniquingKeysWith: { _, _ in
 			fatalError("The given str2str xib loc info was not valid: it had source and return type replacements which had the same tokens!")
 		})

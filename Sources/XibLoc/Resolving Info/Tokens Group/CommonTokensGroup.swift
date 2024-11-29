@@ -22,6 +22,8 @@ import AppKit
 import UIKit
 #endif
 
+import GlobalConfModule
+
 
 
 /**
@@ -34,7 +36,7 @@ import UIKit
   though you must remember to call `initParsingInfo` at the end of your init).
  
  The default init of this group will set `defaultBoldAttrsChangesDescription` and `defaultItalicAttrsChangesDescription` resp. to the `*` and `_` tokens.
- If you don’t want bold or italic, you must explicitly disable it, whether when initing the group, or by setting the defaults in the `XibLocConfig` struct.
+ If you don’t want bold or italic, you must explicitly disable it, whether when initing the group, or by setting the defaults in the `Conf`.
  
  List of tokens:
  - Escape: `~`
@@ -114,9 +116,9 @@ public struct CommonTokensGroup : TokensGroup {
 		genderOtherIsMale go: Bool? = nil,
 		baseFont f: XibLocFont? = nil,
 		baseColor c: XibLocColor? = nil,
-		baseNSAttributes nsattrs: [NSAttributedString.Key: Any]? = XibLocConfig.defaultStr2NSAttrStrAttributes,
-		boldAttrsChangesDescription boldAttrsChanges: StringAttributesChangesDescription? = XibLocConfig.defaultBoldAttrsChangesDescription,
-		italicAttrsChangesDescription italicAttrsChanges: StringAttributesChangesDescription? = XibLocConfig.defaultItalicAttrsChangesDescription
+		baseNSAttributes nsattrs: [NSAttributedString.Key: Any]? = Conf[\.xibLoc.defaultStr2NSAttrStrAttributes],
+		boldAttrsChangesDescription boldAttrsChanges: StringAttributesChangesDescription? = Conf[\.xibLoc.defaultBoldAttrsChangesDescription],
+		italicAttrsChangesDescription italicAttrsChanges: StringAttributesChangesDescription? = Conf[\.xibLoc.defaultItalicAttrsChangesDescription]
 	) {
 		simpleReplacement1 = r1
 		simpleReplacement2 = r2
@@ -141,9 +143,9 @@ public struct CommonTokensGroup : TokensGroup {
 		genderOtherIsMale go: Bool? = nil,
 		baseFont f: XibLocFont? = nil,
 		baseColor c: XibLocColor? = nil,
-		baseAttributes attrs: AttributeContainer = XibLocConfig.defaultStr2AttrStrAttributes,
-		boldAttrsChangesDescription boldAttrsChanges: StringAttributesChangesDescription? = XibLocConfig.defaultBoldAttrsChangesDescription,
-		italicAttrsChangesDescription italicAttrsChanges: StringAttributesChangesDescription? = XibLocConfig.defaultItalicAttrsChangesDescription
+		baseAttributes attrs: AttributeContainer = Conf[\.xibLoc.defaultStr2AttrStrAttributes],
+		boldAttrsChangesDescription boldAttrsChanges: StringAttributesChangesDescription? = Conf[\.xibLoc.defaultBoldAttrsChangesDescription],
+		italicAttrsChangesDescription italicAttrsChanges: StringAttributesChangesDescription? = Conf[\.xibLoc.defaultItalicAttrsChangesDescription]
 	) {
 		simpleReplacement1 = r1
 		simpleReplacement2 = r2
@@ -281,9 +283,9 @@ extension String {
 		genderOtherIsMale: Bool? = nil,
 		baseFont: XibLocFont? = nil,
 		baseColor: XibLocColor? = nil,
-		baseAttributes: AttributeContainer = XibLocConfig.defaultStr2AttrStrAttributes,
-		boldAttrsChangesDescription: StringAttributesChangesDescription? = XibLocConfig.defaultBoldAttrsChangesDescription,
-		italicAttrsChangesDescription: StringAttributesChangesDescription? = XibLocConfig.defaultItalicAttrsChangesDescription
+		baseAttributes: AttributeContainer = Conf[\.xibLoc.defaultStr2AttrStrAttributes],
+		boldAttrsChangesDescription: StringAttributesChangesDescription? = Conf[\.xibLoc.defaultBoldAttrsChangesDescription],
+		italicAttrsChangesDescription: StringAttributesChangesDescription? = Conf[\.xibLoc.defaultItalicAttrsChangesDescription]
 	) -> AttributedString {
 		return applying(xibLocInfo: CommonTokensGroup(
 			simpleReplacement1: simpleReplacement1,
@@ -321,9 +323,9 @@ extension String {
 		genderOtherIsMale: Bool? = nil,
 		baseFont: XibLocFont? = nil,
 		baseColor: XibLocColor? = nil,
-		baseNSAttributes: [NSAttributedString.Key: Any]? = XibLocConfig.defaultStr2NSAttrStrAttributes,
-		boldAttrsChangesDescription: StringAttributesChangesDescription? = XibLocConfig.defaultBoldAttrsChangesDescription,
-		italicAttrsChangesDescription: StringAttributesChangesDescription? = XibLocConfig.defaultItalicAttrsChangesDescription
+		baseNSAttributes: [NSAttributedString.Key: Any]? = Conf[\.xibLoc.defaultStr2NSAttrStrAttributes],
+		boldAttrsChangesDescription: StringAttributesChangesDescription? = Conf[\.xibLoc.defaultBoldAttrsChangesDescription],
+		italicAttrsChangesDescription: StringAttributesChangesDescription? = Conf[\.xibLoc.defaultItalicAttrsChangesDescription]
 	) -> NSMutableAttributedString {
 		return applying(xibLocInfo: CommonTokensGroup(
 			simpleReplacement1: simpleReplacement1,

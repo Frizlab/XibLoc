@@ -13,7 +13,10 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 
+import Foundation
 import XCTest
+
+import GlobalConfModule
 
 @testable import XibLoc
 
@@ -27,16 +30,16 @@ final class XibLocTestsSwiftStr : XCTestCase {
 	override func setUp() {
 		super.setUp()
 		
-		Conf.cache = nil
-		Conf.defaultEscapeToken = #"\"#
-		Conf.defaultPluralityDefinition = PluralityDefinition()
+		Conf[rootValueFor: \.xibLoc.cache] = .init(nil)
+		Conf[rootValueFor: \.xibLoc.defaultEscapeToken] = #"\"#
+		Conf[rootValueFor: \.xibLoc.defaultPluralityDefinition] = PluralityDefinition()
 		
 #if canImport(os)
 		if #available(macOS 10.12, tvOS 10.0, iOS 10.0, watchOS 3.0, *) {
-			Conf.oslog = nil
+			Conf[rootValueFor: \.xibLoc.oslog] = nil
 		}
 #endif
-		Conf.logger = nil
+		Conf[rootValueFor: \.xibLoc.logger] = nil
 	}
 	
 	override func tearDown() {
@@ -550,7 +553,7 @@ final class XibLocTestsSwiftStr : XCTestCase {
 	func testCommonTokensGroupDocCaseStr() {
 		for _ in 0..<nRepeats {
 			/* Case in doc has the default ~ escape token. */
-			Conf.defaultEscapeToken = "~"
+			Conf[rootValueFor: \.xibLoc.defaultEscapeToken] = "~"
 			let info = CommonTokensGroup().str2StrXibLocInfo
 			XCTAssertEqual(
 				"hello_world_how_are_you".applying(xibLocInfo: info),

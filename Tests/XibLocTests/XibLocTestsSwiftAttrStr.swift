@@ -18,6 +18,8 @@ limitations under the License. */
 import Foundation
 import XCTest
 
+import GlobalConfModule
+
 @testable import XibLoc
 
 
@@ -31,21 +33,24 @@ final class XibLocTestsSwiftAttrStr : XCTestCase {
 	override func setUp() {
 		super.setUp()
 		
-		Conf.cache = nil
-		Conf.defaultEscapeToken = #"\"#
-		Conf.defaultPluralityDefinition = PluralityDefinition()
+		Conf[rootValueFor: \.xibLoc.cache] = .init(nil)
+		Conf[rootValueFor: \.xibLoc.defaultEscapeToken] = #"\"#
+		Conf[rootValueFor: \.xibLoc.defaultPluralityDefinition] = PluralityDefinition()
 		
-		Conf.defaultStr2AttrStrAttributes = AttributeContainer()
-		Conf.defaultStr2AttrStrAttributes.font = .systemFont(ofSize: 14)
-		Conf.defaultStr2AttrStrAttributes.foregroundColor = .black
+		Conf[rootValueFor: \.xibLoc.defaultStr2AttrStrAttributes] = {
+			var ret = AttributeContainer()
+			ret.font = .systemFont(ofSize: 14)
+			ret.foregroundColor = .black
+			return ret
+		}()
 		
-		Conf.defaultBoldAttrsChangesDescription = StringAttributesChangesDescription(changes: [.setBold])
-		Conf.defaultItalicAttrsChangesDescription = nil
+		Conf[rootValueFor: \.xibLoc.defaultBoldAttrsChangesDescription] = StringAttributesChangesDescription(changes: [.setBold])
+		Conf[rootValueFor: \.xibLoc.defaultItalicAttrsChangesDescription] = nil
 		
 #if canImport(os)
-		Conf.oslog = nil
+		Conf[rootValueFor: \.xibLoc.oslog] = nil
 #endif
-		Conf.logger = nil
+		Conf[rootValueFor: \.xibLoc.logger] = nil
 	}
 	
 	override func tearDown() {
@@ -56,8 +61,8 @@ final class XibLocTestsSwiftAttrStr : XCTestCase {
 		let nRepeats = 1
 		for _ in 0..<nRepeats {
 			/* Set needed defaults like in the doc. */
-			Conf.defaultEscapeToken = "~"
-			Conf.defaultItalicAttrsChangesDescription = StringAttributesChangesDescription(changes: [.setItalic])
+			Conf[rootValueFor: \.xibLoc.defaultEscapeToken] = "~"
+			Conf[rootValueFor: \.xibLoc.defaultItalicAttrsChangesDescription] = StringAttributesChangesDescription(changes: [.setItalic])
 			let info = CommonTokensGroup().str2AttrStrXibLocInfo
 			
 			var result = AttributedString("helloworldhowareyou", attributes: Conf.defaultStr2AttrStrAttributes)

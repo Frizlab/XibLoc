@@ -13,13 +13,13 @@ let package = Package(
 		.library(name: "XibLoc", targets: ["XibLoc"])
 	],
 	dependencies: [
-		.package(url: "https://github.com/apple/swift-log.git",    from: "1.2.0"),
-		.package(url: "https://github.com/Frizlab/SafeGlobal.git", from: "0.2.0")
+		.package(url: "https://github.com/apple/swift-log.git",          from: "1.2.0"),
+		.package(url: "https://github.com/Frizlab/GlobalConfModule.git", from: "0.4.0"),
 	],
 	targets: [
 		.target(name: "XibLoc", dependencies: [
-			.product(name: "Logging",    package: "swift-log"),
-			.product(name: "SafeGlobal", package: "SafeGlobal")
+			.product(name: "Logging",          package: "swift-log"),
+			.product(name: "GlobalConfModule", package: "GlobalConfModule")
 		], swiftSettings: swiftSettings),
 		.testTarget(
 			name: "XibLocTests", dependencies: ["XibLoc"], exclude: ["XibLocTestsObjC.m"],

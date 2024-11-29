@@ -14,67 +14,51 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 import Foundation
-#if canImport(os)
-import os.log
+#if canImport(OSLog)
+import OSLog
 #endif
 
+import GlobalConfModule
 import Logging
-import SafeGlobal
 
 
 
-/**
- The global configuration for XibLoc.
- 
- You can modify all of the variables in this struct to change the default behavior of XibLoc.
- Be careful, none of these properties are thread-safe.
- It is a good practice to change the behaviors you want when you start your app, and then leave the config alone.
- 
- - Note: We allow the configuration for a generic `Logger` (from Apple’s swift-log repository), **and** an `OSLog` logger.
- We do this because Apple recommends using `OSLog` directly whenever possible for performance and privacy reason
-  (see [swift-log’s Readme](https://github.com/apple/swift-log/blob/4f876718737f2c2b2ecd6d4cb4b99e0367b257a4/README.md) for more informations).
- 
- The recommended configuration for Logging is to use `OSLog` when you can (you are on an Apple platform that supports `OSLog`) and `Logger` otherwise.
- You can also configure both if you want, though I’m not sure why that would be needed.
- 
- In the future, OSLog’s API should be modified to match the swift-log’s one, and we’ll then probably drop the support for OSLog
-  (because you’ll be able to use OSLog through Logging without any performance or privacy hit). */
-public enum XibLocConfig {
+public extension ConfKeys {
+	/* XibLoc conf namespace declaration. */
+	struct XibLoc {}
+	var xibLoc: XibLoc {XibLoc()}
+}
+
+
+extension ConfKeys.XibLoc {
 	
-#if canImport(os)
-	@available(macOS 10.12, tvOS 10.0, iOS 10.0, watchOS 3.0, *)
-	@SafeGlobal nonisolated(unsafe) public static var oslog: OSLog? = .default
+#if canImport(OSLog)
+	#declareConfKey("oslog",  OSLog?         .self, defaultValue: OSLog(subsystem: "me.frizlab.XibLoc", category: "Main"))
+	#declareConfKey("logger", Logging.Logger?.self, defaultValue: nil)
+#else
+	#declareConfKey("logger", Logging.Logger?.self, defaultValue: .init(label: "me.frizlab.XibLoc"))
 #endif
-	@SafeGlobal public static var logger: Logging.Logger? = {
-#if canImport(os)
-		if #available(macOS 10.12, tvOS 10.0, iOS 10.0, watchOS 3.0, *) {
-			return nil
-		}
-#endif
-		return Logger(label: "me.frizlab.XibLoc")
-	}()
 	
-	@SafeGlobal public static var defaultNumberFormatterForInts: NumberFormatter = {
+	#declareConfKey("defaultNumberFormatterForInts", NumberFormatter.self, defaultValue: {
 		let f = NumberFormatter()
 		f.numberStyle = .none
 		return f
-	}()
-	
-	@SafeGlobal public static var defaultNumberFormatterForFloats: NumberFormatter = {
+	}())
+	#declareConfKey("defaultNumberFormatterForFloats", NumberFormatter.self, defaultValue: {
 		let f = NumberFormatter()
 		f.numberStyle = .decimal
 		return f
-	}()
+	}())
 	
-	@SafeGlobal public static var defaultEscapeToken: String? = "~"
-	@SafeGlobal public static var defaultPluralityDefinition = PluralityDefinition(matchingNothing: ())
+	#declareConfKey("defaultEscapeToken",                      String.self, defaultValue: "~")
+	#declareConfKey("defaultPluralityDefinition", PluralityDefinition.self, defaultValue: PluralityDefinition(matchingNothing: ()))
 	
 #if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
 	@available(macOS 12, iOS 15, tvOS 15, watchOS 8, *)
-	@SafeGlobal public static var defaultStr2AttrStrAttributes: AttributeContainer = .init()
-	@SafeGlobal public static var defaultStr2NSAttrStrAttributes: [NSAttributedString.Key: Any]? = nil
-	@SafeGlobal public static var defaultBoldAttrsChangesDescription: StringAttributesChangesDescription? = .init(change: .setBold)
-	@SafeGlobal public static var defaultItalicAttrsChangesDescription: StringAttributesChangesDescription? = .init(change: .setItalic)
+	#declareConfKey("defaultStr2AttrStrAttributes", AttributeContainer.self, defaultValue: .init())
+	#declareConfKey("defaultStr2NSAttrStrAttributes", [NSAttributedString.Key: Any]?.self, defaultValue: nil)
+	#declareConfKey("defaultBoldAttrsChangesDescription", StringAttributesChangesDescription?.self, defaultValue: .init(change: .setBold))
+	#declareConfKey("defaultItalicAttrsChangesDescription", StringAttributesChangesDescription?.self, defaultValue: .init(change: .setItalic))
 #endif
 	
 	/**
@@ -85,12 +69,37 @@ public enum XibLocConfig {
 	 
 	 - Important: Do **not** modify the objects in this cache. The property should
 	  only be modified if needed when your app starts, to customize the cache. */
-	@SafeGlobal public static var cache: NSCache<ErasedParsedXibLocInitInfoWrapper, ParsedXibLocWrapper>? = {
+	#declareConfKey("cache", NSCache<ErasedParsedXibLocInitInfoWrapper, ParsedXibLocWrapper>?.self, unsafeNonIsolated: true, defaultValue: {
 		let c = NSCache<ErasedParsedXibLocInitInfoWrapper, ParsedXibLocWrapper>()
 		c.countLimit = 1500
 		return c
-	}()
+	}())
 	
 }
 
-typealias Conf = XibLocConfig
+
+extension Conf {
+	
+#if canImport(os)
+	#declareConfAccessor(\.xibLoc.oslog,  OSLog?         .self)
+#endif
+	#declareConfAccessor(\.xibLoc.logger, Logging.Logger?.self)
+	
+	#declareConfAccessor(\.xibLoc.defaultNumberFormatterForInts,   NumberFormatter.self)
+	#declareConfAccessor(\.xibLoc.defaultNumberFormatterForFloats, NumberFormatter.self)
+	
+	#declareConfAccessor(\.xibLoc.defaultEscapeToken,                      String.self)
+	#declareConfAccessor(\.xibLoc.defaultPluralityDefinition, PluralityDefinition.self)
+	
+	@available(macOS 12, iOS 15, tvOS 15, watchOS 8, *)
+	#declareConfAccessor(\.xibLoc.defaultStr2AttrStrAttributes,                          AttributeContainer.self)
+	#declareConfAccessor(\.xibLoc.defaultStr2NSAttrStrAttributes,            [NSAttributedString.Key: Any]?.self)
+	#declareConfAccessor(\.xibLoc.defaultBoldAttrsChangesDescription,   StringAttributesChangesDescription?.self)
+	#declareConfAccessor(\.xibLoc.defaultItalicAttrsChangesDescription, StringAttributesChangesDescription?.self)
+	
+//	#declareConfAccessor(\.xibLoc.cache, NSCache<ErasedParsedXibLocInitInfoWrapper, ParsedXibLocWrapper>?.self)
+	internal static var cache: NSCache<ErasedParsedXibLocInitInfoWrapper, ParsedXibLocWrapper>? {
+		Conf[\.xibLoc.cache].value
+	}
+	
+}

@@ -18,6 +18,7 @@ import Foundation
 import os.log
 #endif
 
+import GlobalConfModule
 import Logging
 
 
@@ -86,7 +87,7 @@ public struct XibLocResolvingInfo<SourceType, ReturnType> {
 	}
 	
 	public init?(
-		defaultPluralityDefinition dpd: PluralityDefinition = XibLocConfig.defaultPluralityDefinition, escapeToken et: String? = XibLocConfig.defaultEscapeToken,
+		defaultPluralityDefinition dpd: PluralityDefinition = Conf[\.xibLoc.defaultPluralityDefinition], escapeToken et: String? = Conf[\.xibLoc.defaultEscapeToken],
 		simpleSourceTypeReplacements sstr: [OneWordTokens: (_ originalValue: SourceType) -> SourceType] = [:],
 		orderedReplacements or: [MultipleWordsTokens: Int] = [:],
 		pluralGroups pg: [(MultipleWordsTokens, PluralValue)] = [],

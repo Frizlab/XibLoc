@@ -18,6 +18,8 @@ limitations under the License. */
 import CoreGraphics /* CGFloat */
 import Foundation
 
+import GlobalConfModule
+
 
 
 extension XibLocFont {

@@ -18,6 +18,8 @@ limitations under the License. */
 import Foundation
 import XCTest
 
+import GlobalConfModule
+
 @testable import XibLoc
 
 
@@ -30,24 +32,24 @@ final class XibLocTestsSwiftNSAttrStr : XCTestCase {
 	override func setUp() {
 		super.setUp()
 		
-		Conf.cache = nil
-		Conf.defaultEscapeToken = #"\"#
-		Conf.defaultPluralityDefinition = PluralityDefinition()
+		Conf[rootValueFor: \.xibLoc.cache] = .init(nil)
+		Conf[rootValueFor: \.xibLoc.defaultEscapeToken] = #"\"#
+		Conf[rootValueFor: \.xibLoc.defaultPluralityDefinition] = PluralityDefinition()
 		
-		Conf.defaultStr2NSAttrStrAttributes = [
+		Conf[rootValueFor: \.xibLoc.defaultStr2NSAttrStrAttributes] = [
 			.font: XibLocFont.systemFont(ofSize: 14),
 			.foregroundColor: XibLocColor.black
 		]
 		
-		Conf.defaultBoldAttrsChangesDescription = StringAttributesChangesDescription(changes: [.setBold])
-		Conf.defaultItalicAttrsChangesDescription = nil
+		Conf[rootValueFor: \.xibLoc.defaultBoldAttrsChangesDescription] = StringAttributesChangesDescription(changes: [.setBold])
+		Conf[rootValueFor: \.xibLoc.defaultItalicAttrsChangesDescription] = nil
 		
 #if canImport(os)
 		if #available(macOS 10.12, tvOS 10.0, iOS 10.0, watchOS 3.0, *) {
-			Conf.oslog = nil
+			Conf[rootValueFor: \.xibLoc.oslog] = nil
 		}
 #endif
-		Conf.logger = nil
+		Conf[rootValueFor: \.xibLoc.logger] = nil
 	}
 	
 	override func tearDown() {
@@ -58,8 +60,8 @@ final class XibLocTestsSwiftNSAttrStr : XCTestCase {
 		let nRepeats = 1
 		for _ in 0..<nRepeats {
 			/* Set needed defaults like in the doc. */
-			Conf.defaultEscapeToken = "~"
-			Conf.defaultItalicAttrsChangesDescription = StringAttributesChangesDescription(changes: [.setItalic])
+			Conf[rootValueFor: \.xibLoc.defaultEscapeToken] = "~"
+			Conf[rootValueFor: \.xibLoc.defaultItalicAttrsChangesDescription] = StringAttributesChangesDescription(changes: [.setItalic])
 			let info = CommonTokensGroup().str2NSAttrStrXibLocInfo
 			
 			let result = NSMutableAttributedString(string: "helloworldhowareyou", attributes: Conf.defaultStr2NSAttrStrAttributes!)

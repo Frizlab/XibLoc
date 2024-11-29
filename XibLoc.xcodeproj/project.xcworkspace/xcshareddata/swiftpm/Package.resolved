@@ -1,13 +1,13 @@
 {
-  "originHash" : "0c5f63934a0888f7904da169918bd8a17b32a6f9e53e66f65ef648f14b802788",
+  "originHash" : "0423495e7089b8274e3bb6d2f7d76da54f96a0b89b5bfcba266984ad87df3c8c",
   "pins" : [
     {
-      "identity" : "safeglobal",
+      "identity" : "globalconfmodule",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/Frizlab/SafeGlobal.git",
+      "location" : "https://github.com/Frizlab/GlobalConfModule.git",
       "state" : {
-        "revision" : "aed1d6c7db070320e0d8e332c29bddfabb26e414",
-        "version" : "0.3.0"
+        "revision" : "4a45bd577bacbe95bf54587e15f796c2e64ea613",
+        "version" : "0.4.0"
       }
     },
     {
@@ -20,12 +20,21 @@
       }
     },
     {
+      "identity" : "swift-service-context",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-service-context.git",
+      "state" : {
+        "revision" : "0c62c5b4601d6c125050b5c3a97f20cce881d32b",
+        "version" : "1.1.0"
+      }
+    },
+    {
       "identity" : "swift-syntax",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/apple/swift-syntax.git",
+      "location" : "https://github.com/swiftlang/swift-syntax.git",
       "state" : {
-        "revision" : "fa8f95c2d536d6620cc2f504ebe8a6167c9fc2dd",
-        "version" : "510.0.1"
+        "revision" : "2bc86522d115234d1f588efe2bcb4ce4be8f8b82",
+        "version" : "510.0.3"
       }
     }
   ],

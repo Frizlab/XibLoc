@@ -15,6 +15,8 @@ limitations under the License. */
 
 import Foundation
 
+import GlobalConfModule
+
 
 
 public typealias Str2StrXibLocInfo = XibLocResolvingInfo<String, String>
@@ -32,7 +34,7 @@ extension XibLocResolvingInfo where SourceType == String, ReturnType == String {
 	 In case you have a translation that does not fit within a tokens group, you can use this convenience to create the info you need easily.
 	 
 	 All the keys in the dictionaries must represent the short form of the one word or multiple words tokens they represent. */
-	public init?(replacements: [String: String] = [:], plurals: [(valueTokens: String, pluralTokens: String, value: XibLocNumber)] = [], orderedReplacements or: [String: Int] = [:], escapeToken e: String? = XibLocConfig.defaultEscapeToken, defaultPluralityDefinition dpd: PluralityDefinition = XibLocConfig.defaultPluralityDefinition) {
+	public init?(replacements: [String: String] = [:], plurals: [(valueTokens: String, pluralTokens: String, value: XibLocNumber)] = [], orderedReplacements or: [String: Int] = [:], escapeToken e: String? = Conf[\.xibLoc.defaultEscapeToken], defaultPluralityDefinition dpd: PluralityDefinition = Conf[\.xibLoc.defaultPluralityDefinition]) {
 		var orderedReplacementsBuilding = [MultipleWordsTokens: Int]()
 		var pluralGroupsBuilding = [(MultipleWordsTokens, PluralValue)]()
 		var simpleReturnTypeReplacementsBuilding = [OneWordTokens: (String) -> String]()

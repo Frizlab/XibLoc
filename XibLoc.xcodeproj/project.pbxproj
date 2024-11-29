@@ -13,6 +13,7 @@
 		7B266297214D65720069A959 /* Scanner+LinuxCompat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B266296214D65720069A959 /* Scanner+LinuxCompat.swift */; };
 		7B353B832017DA6D004D3540 /* Str2StrXibLocInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B353B822017DA6D004D3540 /* Str2StrXibLocInfo.swift */; };
 		7B3C11D6246AF72700F86C18 /* CacheLock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3C11D5246AF72700F86C18 /* CacheLock.swift */; };
+		7B3D8B7F2CFA72CB00FCD70C /* GlobalConfModule in Frameworks */ = {isa = PBXBuildFile; productRef = 7B3D8B7E2CFA72CB00FCD70C /* GlobalConfModule */; };
 		7B4487A924726F0200B6DB7B /* XibLocResolvingInfoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4487A824726F0200B6DB7B /* XibLocResolvingInfoTests.swift */; };
 		7B4487AC2472F39F00B6DB7B /* NumberFormatter+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4487AB2472F39F00B6DB7B /* NumberFormatter+Utils.swift */; };
 		7B4A328B2670D40C00FF38F1 /* Str2NSAttrStrXibLocInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4A328A2670D40C00FF38F1 /* Str2NSAttrStrXibLocInfo.swift */; };
@@ -29,7 +30,6 @@
 		7B6B353324671651008DC972 /* ParsedXibLoc+InitCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6B353224671651008DC972 /* ParsedXibLoc+InitCache.swift */; };
 		7B6D4EA22915F13000384845 /* Range+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6D4EA12915F13000384845 /* Range+Utils.swift */; };
 		7B6D4EA429169F5B00384845 /* AttrStrTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6D4EA329169F5B00384845 /* AttrStrTests.swift */; };
-		7B8518D02BC8ADAF00A1081C /* SafeGlobal in Frameworks */ = {isa = PBXBuildFile; productRef = 7B8518CF2BC8ADAF00A1081C /* SafeGlobal */; };
 		7B8A96ED2017528C00481B45 /* OneWordTokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8A96EC2017528C00481B45 /* OneWordTokens.swift */; };
 		7B8A96F2201752B400481B45 /* MultipleWordsTokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8A96F1201752B400481B45 /* MultipleWordsTokens.swift */; };
 		7B8B339C246564DB00690AD7 /* PluralValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8B339B246564DB00690AD7 /* PluralValue.swift */; };
@@ -136,8 +136,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B3D8B7F2CFA72CB00FCD70C /* GlobalConfModule in Frameworks */,
 				7B11B577246B51F700257726 /* Logging in Frameworks */,
-				7B8518D02BC8ADAF00A1081C /* SafeGlobal in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -350,8 +350,8 @@
 			);
 			name = XibLoc;
 			packageProductDependencies = (
+				7B3D8B7E2CFA72CB00FCD70C /* GlobalConfModule */,
 				7B11B576246B51F700257726 /* Logging */,
-				7B8518CF2BC8ADAF00A1081C /* SafeGlobal */,
 			);
 			productName = "happnLogger-macOS";
 			productReference = 7B8BD01A20026E8C009BE667 /* XibLoc.framework */;
@@ -409,7 +409,7 @@
 			);
 			mainGroup = 7B661F9220026ACC00486182;
 			packageReferences = (
-				7B8518CE2BC8ADAF00A1081C /* XCRemoteSwiftPackageReference "SafeGlobal" */,
+				7B3D8B7D2CFA72CB00FCD70C /* XCRemoteSwiftPackageReference "GlobalConfModule" */,
 				7B11B575246B51F700257726 /* XCRemoteSwiftPackageReference "swift-log" */,
 			);
 			productRefGroup = 7B661F9C20026ACC00486182 /* Products */;
@@ -796,12 +796,12 @@
 				minimumVersion = 1.2.0;
 			};
 		};
-		7B8518CE2BC8ADAF00A1081C /* XCRemoteSwiftPackageReference "SafeGlobal" */ = {
+		7B3D8B7D2CFA72CB00FCD70C /* XCRemoteSwiftPackageReference "GlobalConfModule" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Frizlab/SafeGlobal.git";
+			repositoryURL = "https://github.com/Frizlab/GlobalConfModule.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 0.3.0;
+				minimumVersion = 0.4.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -812,10 +812,10 @@
 			package = 7B11B575246B51F700257726 /* XCRemoteSwiftPackageReference "swift-log" */;
 			productName = Logging;
 		};
-		7B8518CF2BC8ADAF00A1081C /* SafeGlobal */ = {
+		7B3D8B7E2CFA72CB00FCD70C /* GlobalConfModule */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 7B8518CE2BC8ADAF00A1081C /* XCRemoteSwiftPackageReference "SafeGlobal" */;
-			productName = SafeGlobal;
+			package = 7B3D8B7D2CFA72CB00FCD70C /* XCRemoteSwiftPackageReference "GlobalConfModule" */;
+			productName = GlobalConfModule;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

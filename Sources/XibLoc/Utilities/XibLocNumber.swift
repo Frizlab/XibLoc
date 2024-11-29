@@ -15,6 +15,8 @@ limitations under the License. */
 
 import Foundation
 
+import GlobalConfModule
+
 
 
 /**
@@ -27,17 +29,17 @@ public struct XibLocNumber {
 	public let localizedString: String
 	public let pluralValue: PluralValue
 	
-	public init(_ i: Int, formatter: NumberFormatter = XibLocConfig.defaultNumberFormatterForInts) {
+	public init(_ i: Int, formatter: NumberFormatter = Conf[\.xibLoc.defaultNumberFormatterForInts]) {
 		localizedString = formatter.xl_string(from: NSNumber(value: i))
 		pluralValue = PluralValue(int: i, format: PluralValue.NumberFormat(numberFormatter: formatter))
 	}
 	
-	public init(_ f: Float, formatter: NumberFormatter = XibLocConfig.defaultNumberFormatterForFloats) {
+	public init(_ f: Float, formatter: NumberFormatter = Conf[\.xibLoc.defaultNumberFormatterForFloats]) {
 		localizedString = formatter.xl_string(from: NSNumber(value: f))
 		pluralValue = PluralValue(float: f, format: PluralValue.NumberFormat(numberFormatter: formatter))
 	}
 	
-	public init(_ d: Double, formatter: NumberFormatter = XibLocConfig.defaultNumberFormatterForFloats) {
+	public init(_ d: Double, formatter: NumberFormatter = Conf[\.xibLoc.defaultNumberFormatterForFloats]) {
 		localizedString = formatter.xl_string(from: NSNumber(value: d))
 		pluralValue = PluralValue(double: d, format: PluralValue.NumberFormat(numberFormatter: formatter))
 	}

@@ -15,6 +15,8 @@ limitations under the License. */
 
 import Foundation
 
+import GlobalConfModule
+
 
 
 extension ParsedXibLoc where SourceTypeHelper.ParsedType : Hashable {
