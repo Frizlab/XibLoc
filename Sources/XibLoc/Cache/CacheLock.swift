@@ -21,7 +21,7 @@ struct CacheLock {
 	
 	static let lock: NSLock = {
 		let l = NSLock()
-		l.name = "com.happn.XibLoc.cache-lock"
+		l.name = "me.frizlab.XibLoc.cache-lock"
 		return l
 	}()
 	

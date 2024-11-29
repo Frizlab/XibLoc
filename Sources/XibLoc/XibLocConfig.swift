@@ -51,7 +51,7 @@ public enum XibLocConfig {
 			return nil
 		}
 #endif
-		return Logger(label: "com.happn.XibLoc")
+		return Logger(label: "me.frizlab.XibLoc")
 	}()
 	
 	@SafeGlobal public static var defaultNumberFormatterForInts: NumberFormatter = {
