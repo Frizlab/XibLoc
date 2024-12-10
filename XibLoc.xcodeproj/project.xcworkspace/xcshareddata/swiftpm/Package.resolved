@@ -1,5 +1,5 @@
 {
-  "originHash" : "0423495e7089b8274e3bb6d2f7d76da54f96a0b89b5bfcba266984ad87df3c8c",
+  "originHash" : "16fb4f96442f63d3a0c7a3e60266517beb7841ff15740dae2569fdfb2f484f70",
   "pins" : [
     {
       "identity" : "globalconfmodule",
@@ -15,8 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-log.git",
       "state" : {
-        "revision" : "6fe203dc33195667ce1759bf0182975e4653ba1c",
-        "version" : "1.4.4"
+        "revision" : "96a2f8a0fa41e9e09af4585e2724c4e825410b91",
+        "version" : "1.6.2"
       }
     },
     {
