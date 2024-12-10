@@ -56,7 +56,7 @@ extension ConfKeys.XibLoc {
 #if canImport(Darwin)
 	@available(macOS 12, iOS 15, tvOS 15, watchOS 8, *)
 	#declareConfKey("defaultStr2AttrStrAttributes", AttributeContainer.self, defaultValue: .init())
-	#declareConfKey("defaultStr2NSAttrStrAttributes", [NSAttributedString.Key: Any]?.self, defaultValue: nil)
+	#declareConfKey("defaultStr2NSAttrStrAttributes", [NSAttributedString.Key: Sendable]?.self, defaultValue: nil)
 	#declareConfKey("defaultBoldAttrsChangesDescription", StringAttributesChangesDescription?.self, defaultValue: .init(change: .setBold))
 	#declareConfKey("defaultItalicAttrsChangesDescription", StringAttributesChangesDescription?.self, defaultValue: .init(change: .setItalic))
 #endif
@@ -94,7 +94,7 @@ extension Conf {
 #if canImport(Darwin)
 	@available(macOS 12, iOS 15, tvOS 15, watchOS 8, *)
 	#declareConfAccessor(\.xibLoc.defaultStr2AttrStrAttributes,                          AttributeContainer.self)
-	#declareConfAccessor(\.xibLoc.defaultStr2NSAttrStrAttributes,            [NSAttributedString.Key: Any]?.self)
+	#declareConfAccessor(\.xibLoc.defaultStr2NSAttrStrAttributes,       [NSAttributedString.Key: Sendable]?.self)
 	#declareConfAccessor(\.xibLoc.defaultBoldAttrsChangesDescription,   StringAttributesChangesDescription?.self)
 	#declareConfAccessor(\.xibLoc.defaultItalicAttrsChangesDescription, StringAttributesChangesDescription?.self)
 #endif

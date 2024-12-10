@@ -1,9 +1,8 @@
-// swift-tools-version:5.8
+// swift-tools-version:6.0
 import PackageDescription
 
 
-//let swiftSettings: [SwiftSetting] = []
-let swiftSettings: [SwiftSetting] = [.enableExperimentalFeature("StrictConcurrency")]
+let swiftSettings: [SwiftSetting] = []
 
 let package = Package(
 	name: "XibLoc",

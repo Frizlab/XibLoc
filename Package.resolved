@@ -1,12 +1,13 @@
 {
+  "originHash" : "69d4c7f6c84e62119300bc72cf3dec0546a0a1e2fa48e6c16af37b5bd8c223bf",
   "pins" : [
     {
       "identity" : "globalconfmodule",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Frizlab/GlobalConfModule.git",
       "state" : {
-        "revision" : "4a45bd577bacbe95bf54587e15f796c2e64ea613",
-        "version" : "0.4.0"
+        "revision" : "2f1abd5058fffcb5cbbab68da9c4ca4f55d167da",
+        "version" : "0.4.1"
       }
     },
     {
@@ -32,10 +33,10 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/swiftlang/swift-syntax.git",
       "state" : {
-        "revision" : "2bc86522d115234d1f588efe2bcb4ce4be8f8b82",
-        "version" : "510.0.3"
+        "revision" : "0687f71944021d616d34d922343dcef086855920",
+        "version" : "600.0.1"
       }
     }
   ],
-  "version" : 2
+  "version" : 3
 }
