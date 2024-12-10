@@ -53,7 +53,7 @@ extension ConfKeys.XibLoc {
 	#declareConfKey("defaultEscapeToken",                      String.self, defaultValue: "~")
 	#declareConfKey("defaultPluralityDefinition", PluralityDefinition.self, defaultValue: PluralityDefinition(matchingNothing: ()))
 	
-#if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
+#if canImport(Darwin)
 	@available(macOS 12, iOS 15, tvOS 15, watchOS 8, *)
 	#declareConfKey("defaultStr2AttrStrAttributes", AttributeContainer.self, defaultValue: .init())
 	#declareConfKey("defaultStr2NSAttrStrAttributes", [NSAttributedString.Key: Any]?.self, defaultValue: nil)
@@ -91,7 +91,7 @@ extension Conf {
 	#declareConfAccessor(\.xibLoc.defaultEscapeToken,                      String.self)
 	#declareConfAccessor(\.xibLoc.defaultPluralityDefinition, PluralityDefinition.self)
 	
-#if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
+#if canImport(Darwin)
 	@available(macOS 12, iOS 15, tvOS 15, watchOS 8, *)
 	#declareConfAccessor(\.xibLoc.defaultStr2AttrStrAttributes,                          AttributeContainer.self)
 	#declareConfAccessor(\.xibLoc.defaultStr2NSAttrStrAttributes,            [NSAttributedString.Key: Any]?.self)

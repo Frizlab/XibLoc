@@ -20,7 +20,7 @@ import Foundation
 extension Scanner {
 	
 	func xl_scanString(_ string: String) -> String? {
-#if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
+#if canImport(Darwin)
 		if #available(OSX 10.15, tvOS 13.0, iOS 13.0, watchOS 6.0, *) {
 			return scanString(string)
 		} else {
@@ -34,7 +34,7 @@ extension Scanner {
 	}
 	
 	func xl_scanUpToString(_ string: String) -> String? {
-#if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
+#if canImport(Darwin)
 		if #available(macOS 10.15, tvOS 13.0, iOS 13.0, watchOS 6.0, *) {
 			return scanUpToString(string)
 		} else {
@@ -48,7 +48,7 @@ extension Scanner {
 	}
 	
 	func xl_scanCharacters(from set: CharacterSet) -> String? {
-#if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
+#if canImport(Darwin)
 		if #available(macOS 10.15, tvOS 13.0, iOS 13.0, watchOS 6.0, *) {
 			return scanCharacters(from: set)
 		} else {

@@ -23,7 +23,7 @@ public protocol TokensGroup {
 	static var tokensExceptEscape: Set<String> {get}
 	
 	var str2StrXibLocInfo: Str2StrXibLocInfo {get}
-#if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
+#if canImport(Darwin)
 	@available(macOS 12, iOS 15, tvOS 15, watchOS 8, *)
 	var str2AttrStrXibLocInfo: Str2AttrStrXibLocInfo {get}
 	var str2NSAttrStrXibLocInfo: Str2NSAttrStrXibLocInfo {get}
@@ -48,8 +48,8 @@ extension String {
 		return applying(xibLocInfo: group.str2StrXibLocInfo)
 	}
 	
-#if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
-	
+#if canImport(Darwin)
+
 	@available(macOS 12, iOS 15, tvOS 15, watchOS 8, *)
 	public func applying(tokensGroupAttributed group: TokensGroup) -> AttributedString {
 		return applying(xibLocInfo: group.str2AttrStrXibLocInfo)
