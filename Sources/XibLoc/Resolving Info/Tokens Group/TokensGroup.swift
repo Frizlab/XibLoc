@@ -55,6 +55,10 @@ extension String {
 		return applying(xibLocInfo: group.str2AttrStrXibLocInfo)
 	}
 	
+	@available(macOS,   deprecated: 12, message: "Use AttributedString")
+	@available(iOS,     deprecated: 15, message: "Use AttributedString")
+	@available(tvOS,    deprecated: 15, message: "Use AttributedString")
+	@available(watchOS, deprecated: 8,  message: "Use AttributedString")
 	public func applying(tokensGroupNSAttributed group: TokensGroup) -> NSMutableAttributedString {
 		return applying(xibLocInfo: group.str2NSAttrStrXibLocInfo)
 	}
