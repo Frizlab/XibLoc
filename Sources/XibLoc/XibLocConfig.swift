@@ -91,11 +91,13 @@ extension Conf {
 	#declareConfAccessor(\.xibLoc.defaultEscapeToken,                      String.self)
 	#declareConfAccessor(\.xibLoc.defaultPluralityDefinition, PluralityDefinition.self)
 	
+#if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
 	@available(macOS 12, iOS 15, tvOS 15, watchOS 8, *)
 	#declareConfAccessor(\.xibLoc.defaultStr2AttrStrAttributes,                          AttributeContainer.self)
 	#declareConfAccessor(\.xibLoc.defaultStr2NSAttrStrAttributes,            [NSAttributedString.Key: Any]?.self)
 	#declareConfAccessor(\.xibLoc.defaultBoldAttrsChangesDescription,   StringAttributesChangesDescription?.self)
 	#declareConfAccessor(\.xibLoc.defaultItalicAttrsChangesDescription, StringAttributesChangesDescription?.self)
+#endif
 	
 //	#declareConfAccessor(\.xibLoc.cache, NSCache<ErasedParsedXibLocInitInfoWrapper, ParsedXibLocWrapper>?.self)
 	internal static var cache: NSCache<ErasedParsedXibLocInitInfoWrapper, ParsedXibLocWrapper>? {

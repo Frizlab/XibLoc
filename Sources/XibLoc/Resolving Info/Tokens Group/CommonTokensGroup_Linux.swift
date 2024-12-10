@@ -16,6 +16,8 @@ limitations under the License. */
 #if !os(macOS) && !os(iOS) && !os(tvOS) && !os(watchOS)
 import Foundation
 
+import GlobalConfModule
+
 
 
 /**
