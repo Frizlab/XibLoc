@@ -49,7 +49,9 @@ public struct StringAttributesChangesDescription : Sendable {
 		case setFgColor(XibLocColor)
 		case setBgColor(XibLocColor)
 		
+#if !os(macOS)
 		case changeFont(newFont: XibLocFont, preserveSizes: Bool, preserveBold: Bool, preserveItalic: Bool)
+#endif
 		
 		case addLink(URL)
 		
@@ -68,8 +70,10 @@ public struct StringAttributesChangesDescription : Sendable {
 				case .setFgColor(let color): return { attrStr, range in attrStr[range].foregroundColor = color }
 				case .setBgColor(let color): return { attrStr, range in attrStr[range].backgroundColor = color }
 					
+#if !os(macOS)
 				case .changeFont(newFont: let font, preserveSizes: let preserveSizes, preserveBold: let preserveBold, preserveItalic: let preserveItalic):
 					return { attrStr, range in attrStr.setFont(font, keepOriginalSize: preserveSizes, keepOriginalIsBold: preserveBold, keepOriginalIsItalic: preserveItalic, range: range) }
+#endif
 					
 				case .addLink(let url): return { attrStr, range in attrStr[range].link = url }
 			}
@@ -89,8 +93,10 @@ public struct StringAttributesChangesDescription : Sendable {
 				case .setFgColor(let color): return { attrStr, range in attrStr.setTextColor(color, range: range) }
 				case .setBgColor(let color): return { attrStr, range in attrStr.setBackgroundColor(color, range: range) }
 					
+#if !os(macOS)
 				case .changeFont(newFont: let font, preserveSizes: let preserveSizes, preserveBold: let preserveBold, preserveItalic: let preserveItalic):
 					return { attrStr, range in attrStr.setFont(font, keepOriginalSize: preserveSizes, keepOriginalIsBold: preserveBold, keepOriginalIsItalic: preserveItalic, range: range) }
+#endif
 					
 				case .addLink(let url): return { attrStr, range in attrStr.addAttribute(.link, value: url, range: range) }
 			}
