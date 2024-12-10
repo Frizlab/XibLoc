@@ -35,22 +35,22 @@ final class AttributedStringUtilsTests : XCTestCase {
 	
 	func testSetBoldOrItalic() {
 		var baseattr = AttributeContainer()
-		baseattr.font = .systemFont(ofSize: 12)
+		baseattr[keyPath: \.font] = .systemFont(ofSize: 12)
 		var attrstr = AttributedString("abcdefghijklmnopqrstuvwxyz", attributes: baseattr)
 		
 		let abcRange = attrstr.range(of: "abc")!
 		let defRange = attrstr.range(of: "def")!
 		let abcdefRange = attrstr.range(of: "abcdef")!
 		
-		XCTAssertEqual(attrstr[abcRange].font?.isBold, false)
-		XCTAssertEqual(attrstr[defRange].font?.isBold, false)
-		XCTAssertEqual(attrstr[abcdefRange].font?.isBold, false)
+		XCTAssertEqual(attrstr[abcRange][keyPath: \.font]?.isBold, false)
+		XCTAssertEqual(attrstr[defRange][keyPath: \.font]?.isBold, false)
+		XCTAssertEqual(attrstr[abcdefRange][keyPath: \.font]?.isBold, false)
 		
 		attrstr.setBoldOrItalic(bold: true, italic: nil, range: defRange)
 		
-		XCTAssertEqual(attrstr[abcRange].font?.isBold, false)
-		XCTAssertEqual(attrstr[defRange].font?.isBold, true)
-		XCTAssertEqual(attrstr[abcdefRange].font?.isBold, nil)
+		XCTAssertEqual(attrstr[abcRange][keyPath: \.font]?.isBold, false)
+		XCTAssertEqual(attrstr[defRange][keyPath: \.font]?.isBold, true)
+		XCTAssertEqual(attrstr[abcdefRange][keyPath: \.font]?.isBold, nil)
 	}
 	
 }

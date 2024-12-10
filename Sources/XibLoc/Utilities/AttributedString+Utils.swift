@@ -32,8 +32,9 @@ extension AttributedString {
 		
 		let runs = self[range].runs
 		for r in runs {
-			let font = r.font ?? XibLocFont.xl_preferredFont
-			self[r.range].font = font.fontBySetting(size: nil, isBold: bold, isItalic: italic)
+			/* Note: The keypath syntax “hides” the “NSFont is not Sendable” warning. Is it correct? idk… */
+			let font = r[keyPath: \.font] ?? XibLocFont.xl_preferredFont
+			self[r.range][keyPath: \.font] = font.fontBySetting(size: nil, isBold: bold, isItalic: italic)
 		}
 	}
 	
@@ -43,9 +44,10 @@ extension AttributedString {
 		
 		let runs = self[range].runs
 		for r in runs {
-			let f = r.font
+			/* Note: The keypath syntax “hides” the “NSFont is not Sendable” warning. Is it correct? idk… */
+			let f = r[keyPath: \.font]
 			let (b, i, s) = (f?.isBold, f?.isItalic, f?.pointSize)
-			self[r.range].font = font.fontBySetting(size: keepOriginalSize ? s : nil, isBold: keepOriginalIsBold ? b : nil, isItalic: keepOriginalIsItalic ? i : nil)
+			self[r.range][keyPath: \.font] = font.fontBySetting(size: keepOriginalSize ? s : nil, isBold: keepOriginalIsBold ? b : nil, isItalic: keepOriginalIsItalic ? i : nil)
 		}
 	}
 	

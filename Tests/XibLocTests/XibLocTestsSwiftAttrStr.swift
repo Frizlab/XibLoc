@@ -39,7 +39,7 @@ final class XibLocTestsSwiftAttrStr : XCTestCase {
 		
 		Conf[rootValueFor: \.xibLoc.defaultStr2AttrStrAttributes] = {
 			var ret = AttributeContainer()
-			ret.font = .systemFont(ofSize: 14)
+			ret[keyPath: \.font] = .systemFont(ofSize: 14)
 			ret.foregroundColor = .black
 			return ret
 		}()
@@ -719,7 +719,7 @@ final class XibLocTestsSwiftAttrStr : XCTestCase {
 	
 	private lazy var docCasesInfo: (Str2AttrStrXibLocInfo, AttributeContainer) = {
 		var baseAttributes = AttributeContainer()
-		baseAttributes.font = XibLocFont.systemFont(ofSize: 14)
+		baseAttributes[keyPath: \.font] = XibLocFont.systemFont(ofSize: 14)
 		baseAttributes.foregroundColor = XibLocColor.black
 		let info = Str2AttrStrXibLocInfo(
 			escapeToken: nil,

@@ -184,7 +184,7 @@ public struct CommonTokensGroup : TokensGroup {
 	@available(macOS 12, iOS 15, tvOS 15, watchOS 8, *)
 	public var str2AttrStrXibLocInfo: Str2AttrStrXibLocInfo {
 		var defaultAttributes = baseAttributes
-		if let f = baseFont  {defaultAttributes.font = f}
+		if let f = baseFont  {defaultAttributes[keyPath: \.font] = f} /* Note: The keypath syntax “hides” the “NSFont is not Sendable” warning. Is it correct? idk… */
 		if let c = baseColor {defaultAttributes.foregroundColor = c}
 		
 		return Str2AttrStrXibLocInfo(

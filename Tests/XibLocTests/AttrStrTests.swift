@@ -27,14 +27,14 @@ final class AttrStrTests : XCTestCase {
 	func testAttrStrRangeExtract() {
 		let baseAttributes = {
 			var res = AttributeContainer()
-			res.font = .systemFont(ofSize: 14)
+			res[keyPath: \.font] = .systemFont(ofSize: 14)
 			res.foregroundColor = .black
 			return res
 		}()
 		
 		var attrStr = AttributedString("yolo^+1 result<:s>^", attributes: baseAttributes)
 		attrStr.replaceSubrange(attrStr.range(of: "<:s>")!, with: AttributedString(""))
-		attrStr[attrStr.range(of: "1 result")!].font = .preferredFont(forTextStyle: .caption1)
+		attrStr[attrStr.range(of: "1 result")!][keyPath: \.font] = .preferredFont(forTextStyle: .caption1)
 		
 		let range = attrStr.range(of: "+1 result")!
 		XCTAssertEqual(String(describing: attrStr[range]), String(describing: AttributedString(attrStr[range])))
