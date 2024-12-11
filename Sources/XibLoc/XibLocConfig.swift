@@ -94,7 +94,9 @@ extension Conf {
 #if canImport(Darwin)
 	@available(macOS 12, iOS 15, tvOS 15, watchOS 8, *)
 	#declareConfAccessor(\.xibLoc.defaultStr2AttrStrAttributes,                          AttributeContainer.self)
-	#declareConfAccessor(\.xibLoc.defaultStr2NSAttrStrAttributes,       [NSAttributedString.Key: Sendable]?.self)
+	internal static var defaultStr2NSAttrStrAttributes: [NSAttributedString.Key: Any]? {
+		Conf[\.xibLoc.defaultStr2NSAttrStrAttributes]?.unwrappingSendableWrappers
+	}
 	#declareConfAccessor(\.xibLoc.defaultBoldAttrsChangesDescription,   StringAttributesChangesDescription?.self)
 	#declareConfAccessor(\.xibLoc.defaultItalicAttrsChangesDescription, StringAttributesChangesDescription?.self)
 #endif

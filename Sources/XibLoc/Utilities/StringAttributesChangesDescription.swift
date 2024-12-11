@@ -16,15 +16,10 @@ limitations under the License. */
 #if canImport(Darwin)
 
 import Foundation
-
 #if os(macOS)
 import AppKit
-public typealias XibLocFont = NSFont
-public typealias XibLocColor = NSColor
 #else
 import UIKit
-public typealias XibLocFont = UIFont
-public typealias XibLocColor = UIColor
 #endif
 
 
@@ -49,9 +44,7 @@ public struct StringAttributesChangesDescription : Sendable {
 		case setFgColor(XibLocColor)
 		case setBgColor(XibLocColor)
 		
-#if !os(macOS)
 		case changeFont(newFont: XibLocFont, preserveSizes: Bool, preserveBold: Bool, preserveItalic: Bool)
-#endif
 		
 		case addLink(URL)
 		
@@ -70,10 +63,9 @@ public struct StringAttributesChangesDescription : Sendable {
 				case .setFgColor(let color): return { attrStr, range in attrStr[range].foregroundColor = color }
 				case .setBgColor(let color): return { attrStr, range in attrStr[range].backgroundColor = color }
 					
-#if !os(macOS)
 				case .changeFont(newFont: let font, preserveSizes: let preserveSizes, preserveBold: let preserveBold, preserveItalic: let preserveItalic):
-					return { attrStr, range in attrStr.setFont(font, keepOriginalSize: preserveSizes, keepOriginalIsBold: preserveBold, keepOriginalIsItalic: preserveItalic, range: range) }
-#endif
+					let sendableFont = SendableFont(font)
+					return { attrStr, range in attrStr.setFont(sendableFont.font, keepOriginalSize: preserveSizes, keepOriginalIsBold: preserveBold, keepOriginalIsItalic: preserveItalic, range: range) }
 					
 				case .addLink(let url): return { attrStr, range in attrStr[range].link = url }
 			}
@@ -93,10 +85,9 @@ public struct StringAttributesChangesDescription : Sendable {
 				case .setFgColor(let color): return { attrStr, range in attrStr.setTextColor(color, range: range) }
 				case .setBgColor(let color): return { attrStr, range in attrStr.setBackgroundColor(color, range: range) }
 					
-#if !os(macOS)
 				case .changeFont(newFont: let font, preserveSizes: let preserveSizes, preserveBold: let preserveBold, preserveItalic: let preserveItalic):
-					return { attrStr, range in attrStr.setFont(font, keepOriginalSize: preserveSizes, keepOriginalIsBold: preserveBold, keepOriginalIsItalic: preserveItalic, range: range) }
-#endif
+					let sendableFont = SendableFont(font)
+					return { attrStr, range in attrStr.setFont(sendableFont.font, keepOriginalSize: preserveSizes, keepOriginalIsBold: preserveBold, keepOriginalIsItalic: preserveItalic, range: range) }
 					
 				case .addLink(let url): return { attrStr, range in attrStr.addAttribute(.link, value: url, range: range) }
 			}
@@ -142,6 +133,18 @@ public struct StringAttributesChangesDescription : Sendable {
 		for h in nschanges {h(attributedString, range)}
 	}
 	
+}
+
+
+internal extension Dictionary where Key == NSAttributedString.Key {
+	var unwrappingSendableWrappers: [NSAttributedString.Key: Any] {
+		return mapValues{
+			if let sendableFont = $0 as? SendableFont {
+				return sendableFont.font
+			}
+			return $0
+		}
+	}
 }
 
 #endif

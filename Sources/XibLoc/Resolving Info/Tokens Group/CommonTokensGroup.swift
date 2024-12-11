@@ -128,7 +128,7 @@ public struct CommonTokensGroup : TokensGroup {
 		
 		baseFont = f
 		baseColor = c
-		baseNSAttributes = nsattrs
+		baseNSAttributes = nsattrs?.unwrappingSendableWrappers
 		
 		boldAttrsChangesDescription = boldAttrsChanges
 		italicAttrsChangesDescription = italicAttrsChanges

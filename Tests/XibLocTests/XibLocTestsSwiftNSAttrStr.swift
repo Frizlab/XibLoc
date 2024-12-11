@@ -37,7 +37,7 @@ final class XibLocTestsSwiftNSAttrStr : XCTestCase {
 		Conf[rootValueFor: \.xibLoc.defaultPluralityDefinition] = PluralityDefinition()
 		
 		Conf[rootValueFor: \.xibLoc.defaultStr2NSAttrStrAttributes] = [
-			.font: XibLocFont.systemFont(ofSize: 14),
+			.font: XibLocFont.systemFont(ofSize: 14).sendableFont,
 			.foregroundColor: XibLocColor.black
 		]
 		
