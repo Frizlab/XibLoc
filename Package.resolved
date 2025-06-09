@@ -1,13 +1,13 @@
 {
-  "originHash" : "69d4c7f6c84e62119300bc72cf3dec0546a0a1e2fa48e6c16af37b5bd8c223bf",
+  "originHash" : "652e964ee567ab83d7ebc14e0bf28d7d45cfaecda3dc71c43369e6c312fb93f0",
   "pins" : [
     {
       "identity" : "globalconfmodule",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Frizlab/GlobalConfModule.git",
       "state" : {
-        "revision" : "2f1abd5058fffcb5cbbab68da9c4ca4f55d167da",
-        "version" : "0.4.1"
+        "revision" : "72729262a37078faa9978c2c5accd5adbaedb4ee",
+        "version" : "0.4.3"
       }
     },
     {
