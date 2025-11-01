@@ -53,12 +53,15 @@ extension ConfKeys.XibLoc {
 	#declareConfKey("defaultEscapeToken",                      String.self, defaultValue: "~")
 	#declareConfKey("defaultPluralityDefinition", PluralityDefinition.self, defaultValue: PluralityDefinition(matchingNothing: ()))
 	
-#if canImport(Darwin)
 	@available(macOS 12, iOS 15, tvOS 15, watchOS 8, *)
 	#declareConfKey("defaultStr2AttrStrAttributes", AttributeContainer.self, defaultValue: .init())
 	#declareConfKey("defaultStr2NSAttrStrAttributes", [NSAttributedString.Key: Sendable]?.self, defaultValue: nil)
+#if canImport(AppKit) || canImport(UIKit)
 	#declareConfKey("defaultBoldAttrsChangesDescription", StringAttributesChangesDescription?.self, defaultValue: .init(change: .setBold))
 	#declareConfKey("defaultItalicAttrsChangesDescription", StringAttributesChangesDescription?.self, defaultValue: .init(change: .setItalic))
+#else
+	#declareConfKey("defaultBoldAttrsChangesDescription", StringAttributesChangesDescription?.self, defaultValue: .init(changes: []))
+	#declareConfKey("defaultItalicAttrsChangesDescription", StringAttributesChangesDescription?.self, defaultValue: .init(changes: []))
 #endif
 	
 	/**
@@ -91,15 +94,13 @@ extension Conf {
 	#declareConfAccessor(\.xibLoc.defaultEscapeToken,                      String.self)
 	#declareConfAccessor(\.xibLoc.defaultPluralityDefinition, PluralityDefinition.self)
 	
-#if canImport(Darwin)
 	@available(macOS 12, iOS 15, tvOS 15, watchOS 8, *)
-	#declareConfAccessor(\.xibLoc.defaultStr2AttrStrAttributes,                          AttributeContainer.self)
+	#declareConfAccessor(\.xibLoc.defaultStr2AttrStrAttributes, AttributeContainer.self)
 	internal static var defaultStr2NSAttrStrAttributes: [NSAttributedString.Key: Any]? {
 		Conf[\.xibLoc.defaultStr2NSAttrStrAttributes]?.unwrappingSendableWrappers
 	}
 	#declareConfAccessor(\.xibLoc.defaultBoldAttrsChangesDescription,   StringAttributesChangesDescription?.self)
 	#declareConfAccessor(\.xibLoc.defaultItalicAttrsChangesDescription, StringAttributesChangesDescription?.self)
-#endif
 	
 //	#declareConfAccessor(\.xibLoc.cache, NSCache<ErasedParsedXibLocInitInfoWrapper, ParsedXibLocWrapper>?.self)
 	internal static var cache: NSCache<ErasedParsedXibLocInitInfoWrapper, ParsedXibLocWrapper>? {

@@ -13,12 +13,10 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 
-#if canImport(Darwin)
-
 import Foundation
 #if os(macOS)
 import AppKit
-#else
+#elseif canImport(UIKit)
 import UIKit
 #endif
 
@@ -32,6 +30,7 @@ public struct StringAttributesChangesDescription : Sendable {
 	
 	public enum StringAttributesChangeDescription {
 		
+#if canImport(AppKit) || canImport(UIKit)
 		case setBold
 		case removeBold
 		
@@ -46,21 +45,24 @@ public struct StringAttributesChangesDescription : Sendable {
 		
 		case changeFont(newFont: XibLocFont, preserveSizes: Bool, preserveBold: Bool, preserveItalic: Bool)
 		
+		/* The link attribute exists on the OpenSource Foundation, but only for AttributedString, not for NSAttributedString, so we have not to include it. */
 		case addLink(URL)
+#endif
 		
 		@available(macOS 12, iOS 15, tvOS 15, watchOS 8, *)
 		var handlerToApplyChange: ChangeApplicationHandler {
 			switch self {
+#if canImport(AppKit) || canImport(UIKit)
 				case .setBold:    return { attrStr, range in attrStr.setBoldOrItalic(bold: true,  italic: nil, range: range) }
 				case .removeBold: return { attrStr, range in attrStr.setBoldOrItalic(bold: false, italic: nil, range: range) }
 					
 				case .setItalic:    return { attrStr, range in attrStr.setBoldOrItalic(bold: nil, italic: true,  range: range) }
 				case .removeItalic: return { attrStr, range in attrStr.setBoldOrItalic(bold: nil, italic: false, range: range) }
 					
-#if os(macOS)
+#if canImport(AppKit)
 				case .addStraightUnderline: return { attrStr, range in attrStr[range].appKit.underlineStyle = .single }
 				case .removeUnderline:      return { attrStr, range in attrStr[range].appKit.underlineStyle = nil }
-#else
+#elseif canImport(UIKit)
 				case .addStraightUnderline: return { attrStr, range in attrStr[range].uiKit.underlineStyle = .single }
 				case .removeUnderline:      return { attrStr, range in attrStr[range].uiKit.underlineStyle = nil }
 #endif
@@ -73,11 +75,13 @@ public struct StringAttributesChangesDescription : Sendable {
 					return { attrStr, range in attrStr.setFont(sendableFont.font, keepOriginalSize: preserveSizes, keepOriginalIsBold: preserveBold, keepOriginalIsItalic: preserveItalic, range: range) }
 					
 				case .addLink(let url): return { attrStr, range in attrStr[range].link = url }
+#endif
 			}
 		}
 		
 		var handlerToApplyNSChange: NSChangeApplicationHandler {
 			switch self {
+#if canImport(AppKit) || canImport(UIKit)
 				case .setBold:    return { attrStr, range in attrStr.setBoldOrItalic(bold: true,  italic: nil, range: range) }
 				case .removeBold: return { attrStr, range in attrStr.setBoldOrItalic(bold: false, italic: nil, range: range) }
 					
@@ -95,6 +99,7 @@ public struct StringAttributesChangesDescription : Sendable {
 					return { attrStr, range in attrStr.setFont(sendableFont.font, keepOriginalSize: preserveSizes, keepOriginalIsBold: preserveBold, keepOriginalIsItalic: preserveItalic, range: range) }
 					
 				case .addLink(let url): return { attrStr, range in attrStr.addAttribute(.link, value: url, range: range) }
+#endif
 			}
 		}
 		
@@ -143,13 +148,15 @@ public struct StringAttributesChangesDescription : Sendable {
 
 internal extension Dictionary where Key == NSAttributedString.Key {
 	var unwrappingSendableWrappers: [NSAttributedString.Key: Any] {
+#if canImport(Darwin)
 		return mapValues{
 			if let sendableFont = $0 as? SendableFont {
 				return sendableFont.font
 			}
 			return $0
 		}
+#else
+		return self
+#endif
 	}
 }
-
-#endif

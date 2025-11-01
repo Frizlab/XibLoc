@@ -118,4 +118,8 @@ extension XibLocFont {
 	
 }
 
+#else
+
+public typealias XibLocFont = Never
+
 #endif

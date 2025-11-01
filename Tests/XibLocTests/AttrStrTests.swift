@@ -13,17 +13,18 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 
-#if canImport(Darwin)
+#if canImport(AppKit) || canImport(UIKit)
 
 import Foundation
 import XCTest
 
 
 
+/* TODO: Enable this test on Linux (must use an attribute that exists on Linux, idk which… */
 @available(macOS 12, iOS 15, tvOS 15, watchOS 8, *)
 final class AttrStrTests : XCTestCase {
 	
-	/* FB11756205 and https://cohost.org/Frizlab/post/200059-to-whomever-it-may-c */
+	/* FB11756205 and <https://web.archive.org/web/20241102044935/https://cohost.org/Frizlab/post/200059-to-whomever-it-may-c>. */
 	func testAttrStrRangeExtract() {
 		let baseAttributes = {
 			var res = AttributeContainer()

@@ -13,12 +13,11 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 
-#if canImport(Darwin)
 import Foundation
 
 #if os(macOS)
 import AppKit
-#else
+#elseif canImport(UIKit)
 import UIKit
 #endif
 
@@ -184,8 +183,10 @@ public struct CommonTokensGroup : TokensGroup {
 	@available(macOS 12, iOS 15, tvOS 15, watchOS 8, *)
 	public var str2AttrStrXibLocInfo: Str2AttrStrXibLocInfo {
 		var defaultAttributes = baseAttributes
+#if canImport(AppKit) || canImport(UIKit)
 		if let f = baseFont  {defaultAttributes[keyPath: \.font] = f} /* Note: The keypath syntax “hides” the “NSFont is not Sendable” warning. Is it correct? idk… */
 		if let c = baseColor {defaultAttributes.foregroundColor = c}
+#endif
 		
 		return Str2AttrStrXibLocInfo(
 			defaultPluralityDefinition: Conf.defaultPluralityDefinition,
@@ -211,8 +212,10 @@ public struct CommonTokensGroup : TokensGroup {
 	
 	public var str2NSAttrStrXibLocInfo: Str2NSAttrStrXibLocInfo {
 		var defaultAttributes = baseNSAttributes ?? [:]
+#if canImport(AppKit) || canImport(UIKit)
 		if let f = baseFont  {defaultAttributes[.font] = f}
 		if let c = baseColor {defaultAttributes[.foregroundColor] = c}
+#endif
 		
 		return Str2NSAttrStrXibLocInfo(
 			defaultPluralityDefinition: Conf.defaultPluralityDefinition,
@@ -342,5 +345,3 @@ extension String {
 	}
 	
 }
-
-#endif

@@ -23,8 +23,6 @@ extension String {
 		return ParsedXibLoc.cachedOrNewParsedXibLoc(source: self, parserHelper: StringParserHelper.self, forXibLocResolvingInfo: xibLocInfo).resolve(xibLocResolvingInfo: xibLocInfo, returnTypeHelperType: StringParserHelper.self)
 	}
 	
-#if canImport(Darwin)
-	
 	@available(macOS 12, iOS 15, tvOS 15, watchOS 8, *)
 	public func applying(xibLocInfo: XibLocResolvingInfo<String, AttributedString>) -> AttributedString {
 		return ParsedXibLoc.cachedOrNewParsedXibLoc(source: self, parserHelper: StringParserHelper.self, forXibLocResolvingInfo: xibLocInfo).resolve(xibLocResolvingInfo: xibLocInfo, returnTypeHelperType: AttributedStringParserHelper.self)
@@ -51,12 +49,8 @@ extension String {
 		return NSMutableAttributedString(string: self, attributes: defaultAttributes).applying(xibLocInfo: xibLocInfo)
 	}
 	
-#endif
-	
 }
 
-
-#if canImport(Darwin)
 
 @available(macOS 12, iOS 15, tvOS 15, watchOS 8, *)
 extension AttributedString {
@@ -95,5 +89,3 @@ extension NSMutableAttributedString {
 	}
 	
 }
-
-#endif

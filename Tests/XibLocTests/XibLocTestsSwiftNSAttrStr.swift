@@ -13,7 +13,8 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 
-#if canImport(Darwin)
+/* TODO: These tests on Linux (no fonts nor color available). */
+#if canImport(AppKit) || canImport(UIKit)
 
 import Foundation
 import XCTest
@@ -38,7 +39,7 @@ final class XibLocTestsSwiftNSAttrStr : XCTestCase {
 		
 		Conf[rootValueFor: \.xibLoc.defaultStr2NSAttrStrAttributes] = [
 			.font: XibLocFont.systemFont(ofSize: 14).sendableFont,
-			.foregroundColor: XibLocColor.black
+			.foregroundColor: XibLocColor.black,
 		]
 		
 		Conf[rootValueFor: \.xibLoc.defaultBoldAttrsChangesDescription] = StringAttributesChangesDescription(changes: [.setBold])

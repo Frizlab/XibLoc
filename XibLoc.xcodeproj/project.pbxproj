@@ -24,7 +24,6 @@
 		7B5BF7C22084E7F0006AAB6A /* Str2AttrStrXibLocInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5BF7C12084E7F0006AAB6A /* Str2AttrStrXibLocInfo.swift */; };
 		7B66FA922467485D005EAB92 /* XibLocParsingInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66FA912467485D005EAB92 /* XibLocParsingInfo.swift */; };
 		7B66FAB724684494005EAB92 /* CommonTokensGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66FAB624684494005EAB92 /* CommonTokensGroup.swift */; };
-		7B66FABB24686497005EAB92 /* CommonTokensGroup_Linux.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66FABA24686497005EAB92 /* CommonTokensGroup_Linux.swift */; };
 		7B66FABE24687F19005EAB92 /* TokensGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66FABD24687F19005EAB92 /* TokensGroup.swift */; };
 		7B6A10712672042100BBB7C3 /* AttributedStringUtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6A10702672042100BBB7C3 /* AttributedStringUtilsTests.swift */; };
 		7B6B353324671651008DC972 /* ParsedXibLoc+InitCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6B353224671651008DC972 /* ParsedXibLoc+InitCache.swift */; };
@@ -91,7 +90,6 @@
 		7B5BF7C12084E7F0006AAB6A /* Str2AttrStrXibLocInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Str2AttrStrXibLocInfo.swift; sourceTree = "<group>"; };
 		7B66FA912467485D005EAB92 /* XibLocParsingInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XibLocParsingInfo.swift; sourceTree = "<group>"; };
 		7B66FAB624684494005EAB92 /* CommonTokensGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonTokensGroup.swift; sourceTree = "<group>"; };
-		7B66FABA24686497005EAB92 /* CommonTokensGroup_Linux.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonTokensGroup_Linux.swift; sourceTree = "<group>"; };
 		7B66FABD24687F19005EAB92 /* TokensGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokensGroup.swift; sourceTree = "<group>"; };
 		7B6A10702672042100BBB7C3 /* AttributedStringUtilsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedStringUtilsTests.swift; sourceTree = "<group>"; };
 		7B6B353224671651008DC972 /* ParsedXibLoc+InitCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ParsedXibLoc+InitCache.swift"; sourceTree = "<group>"; };
@@ -214,7 +212,6 @@
 			children = (
 				7B66FABD24687F19005EAB92 /* TokensGroup.swift */,
 				7B66FAB624684494005EAB92 /* CommonTokensGroup.swift */,
-				7B66FABA24686497005EAB92 /* CommonTokensGroup_Linux.swift */,
 			);
 			path = "Tokens Group";
 			sourceTree = "<group>";
@@ -451,7 +448,6 @@
 				7B4A328F2670D49200FF38F1 /* AttributedString+Utils.swift in Sources */,
 				7B3C11D6246AF72700F86C18 /* CacheLock.swift in Sources */,
 				7BC649752476A47300C848FD /* Collection+Utils.swift in Sources */,
-				7B66FABB24686497005EAB92 /* CommonTokensGroup_Linux.swift in Sources */,
 				7B66FAB724684494005EAB92 /* CommonTokensGroup.swift in Sources */,
 				7B8A96F2201752B400481B45 /* MultipleWordsTokens.swift in Sources */,
 				7BC4591120B20BC3003972E1 /* NSMutableAttributedString+Utils.swift in Sources */,

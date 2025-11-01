@@ -21,7 +21,7 @@ extension Scanner {
 	
 	func xl_scanString(_ string: String) -> String? {
 #if canImport(Darwin)
-		if #available(OSX 10.15, tvOS 13.0, iOS 13.0, watchOS 6.0, *) {
+		if #available(macOS 10.15, tvOS 13.0, iOS 13.0, watchOS 6.0, *) {
 			return scanString(string)
 		} else {
 			var result: NSString?
