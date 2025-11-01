@@ -32,7 +32,7 @@ import GlobalConfModule
  - Plural: `<` `:` `>`
  - Plural value: `#`
  - Gender me: `{` `₋` `}`
- - Gender other: \` `¦` `´` */
+ - Gender other: ``` ` ``` `¦` `´` */
 public struct CommonTokensGroup : TokensGroup {
 	
 	public static let escapeToken = "~"
@@ -55,12 +55,7 @@ public struct CommonTokensGroup : TokensGroup {
 	 
 	 - Important: The dash is not a standard dash… */
 	public var genderMeIsMale: Bool?
-	/**
-	 Tokens: \` `¦` `´`
-	 
-	 (Doc formatting note: I did not find a way to specify the first token is code
-	  (because it’s the same token as the token used to specify we have code in doc comments).
-	 Doesn’t matter, it’s not really visible though.) */
+	/** Tokens: ``` ` ``` `¦` `´` */
 	public var genderOtherIsMale: Bool?
 	
 	public init(
@@ -119,7 +114,7 @@ extension String {
 	 - parameter simpleReplacement2: Token is `^`
 	 - parameter number: Tokens are `#` (number value), `<` `:` `>` (plural)
 	 - parameter genderMeIsMale: Tokens are `{` `₋` `}`
-	 - parameter genderOtherIsMale: Tokens are \` `¦` `´` */
+	 - parameter genderOtherIsMale: Tokens are ``` ` ``` `¦` `´` */
 	public func applyingCommonTokens(
 		simpleReplacement1: String? = nil,
 		simpleReplacement2: String? = nil,
