@@ -45,7 +45,7 @@ import GlobalConfModule
  - Plural: `<` `:` `>`
  - Plural value: `#`
  - Gender me: `{` `₋` `}`
- - Gender other: \` `¦` `´`
+ - Gender other: ``` ` ``` `¦` `´`
  - Bold: `*`
  - Italic: `_`
  
@@ -84,12 +84,7 @@ public struct CommonTokensGroup : TokensGroup {
 	 
 	 - Important: The dash is not a standard dash… */
 	public var genderMeIsMale: Bool?
-	/**
-	 Tokens: \` `¦` `´`
-	 
-	 (Doc formatting note: I did not find a way to specify the first token is code
-	  (because it’s the same token as the token used to specify we have code in doc comments).
-	 Doesn’t matter, it’s not really visible though.) */
+	/** Tokens: ``` ` ``` `¦` `´` */
 	public var genderOtherIsMale: Bool?
 	
 	public var baseFont: XibLocFont?
@@ -247,7 +242,7 @@ extension String {
 	 - parameter simpleReplacement2: Token is `^`
 	 - parameter number: Tokens are `#` (number value), `<` `:` `>` (plural)
 	 - parameter genderMeIsMale: Tokens are `{` `₋` `}`
-	 - parameter genderOtherIsMale: Tokens are \` `¦` `´` */
+	 - parameter genderOtherIsMale: Tokens are ``` ` ``` `¦` `´` */
 	public func applyingCommonTokens(
 		simpleReplacement1: String? = nil,
 		simpleReplacement2: String? = nil,
@@ -271,7 +266,7 @@ extension String {
 	 - parameter simpleReplacement2: Token is `^`
 	 - parameter number: Tokens are `#` (number value), `<` `:` `>` (plural)
 	 - parameter genderMeIsMale: Tokens are `{` `₋` `}`
-	 - parameter genderOtherIsMale: Tokens are \` `¦` `´`
+	 - parameter genderOtherIsMale: Tokens are ``` ` ``` `¦` `´`
 	 - parameter boldAttrsChangesDescription: Token is `*`
 	 - parameter italicAttrsChangesDescription: Token is `_` */
 	@available(macOS 12, iOS 15, tvOS 15, watchOS 8, *)
@@ -308,7 +303,7 @@ extension String {
 	 - parameter simpleReplacement2: Token is `^`
 	 - parameter number: Tokens are `#` (number value), `<` `:` `>` (plural)
 	 - parameter genderMeIsMale: Tokens are `{` `₋` `}`
-	 - parameter genderOtherIsMale: Tokens are \` `¦` `´`
+	 - parameter genderOtherIsMale: Tokens are ``` ` ``` `¦` `´`
 	 - parameter boldAttrsChangesDescription: Token is `*`
 	 - parameter italicAttrsChangesDescription: Token is `_` */
 	@available(macOS,   deprecated: 12, message: "Use AttributedString")
