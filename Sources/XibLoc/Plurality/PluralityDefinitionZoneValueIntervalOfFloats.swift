@@ -27,22 +27,22 @@ struct PluralityDefinitionZoneValueIntervalOfFloats : PluralityDefinitionZoneVal
 		let bracketsCharset = CharacterSet(charactersIn: "[]")
 		let floatCharSet = CharacterSet(charactersIn: "-.0123456789")
 		
-		guard let bracket1 = scanner.xl_scanCharacters(from: bracketsCharset), bracket1.count == 1 else {return nil}
+		guard let bracket1 = scanner.scanCharacters(from: bracketsCharset), bracket1.count == 1 else {return nil}
 		assert(bracket1 == "[" || bracket1 == "]")
 		
 		let loc1 = scanner.currentIndex
-		start = scanner.xl_scanCharacters(from: floatCharSet)
+		start = scanner.scanCharacters(from: floatCharSet)
 			.flatMap{ PluralValue(string: $0) }
 			.flatMap{ (value: $0, included: bracket1 == "[") }
 		guard start != nil || scanner.currentIndex == loc1 else {return nil}
 		
-		guard scanner.xl_scanString("→") != nil else {return nil}
+		guard scanner.scanString("→") != nil else {return nil}
 		
 		let loc2 = scanner.currentIndex
-		let endValue = scanner.xl_scanCharacters(from: floatCharSet).flatMap{ PluralValue(string: $0) }
+		let endValue = scanner.scanCharacters(from: floatCharSet).flatMap{ PluralValue(string: $0) }
 		guard endValue != nil || scanner.currentIndex == loc2 else {return nil}
 		
-		guard let bracket2 = scanner.xl_scanCharacters(from: bracketsCharset), bracket2.count == 1 else {return nil}
+		guard let bracket2 = scanner.scanCharacters(from: bracketsCharset), bracket2.count == 1 else {return nil}
 		assert(bracket2 == "[" || bracket2 == "]")
 		
 		guard scanner.isAtEnd else {return nil}

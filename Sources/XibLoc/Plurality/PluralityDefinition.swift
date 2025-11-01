@@ -189,7 +189,7 @@ public struct PluralityDefinition : CustomDebugStringConvertible, Sendable {
 		var idx = 0
 		var zonesBuilding = [PluralityDefinitionZone]()
 		repeat {
-			if let garbage = scanner.xl_scanUpToString("("), (!scanner.isAtEnd || garbage != " ") {
+			if let garbage = scanner.scanUpToString("("), (!scanner.isAtEnd || garbage != " ") {
 #if canImport(os)
 				if #available(macOS 10.12, tvOS 10.0, iOS 10.0, watchOS 3.0, *) {
 					Conf.oslog.flatMap{ os_log("Got garbage (%@) while parsing plurality definition string “%@”. Ignoring...", log: $0, type: .info, garbage, string) }}
@@ -197,9 +197,9 @@ public struct PluralityDefinition : CustomDebugStringConvertible, Sendable {
 				Conf.logger?.warning("Got garbage (\(garbage)) while parsing plurality definition string “\(string)”. Ignoring...")
 			}
 			
-			guard scanner.xl_scanString("(") != nil else {break}
+			guard scanner.scanString("(") != nil else {break}
 			
-			guard let curZoneStrMinusOpeningParenthesis = scanner.xl_scanUpToString("(") else {
+			guard let curZoneStrMinusOpeningParenthesis = scanner.scanUpToString("(") else {
 #if canImport(os)
 				if #available(macOS 10.12, tvOS 10.0, iOS 10.0, watchOS 3.0, *) {
 					Conf.oslog.flatMap{ os_log("Got malformed plurality definition string “%@”. Attempting to continue anyway...", log: $0, type: .info, string) }}

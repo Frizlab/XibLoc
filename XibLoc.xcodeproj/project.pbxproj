@@ -10,7 +10,6 @@
 		7B04C92E20166897002F9F52 /* XibLocConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B04C92D20166897002F9F52 /* XibLocConfig.swift */; };
 		7B11B577246B51F700257726 /* Logging in Frameworks */ = {isa = PBXBuildFile; productRef = 7B11B576246B51F700257726 /* Logging */; };
 		7B17CF7B2915BEFE007A5633 /* PluralityDefinition+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B17CF7A2915BEFE007A5633 /* PluralityDefinition+Utils.swift */; };
-		7B266297214D65720069A959 /* Scanner+LinuxCompat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B266296214D65720069A959 /* Scanner+LinuxCompat.swift */; };
 		7B353B832017DA6D004D3540 /* Str2StrXibLocInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B353B822017DA6D004D3540 /* Str2StrXibLocInfo.swift */; };
 		7B3C11D6246AF72700F86C18 /* CacheLock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3C11D5246AF72700F86C18 /* CacheLock.swift */; };
 		7B3D8B7F2CFA72CB00FCD70C /* GlobalConfModule in Frameworks */ = {isa = PBXBuildFile; productRef = 7B3D8B7E2CFA72CB00FCD70C /* GlobalConfModule */; };
@@ -77,7 +76,6 @@
 		7B17CF7A2915BEFE007A5633 /* PluralityDefinition+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PluralityDefinition+Utils.swift"; sourceTree = "<group>"; };
 		7B21BAD02003BBC700DFF758 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		7B21BAD12003BF0600DFF758 /* License.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = License.txt; sourceTree = "<group>"; };
-		7B266296214D65720069A959 /* Scanner+LinuxCompat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Scanner+LinuxCompat.swift"; sourceTree = "<group>"; };
 		7B353B822017DA6D004D3540 /* Str2StrXibLocInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Str2StrXibLocInfo.swift; sourceTree = "<group>"; };
 		7B3C11D5246AF72700F86C18 /* CacheLock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheLock.swift; sourceTree = "<group>"; };
 		7B4487A824726F0200B6DB7B /* XibLocResolvingInfoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XibLocResolvingInfoTests.swift; sourceTree = "<group>"; };
@@ -176,7 +174,6 @@
 				7B4A328E2670D49200FF38F1 /* AttributedString+Utils.swift */,
 				7BC4591020B20BC3003972E1 /* NSMutableAttributedString+Utils.swift */,
 				7BCBB121201634E4008A3FC0 /* RandomAccessCollection+StableSort.swift */,
-				7B266296214D65720069A959 /* Scanner+LinuxCompat.swift */,
 				7B4487AB2472F39F00B6DB7B /* NumberFormatter+Utils.swift */,
 				7BC649742476A47300C848FD /* Collection+Utils.swift */,
 				7B6D4EA12915F13000384845 /* Range+Utils.swift */,
@@ -473,7 +470,6 @@
 				7B8B339C246564DB00690AD7 /* PluralValue.swift in Sources */,
 				7BCBB150201634E4008A3FC0 /* RandomAccessCollection+StableSort.swift in Sources */,
 				7B6D4EA22915F13000384845 /* Range+Utils.swift in Sources */,
-				7B266297214D65720069A959 /* Scanner+LinuxCompat.swift in Sources */,
 				7B5BF7C22084E7F0006AAB6A /* Str2AttrStrXibLocInfo.swift in Sources */,
 				7B4A328B2670D40C00FF38F1 /* Str2NSAttrStrXibLocInfo.swift in Sources */,
 				7B353B832017DA6D004D3540 /* Str2StrXibLocInfo.swift in Sources */,

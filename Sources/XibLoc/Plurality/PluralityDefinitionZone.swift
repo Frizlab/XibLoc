@@ -43,19 +43,19 @@ struct PluralityDefinitionZone : CustomDebugStringConvertible, Sendable {
 		let scanner = Scanner(string: string)
 		scanner.charactersToBeSkipped = CharacterSet()
 		
-		guard scanner.xl_scanString("(") != nil else {return nil}
+		guard scanner.scanString("(") != nil else {return nil}
 		
 		let zoneContent: String
-		if scanner.xl_scanString(")") == nil {
-			guard let c = scanner.xl_scanUpToString(")") else {return nil}
-			guard scanner.xl_scanString(")") != nil else {return nil}
+		if scanner.scanString(")") == nil {
+			guard let c = scanner.scanUpToString(")") else {return nil}
+			guard scanner.scanString(")") != nil else {return nil}
 			zoneContent = c
 		} else {
 			zoneContent = ""
 		}
 		
-		let priorityDecreases = scanner.xl_scanCharacters(from: CharacterSet(charactersIn: "↓"))
-		let optionalities     = scanner.xl_scanCharacters(from: CharacterSet(charactersIn: "?"))
+		let priorityDecreases = scanner.scanCharacters(from: CharacterSet(charactersIn: "↓"))
+		let optionalities     = scanner.scanCharacters(from: CharacterSet(charactersIn: "?"))
 		
 		if !scanner.isAtEnd {
 #if canImport(os)
