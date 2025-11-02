@@ -143,6 +143,7 @@ public struct CommonTokensGroup : TokensGroup {
 		baseFont f: XibLocFont? = nil,
 		baseColor c: XibLocColor? = nil,
 		baseAttributes attrs: AttributeContainer = Conf[\.xibLoc.defaultStr2AttrStrAttributes],
+		baseNSAttributes nsattrs: [NSAttributedString.Key: Any]? = Conf[\.xibLoc.defaultStr2NSAttrStrAttributes],
 		boldAttrsChanger boldAttrsChanges: AttributesChanger? = Conf[\.xibLoc.defaultBoldAttrsChanger],
 		italicAttrsChanger italicAttrsChanges: AttributesChanger? = Conf[\.xibLoc.defaultItalicAttrsChanger]
 	) {
@@ -155,6 +156,7 @@ public struct CommonTokensGroup : TokensGroup {
 		baseFont = f
 		baseColor = c
 		_baseAttributes = attrs
+		baseNSAttributes = nsattrs?.unwrappingSendableWrappers
 		
 		boldAttrsChanger = boldAttrsChanges
 		italicAttrsChanger = italicAttrsChanges
