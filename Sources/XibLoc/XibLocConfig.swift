@@ -55,7 +55,8 @@ extension ConfKeys.XibLoc {
 	
 	@available(macOS 12, iOS 15, tvOS 15, watchOS 8, *)
 	#declareConfKey("defaultStr2AttrStrAttributes", AttributeContainer.self, defaultValue: .init())
-	#declareConfKey("defaultStr2NSAttrStrAttributes", [NSAttributedString.Key: Sendable]?.self, defaultValue: nil)
+	/* The type is a closure because the dictionary can be known to contain NSFonts (on macOS) and NSFont is _not_ Sendable. */
+	#declareConfKey("defaultStr2NSAttrStrAttributes", (@Sendable () -> [NSAttributedString.Key: Any]?).self, defaultValue: { nil })
 #if canImport(AppKit) || canImport(UIKit)
 	#declareConfKey("defaultBoldAttrsChanger", AttributesChanger?.self, defaultValue: AttributesChanger_SetBold())
 	#declareConfKey("defaultItalicAttrsChanger", AttributesChanger?.self, defaultValue: AttributesChanger_SetItalic())
@@ -96,9 +97,7 @@ extension Conf {
 	
 	@available(macOS 12, iOS 15, tvOS 15, watchOS 8, *)
 	#declareConfAccessor(\.xibLoc.defaultStr2AttrStrAttributes, AttributeContainer.self)
-	internal static var defaultStr2NSAttrStrAttributes: [NSAttributedString.Key: Any]? {
-		Conf[\.xibLoc.defaultStr2NSAttrStrAttributes]?.unwrappingSendableWrappers
-	}
+	#declareConfAccessor(\.xibLoc.defaultStr2NSAttrStrAttributes, (@Sendable () -> [NSAttributedString.Key: Any]?).self)
 	#declareConfAccessor(\.xibLoc.defaultBoldAttrsChanger,   AttributesChanger?.self)
 	#declareConfAccessor(\.xibLoc.defaultItalicAttrsChanger, AttributesChanger?.self)
 	

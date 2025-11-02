@@ -15,7 +15,6 @@
 		7B073AE02EB7A3CD006DBB23 /* AttributesChange_Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B073ADF2EB7A3CD006DBB23 /* AttributesChange_Font.swift */; };
 		7B073AE22EB7A507006DBB23 /* AttributesChange_Link.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B073AE12EB7A507006DBB23 /* AttributesChange_Link.swift */; };
 		7B073AE42EB7A61F006DBB23 /* AttributesChanger_Aggregate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B073AE32EB7A61F006DBB23 /* AttributesChanger_Aggregate.swift */; };
-		7B073AE62EB7A84F006DBB23 /* Dictionary+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B073AE52EB7A845006DBB23 /* Dictionary+Utils.swift */; };
 		7B11B577246B51F700257726 /* Logging in Frameworks */ = {isa = PBXBuildFile; productRef = 7B11B576246B51F700257726 /* Logging */; };
 		7B17CF7B2915BEFE007A5633 /* PluralityDefinition+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B17CF7A2915BEFE007A5633 /* PluralityDefinition+Utils.swift */; };
 		7B266297214D65720069A959 /* Scanner+LinuxCompat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B266296214D65720069A959 /* Scanner+LinuxCompat.swift */; };
@@ -88,7 +87,6 @@
 		7B073ADF2EB7A3CD006DBB23 /* AttributesChange_Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributesChange_Font.swift; sourceTree = "<group>"; };
 		7B073AE12EB7A507006DBB23 /* AttributesChange_Link.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributesChange_Link.swift; sourceTree = "<group>"; };
 		7B073AE32EB7A61F006DBB23 /* AttributesChanger_Aggregate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributesChanger_Aggregate.swift; sourceTree = "<group>"; };
-		7B073AE52EB7A845006DBB23 /* Dictionary+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Utils.swift"; sourceTree = "<group>"; };
 		7B17CF7A2915BEFE007A5633 /* PluralityDefinition+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PluralityDefinition+Utils.swift"; sourceTree = "<group>"; };
 		7B21BAD02003BBC700DFF758 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		7B21BAD12003BF0600DFF758 /* License.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = License.txt; sourceTree = "<group>"; };
@@ -193,7 +191,6 @@
 				7B266296214D65720069A959 /* Scanner+LinuxCompat.swift */,
 				7B4487AB2472F39F00B6DB7B /* NumberFormatter+Utils.swift */,
 				7BC649742476A47300C848FD /* Collection+Utils.swift */,
-				7B073AE52EB7A845006DBB23 /* Dictionary+Utils.swift */,
 				7B6D4EA12915F13000384845 /* Range+Utils.swift */,
 			);
 			path = Utilities;
@@ -489,7 +486,6 @@
 				7B3C11D6246AF72700F86C18 /* CacheLock.swift in Sources */,
 				7BC649752476A47300C848FD /* Collection+Utils.swift in Sources */,
 				7B66FAB724684494005EAB92 /* CommonTokensGroup.swift in Sources */,
-				7B073AE62EB7A84F006DBB23 /* Dictionary+Utils.swift in Sources */,
 				7B8A96F2201752B400481B45 /* MultipleWordsTokens.swift in Sources */,
 				7BC4591120B20BC3003972E1 /* NSMutableAttributedString+Utils.swift in Sources */,
 				7B4487AC2472F39F00B6DB7B /* NumberFormatter+Utils.swift in Sources */,

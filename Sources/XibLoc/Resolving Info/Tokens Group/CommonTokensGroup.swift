@@ -115,7 +115,7 @@ public struct CommonTokensGroup : TokensGroup {
 		genderOtherIsMale go: Bool? = nil,
 		baseFont f: XibLocFont? = nil,
 		baseColor c: XibLocColor? = nil,
-		baseNSAttributes nsattrs: [NSAttributedString.Key: Any]? = Conf[\.xibLoc.defaultStr2NSAttrStrAttributes],
+		baseNSAttributes nsattrs: [NSAttributedString.Key: Any]? = Conf[\.xibLoc.defaultStr2NSAttrStrAttributes](),
 		boldAttrsChanger boldAttrsChanges: AttributesChanger? = Conf[\.xibLoc.defaultBoldAttrsChanger],
 		italicAttrsChanger italicAttrsChanges: AttributesChanger? = Conf[\.xibLoc.defaultItalicAttrsChanger]
 	) {
@@ -127,7 +127,7 @@ public struct CommonTokensGroup : TokensGroup {
 		
 		baseFont = f
 		baseColor = c
-		baseNSAttributes = nsattrs?.unwrappingSendableWrappers
+		baseNSAttributes = nsattrs
 		
 		boldAttrsChanger = boldAttrsChanges
 		italicAttrsChanger = italicAttrsChanges
@@ -143,7 +143,7 @@ public struct CommonTokensGroup : TokensGroup {
 		baseFont f: XibLocFont? = nil,
 		baseColor c: XibLocColor? = nil,
 		baseAttributes attrs: AttributeContainer = Conf[\.xibLoc.defaultStr2AttrStrAttributes],
-		baseNSAttributes nsattrs: [NSAttributedString.Key: Any]? = Conf[\.xibLoc.defaultStr2NSAttrStrAttributes],
+		baseNSAttributes nsattrs: [NSAttributedString.Key: Any]? = Conf[\.xibLoc.defaultStr2NSAttrStrAttributes](),
 		boldAttrsChanger boldAttrsChanges: AttributesChanger? = Conf[\.xibLoc.defaultBoldAttrsChanger],
 		italicAttrsChanger italicAttrsChanges: AttributesChanger? = Conf[\.xibLoc.defaultItalicAttrsChanger]
 	) {
@@ -156,7 +156,7 @@ public struct CommonTokensGroup : TokensGroup {
 		baseFont = f
 		baseColor = c
 		_baseAttributes = attrs
-		baseNSAttributes = nsattrs?.unwrappingSendableWrappers
+		baseNSAttributes = nsattrs
 		
 		boldAttrsChanger = boldAttrsChanges
 		italicAttrsChanger = italicAttrsChanges
@@ -332,7 +332,7 @@ extension String {
 		genderOtherIsMale: Bool? = nil,
 		baseFont: XibLocFont? = nil,
 		baseColor: XibLocColor? = nil,
-		baseNSAttributes: [NSAttributedString.Key: Any]? = Conf[\.xibLoc.defaultStr2NSAttrStrAttributes],
+		baseNSAttributes: [NSAttributedString.Key: Any]? = Conf[\.xibLoc.defaultStr2NSAttrStrAttributes](),
 		boldAttrsChanger: AttributesChanger? = Conf[\.xibLoc.defaultBoldAttrsChanger],
 		italicAttrsChanger: AttributesChanger? = Conf[\.xibLoc.defaultItalicAttrsChanger]
 	) -> NSMutableAttributedString {
