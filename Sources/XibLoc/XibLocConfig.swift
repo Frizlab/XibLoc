@@ -60,8 +60,8 @@ extension ConfKeys.XibLoc {
 	#declareConfKey("defaultBoldAttrsChanger", AttributesChanger?.self, defaultValue: AttributesChanger_SetBold())
 	#declareConfKey("defaultItalicAttrsChanger", AttributesChanger?.self, defaultValue: AttributesChanger_SetItalic())
 #else
-	#declareConfKey("defaultBoldAttrsChanger", AttributesChanger?.self, defaultValue: .init(changes: []))
-	#declareConfKey("defaultItalicAttrsChanger", AttributesChanger?.self, defaultValue: .init(changes: []))
+	#declareConfKey("defaultBoldAttrsChanger", AttributesChanger?.self, defaultValue: nil)
+	#declareConfKey("defaultItalicAttrsChanger", AttributesChanger?.self, defaultValue: nil)
 #endif
 	
 	/**
