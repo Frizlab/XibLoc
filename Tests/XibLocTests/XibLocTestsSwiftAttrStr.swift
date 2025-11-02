@@ -40,7 +40,11 @@ final class XibLocTestsSwiftAttrStr : XCTestCase {
 		Conf[rootValueFor: \.xibLoc.defaultStr2AttrStrAttributes] = {
 			var ret = AttributeContainer()
 			ret[keyPath: \.font] = .systemFont(ofSize: 14)
-			ret.foregroundColor = .black
+#if os(macOS)
+			ret.appKit.foregroundColor = XibLocColor.black
+#elseif canImport(UIKit)
+			ret.uiKit.foregroundColor = XibLocColor.black
+#endif
 			return ret
 		}()
 		
@@ -720,7 +724,11 @@ final class XibLocTestsSwiftAttrStr : XCTestCase {
 	private lazy var docCasesInfo: (Str2AttrStrXibLocInfo, AttributeContainer) = {
 		var baseAttributes = AttributeContainer()
 		baseAttributes[keyPath: \.font] = XibLocFont.systemFont(ofSize: 14)
-		baseAttributes.foregroundColor = XibLocColor.black
+#if os(macOS)
+		baseAttributes.appKit.foregroundColor = XibLocColor.black
+#elseif canImport(UIKit)
+		baseAttributes.uiKit.foregroundColor = XibLocColor.black
+#endif
 		let info = Str2AttrStrXibLocInfo(
 			escapeToken: nil,
 			simpleSourceTypeReplacements: [OneWordTokens(token: "|"): { _ in "replacement_value" }],

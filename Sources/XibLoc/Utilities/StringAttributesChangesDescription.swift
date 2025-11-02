@@ -59,7 +59,7 @@ public struct StringAttributesChangesDescription : Sendable {
 				case .setItalic:    return { attrStr, range in attrStr.setBoldOrItalic(bold: nil, italic: true,  range: range) }
 				case .removeItalic: return { attrStr, range in attrStr.setBoldOrItalic(bold: nil, italic: false, range: range) }
 					
-#if canImport(AppKit)
+#if os(macOS)
 				case .addStraightUnderline: return { attrStr, range in attrStr[range].appKit.underlineStyle = .single }
 				case .removeUnderline:      return { attrStr, range in attrStr[range].appKit.underlineStyle = nil }
 #elseif canImport(UIKit)

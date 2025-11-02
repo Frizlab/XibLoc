@@ -18,6 +18,8 @@ limitations under the License. */
 import Foundation
 import XCTest
 
+import XibLoc
+
 
 
 /* TODO: Enable this test on Linux (must use an attribute that exists on Linux, idk which… */
@@ -29,7 +31,11 @@ final class AttrStrTests : XCTestCase {
 		let baseAttributes = {
 			var res = AttributeContainer()
 			res[keyPath: \.font] = .systemFont(ofSize: 14)
-			res.foregroundColor = .black
+#if os(macOS)
+			res.appKit.foregroundColor = XibLocColor.black
+#elseif canImport(UIKit)
+			res.uiKit.foregroundColor = XibLocColor.black
+#endif
 			return res
 		}()
 		
