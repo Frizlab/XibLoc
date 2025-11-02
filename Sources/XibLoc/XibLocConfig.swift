@@ -53,15 +53,12 @@ extension ConfKeys.XibLoc {
 	#declareConfKey("defaultEscapeToken",                      String.self, defaultValue: "~")
 	#declareConfKey("defaultPluralityDefinition", PluralityDefinition.self, defaultValue: PluralityDefinition(matchingNothing: ()))
 	
-	@available(macOS 12, iOS 15, tvOS 15, watchOS 8, *)
-	#declareConfKey("defaultStr2AttrStrAttributes", AttributeContainer.self, defaultValue: .init())
-	/* The type is a closure because the dictionary can be known to contain NSFonts (on macOS) and NSFont is _not_ Sendable. */
-	#declareConfKey("defaultStr2NSAttrStrAttributes", (@Sendable () -> [NSAttributedString.Key: Any]?).self, defaultValue: { nil })
+	#declareConfKey("defaultAttributes", AttributesContainer.self, defaultValue: AttributesContainer_Foundation())
 #if canImport(AppKit) || canImport(UIKit)
-	#declareConfKey("defaultBoldAttrsChanger", AttributesChanger?.self, defaultValue: AttributesChanger_SetBold())
+	#declareConfKey("defaultBoldAttrsChanger",   AttributesChanger?.self, defaultValue: AttributesChanger_SetBold())
 	#declareConfKey("defaultItalicAttrsChanger", AttributesChanger?.self, defaultValue: AttributesChanger_SetItalic())
 #else
-	#declareConfKey("defaultBoldAttrsChanger", AttributesChanger?.self, defaultValue: nil)
+	#declareConfKey("defaultBoldAttrsChanger",   AttributesChanger?.self, defaultValue: nil)
 	#declareConfKey("defaultItalicAttrsChanger", AttributesChanger?.self, defaultValue: nil)
 #endif
 	
@@ -95,11 +92,17 @@ extension Conf {
 	#declareConfAccessor(\.xibLoc.defaultEscapeToken,                      String.self)
 	#declareConfAccessor(\.xibLoc.defaultPluralityDefinition, PluralityDefinition.self)
 	
-	@available(macOS 12, iOS 15, tvOS 15, watchOS 8, *)
-	#declareConfAccessor(\.xibLoc.defaultStr2AttrStrAttributes, AttributeContainer.self)
-	#declareConfAccessor(\.xibLoc.defaultStr2NSAttrStrAttributes, (@Sendable () -> [NSAttributedString.Key: Any]?).self)
+	#declareConfAccessor(\.xibLoc.defaultAttributes, AttributesContainer.self)
 	#declareConfAccessor(\.xibLoc.defaultBoldAttrsChanger,   AttributesChanger?.self)
 	#declareConfAccessor(\.xibLoc.defaultItalicAttrsChanger, AttributesChanger?.self)
+	
+	@available(macOS 12, iOS 15, tvOS 15, watchOS 8, *)
+	static var defaultStr2AttrStrAttributes: AttributeContainer {
+		defaultAttributes.attributedStringAttributes
+	}
+	static var defaultStr2NSAttrStrAttributes: [NSAttributedString.Key: Any] {
+		defaultAttributes.nsAttributedStringAttributes
+	}
 	
 //	#declareConfAccessor(\.xibLoc.cache, NSCache<ErasedParsedXibLocInitInfoWrapper, ParsedXibLocWrapper>?.self)
 	internal static var cache: NSCache<ErasedParsedXibLocInitInfoWrapper, ParsedXibLocWrapper>? {

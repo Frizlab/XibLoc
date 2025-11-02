@@ -37,7 +37,7 @@ final class XibLocTestsSwiftAttrStr : XCTestCase {
 		Conf[rootValueFor: \.xibLoc.defaultEscapeToken] = #"\"#
 		Conf[rootValueFor: \.xibLoc.defaultPluralityDefinition] = PluralityDefinition()
 		
-		Conf[rootValueFor: \.xibLoc.defaultStr2AttrStrAttributes] = {
+		Conf[rootValueFor: \.xibLoc.defaultAttributes] = AttributesContainer_Foundation(attributedStringAttributes: {
 			var ret = AttributeContainer()
 			ret[keyPath: \.font] = .systemFont(ofSize: 14)
 #if os(macOS)
@@ -46,7 +46,7 @@ final class XibLocTestsSwiftAttrStr : XCTestCase {
 			ret.uiKit.foregroundColor = XibLocColor.black
 #endif
 			return ret
-		}()
+		}())
 		
 		Conf[rootValueFor: \.xibLoc.defaultBoldAttrsChanger] = AttributesChanger_SetBold()
 		Conf[rootValueFor: \.xibLoc.defaultItalicAttrsChanger] = nil

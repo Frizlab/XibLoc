@@ -15,6 +15,8 @@
 		7B073AE02EB7A3CD006DBB23 /* AttributesChange_Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B073ADF2EB7A3CD006DBB23 /* AttributesChange_Font.swift */; };
 		7B073AE22EB7A507006DBB23 /* AttributesChange_Link.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B073AE12EB7A507006DBB23 /* AttributesChange_Link.swift */; };
 		7B073AE42EB7A61F006DBB23 /* AttributesChanger_Aggregate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B073AE32EB7A61F006DBB23 /* AttributesChanger_Aggregate.swift */; };
+		7B073AE82EB80CB2006DBB23 /* AttributesContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B073AE72EB80CB2006DBB23 /* AttributesContainer.swift */; };
+		7B073AEB2EB8100C006DBB23 /* AttributesContainer_Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B073AEA2EB8100C006DBB23 /* AttributesContainer_Foundation.swift */; };
 		7B11B577246B51F700257726 /* Logging in Frameworks */ = {isa = PBXBuildFile; productRef = 7B11B576246B51F700257726 /* Logging */; };
 		7B17CF7B2915BEFE007A5633 /* PluralityDefinition+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B17CF7A2915BEFE007A5633 /* PluralityDefinition+Utils.swift */; };
 		7B266297214D65720069A959 /* Scanner+LinuxCompat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B266296214D65720069A959 /* Scanner+LinuxCompat.swift */; };
@@ -87,6 +89,8 @@
 		7B073ADF2EB7A3CD006DBB23 /* AttributesChange_Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributesChange_Font.swift; sourceTree = "<group>"; };
 		7B073AE12EB7A507006DBB23 /* AttributesChange_Link.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributesChange_Link.swift; sourceTree = "<group>"; };
 		7B073AE32EB7A61F006DBB23 /* AttributesChanger_Aggregate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributesChanger_Aggregate.swift; sourceTree = "<group>"; };
+		7B073AE72EB80CB2006DBB23 /* AttributesContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributesContainer.swift; sourceTree = "<group>"; };
+		7B073AEA2EB8100C006DBB23 /* AttributesContainer_Foundation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributesContainer_Foundation.swift; sourceTree = "<group>"; };
 		7B17CF7A2915BEFE007A5633 /* PluralityDefinition+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PluralityDefinition+Utils.swift"; sourceTree = "<group>"; };
 		7B21BAD02003BBC700DFF758 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		7B21BAD12003BF0600DFF758 /* License.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = License.txt; sourceTree = "<group>"; };
@@ -182,6 +186,7 @@
 			isa = PBXGroup;
 			children = (
 				7B073AD62EB79C4B006DBB23 /* AttributesChanger */,
+				7B073AE92EB80D72006DBB23 /* AttributesContainer */,
 				7B4A32902670D49E00FF38F1 /* XibLocFont.swift */,
 				7BD60E752D097425004FFB4F /* XibLocColor.swift */,
 				7B5BF7B72084E0EF006AAB6A /* XibLocNumber.swift */,
@@ -209,6 +214,15 @@
 				7B073ADB2EB7A014006DBB23 /* AttributesChange_UnderlineStyle.swift */,
 			);
 			path = AttributesChanger;
+			sourceTree = "<group>";
+		};
+		7B073AE92EB80D72006DBB23 /* AttributesContainer */ = {
+			isa = PBXGroup;
+			children = (
+				7B073AE72EB80CB2006DBB23 /* AttributesContainer.swift */,
+				7B073AEA2EB8100C006DBB23 /* AttributesContainer_Foundation.swift */,
+			);
+			path = AttributesContainer;
 			sourceTree = "<group>";
 		};
 		7B661F9220026ACC00486182 = {
@@ -483,6 +497,8 @@
 				7B073ADC2EB7A014006DBB23 /* AttributesChange_UnderlineStyle.swift in Sources */,
 				7B073AE42EB7A61F006DBB23 /* AttributesChanger_Aggregate.swift in Sources */,
 				7BC4590C20B20642003972E1 /* AttributesChanger.swift in Sources */,
+				7B073AEB2EB8100C006DBB23 /* AttributesContainer_Foundation.swift in Sources */,
+				7B073AE82EB80CB2006DBB23 /* AttributesContainer.swift in Sources */,
 				7B3C11D6246AF72700F86C18 /* CacheLock.swift in Sources */,
 				7BC649752476A47300C848FD /* Collection+Utils.swift in Sources */,
 				7B66FAB724684494005EAB92 /* CommonTokensGroup.swift in Sources */,

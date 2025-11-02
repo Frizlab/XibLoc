@@ -93,73 +93,37 @@ public struct CommonTokensGroup : TokensGroup {
 	
 	public var baseFont: XibLocFont?
 	public var baseColor: XibLocColor?
-	@available(macOS 12, iOS 15, tvOS 15, watchOS 8, *)
-	public var baseAttributes: AttributeContainer {
-		get {_baseAttributes as! AttributeContainer}
-		set {_baseAttributes = newValue}
-	}
-	private var _baseAttributes: Any!
-	public var baseNSAttributes: [NSAttributedString.Key: Any]?
+	public var baseAttributes: AttributesContainer
 	
 	/** Token is `*` */
 	public var boldAttrsChanger: AttributesChanger?
 	/** Token is `_` */
 	public var italicAttrsChanger: AttributesChanger?
 	
-	@_disfavoredOverload
 	public init(
-		simpleReplacement1 r1: String? = nil,
-		simpleReplacement2 r2: String? = nil,
-		number n: XibLocNumber? = nil,
-		genderMeIsMale gm: Bool? = nil,
-		genderOtherIsMale go: Bool? = nil,
-		baseFont f: XibLocFont? = nil,
-		baseColor c: XibLocColor? = nil,
-		baseNSAttributes nsattrs: [NSAttributedString.Key: Any]? = Conf[\.xibLoc.defaultStr2NSAttrStrAttributes](),
-		boldAttrsChanger boldAttrsChanges: AttributesChanger? = Conf[\.xibLoc.defaultBoldAttrsChanger],
-		italicAttrsChanger italicAttrsChanges: AttributesChanger? = Conf[\.xibLoc.defaultItalicAttrsChanger]
+		simpleReplacement1: String? = nil,
+		simpleReplacement2: String? = nil,
+		number: XibLocNumber? = nil,
+		genderMeIsMale: Bool? = nil,
+		genderOtherIsMale: Bool? = nil,
+		baseFont: XibLocFont? = nil,
+		baseColor: XibLocColor? = nil,
+		baseAttributes: AttributesContainer = Conf[\.xibLoc.defaultAttributes],
+		boldAttrsChanger: AttributesChanger? = Conf[\.xibLoc.defaultBoldAttrsChanger],
+		italicAttrsChanger: AttributesChanger? = Conf[\.xibLoc.defaultItalicAttrsChanger]
 	) {
-		simpleReplacement1 = r1
-		simpleReplacement2 = r2
-		number = n
-		genderMeIsMale = gm
-		genderOtherIsMale = go
+		self.simpleReplacement1 = simpleReplacement1
+		self.simpleReplacement2 = simpleReplacement2
+		self.number = number
+		self.genderMeIsMale = genderMeIsMale
+		self.genderOtherIsMale = genderOtherIsMale
 		
-		baseFont = f
-		baseColor = c
-		baseNSAttributes = nsattrs
+		self.baseFont = baseFont
+		self.baseColor = baseColor
+		self.baseAttributes = baseAttributes
 		
-		boldAttrsChanger = boldAttrsChanges
-		italicAttrsChanger = italicAttrsChanges
-	}
-	
-	@available(macOS 12, iOS 15, tvOS 15, watchOS 8, *)
-	public init(
-		simpleReplacement1 r1: String? = nil,
-		simpleReplacement2 r2: String? = nil,
-		number n: XibLocNumber? = nil,
-		genderMeIsMale gm: Bool? = nil,
-		genderOtherIsMale go: Bool? = nil,
-		baseFont f: XibLocFont? = nil,
-		baseColor c: XibLocColor? = nil,
-		baseAttributes attrs: AttributeContainer = Conf[\.xibLoc.defaultStr2AttrStrAttributes],
-		baseNSAttributes nsattrs: [NSAttributedString.Key: Any]? = Conf[\.xibLoc.defaultStr2NSAttrStrAttributes](),
-		boldAttrsChanger boldAttrsChanges: AttributesChanger? = Conf[\.xibLoc.defaultBoldAttrsChanger],
-		italicAttrsChanger italicAttrsChanges: AttributesChanger? = Conf[\.xibLoc.defaultItalicAttrsChanger]
-	) {
-		simpleReplacement1 = r1
-		simpleReplacement2 = r2
-		number = n
-		genderMeIsMale = gm
-		genderOtherIsMale = go
-		
-		baseFont = f
-		baseColor = c
-		_baseAttributes = attrs
-		baseNSAttributes = nsattrs
-		
-		boldAttrsChanger = boldAttrsChanges
-		italicAttrsChanger = italicAttrsChanges
+		self.boldAttrsChanger = boldAttrsChanger
+		self.italicAttrsChanger = italicAttrsChanger
 	}
 	
 	public var str2StrXibLocInfo: Str2StrXibLocInfo {
@@ -184,7 +148,7 @@ public struct CommonTokensGroup : TokensGroup {
 	
 	@available(macOS 12, iOS 15, tvOS 15, watchOS 8, *)
 	public var str2AttrStrXibLocInfo: Str2AttrStrXibLocInfo {
-		var defaultAttributes = baseAttributes
+		var defaultAttributes = baseAttributes.attributedStringAttributes
 #if canImport(AppKit) || canImport(UIKit)
 		if let f = baseFont  {defaultAttributes[keyPath: \.font] = f} /* Note: The keypath syntax “hides” the “NSFont is not Sendable” warning. Is it correct? idk… */
 		if let c = baseColor {defaultAttributes.foregroundColor = c}
@@ -215,7 +179,7 @@ public struct CommonTokensGroup : TokensGroup {
 	}
 	
 	public var str2NSAttrStrXibLocInfo: Str2NSAttrStrXibLocInfo {
-		var defaultAttributes = baseNSAttributes ?? [:]
+		var defaultAttributes = baseAttributes.nsAttributedStringAttributes
 #if canImport(AppKit) || canImport(UIKit)
 		if let f = baseFont  {defaultAttributes[.font] = f}
 		if let c = baseColor {defaultAttributes[.foregroundColor] = c}
@@ -292,7 +256,7 @@ extension String {
 		genderOtherIsMale: Bool? = nil,
 		baseFont: XibLocFont? = nil,
 		baseColor: XibLocColor? = nil,
-		baseAttributes: AttributeContainer = Conf[\.xibLoc.defaultStr2AttrStrAttributes],
+		baseAttributes: AttributesContainer = Conf[\.xibLoc.defaultAttributes],
 		boldAttrsChanger: AttributesChanger? = Conf[\.xibLoc.defaultBoldAttrsChanger],
 		italicAttrsChanger: AttributesChanger? = Conf[\.xibLoc.defaultItalicAttrsChanger]
 	) -> AttributedString {
@@ -332,7 +296,7 @@ extension String {
 		genderOtherIsMale: Bool? = nil,
 		baseFont: XibLocFont? = nil,
 		baseColor: XibLocColor? = nil,
-		baseNSAttributes: [NSAttributedString.Key: Any]? = Conf[\.xibLoc.defaultStr2NSAttrStrAttributes](),
+		baseAttributes: AttributesContainer = Conf[\.xibLoc.defaultAttributes],
 		boldAttrsChanger: AttributesChanger? = Conf[\.xibLoc.defaultBoldAttrsChanger],
 		italicAttrsChanger: AttributesChanger? = Conf[\.xibLoc.defaultItalicAttrsChanger]
 	) -> NSMutableAttributedString {
@@ -344,7 +308,7 @@ extension String {
 			genderOtherIsMale: genderOtherIsMale,
 			baseFont: baseFont,
 			baseColor: baseColor,
-			baseNSAttributes: baseNSAttributes,
+			baseAttributes: baseAttributes,
 			boldAttrsChanger: boldAttrsChanger,
 			italicAttrsChanger: italicAttrsChanger
 		).str2NSAttrStrXibLocInfo)
