@@ -22,12 +22,12 @@ import Foundation
 public struct AttributesChanger_Font : AttributesChanger {
 	
 	/** The new font to apply. */
-	public var newFont: XibLocFont
+	public var newFont: @Sendable () -> XibLocFont
 	public var preserveSizes: Bool
 	public var preserveBold: Bool
 	public var preserveItalic: Bool
 	
-	init(newFont: XibLocFont, preserveSizes: Bool, preserveBold: Bool, preserveItalic: Bool) {
+	init(newFont: @escaping @Sendable () -> XibLocFont, preserveSizes: Bool, preserveBold: Bool, preserveItalic: Bool) {
 		self.newFont = newFont
 		self.preserveSizes = preserveSizes
 		self.preserveBold = preserveBold
@@ -39,12 +39,12 @@ public struct AttributesChanger_Font : AttributesChanger {
 extension AttributesChanger_Font : AttributedStringAttributesChanger {
 	@available(macOS 12, iOS 15, tvOS 15, watchOS 8, *)
 	public func apply(on modified: inout AttributedString, _ range: Range<AttributedString.Index>) {
-		modified.setFont(newFont, keepOriginalSize: preserveSizes, keepOriginalIsBold: preserveBold, keepOriginalIsItalic: preserveItalic, range: range)
+		modified.setFont(newFont(), keepOriginalSize: preserveSizes, keepOriginalIsBold: preserveBold, keepOriginalIsItalic: preserveItalic, range: range)
 	}
 }
 extension AttributesChanger_Font : NSAttributedStringAttributesChanger {
 	public func apply(on modified: NSMutableAttributedString, _ range: NSRange /* An ObjC range */) {
-		modified.setFont(newFont, keepOriginalSize: preserveSizes, keepOriginalIsBold: preserveBold, keepOriginalIsItalic: preserveItalic, range: range)
+		modified.setFont(newFont(), keepOriginalSize: preserveSizes, keepOriginalIsBold: preserveBold, keepOriginalIsItalic: preserveItalic, range: range)
 	}
 }
 

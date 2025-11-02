@@ -483,7 +483,7 @@ final class XibLocTestsSwiftAttrStr : XCTestCase {
 				.addingSimpleReturnTypeReplacement(tokens: .init(token: "^"), replacement: { val in val })!
 				.addingStringAttributesChanges(
 					tokens: .init(token: "_"),
-					changer: AttributesChanger_Font(newFont: .preferredFont(forTextStyle: .caption1), preserveSizes: false, preserveBold: false, preserveItalic: false),
+					changer: AttributesChanger_Font(newFont: { .preferredFont(forTextStyle: .caption1) }, preserveSizes: false, preserveBold: false, preserveItalic: false),
 					allowReplace: true
 				)!
 			var result = AttributedString(title + "\n1 result", attributes: Conf.defaultStr2AttrStrAttributes)
@@ -505,7 +505,7 @@ final class XibLocTestsSwiftAttrStr : XCTestCase {
 				.addingSimpleSourceTypeReplacement(tokens: .init(token: "^"), replacement: { val in "" })!
 				.addingStringAttributesChanges(
 					tokens: .init(token: "_"),
-					changer: AttributesChanger_Font(newFont: .preferredFont(forTextStyle: .caption1), preserveSizes: false, preserveBold: false, preserveItalic: false),
+					changer: AttributesChanger_Font(newFont: { .preferredFont(forTextStyle: .caption1) }, preserveSizes: false, preserveBold: false, preserveItalic: false),
 					allowReplace: true
 				)!
 			let result = AttributedString("yolo", attributes: Conf.defaultStr2AttrStrAttributes)

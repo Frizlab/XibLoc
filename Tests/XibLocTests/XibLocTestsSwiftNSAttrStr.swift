@@ -93,7 +93,7 @@ final class XibLocTestsSwiftNSAttrStr : XCTestCase {
 	   ************************ */
 	
 	/* The tests below are only macOS compatible.
-	 * Other oses either do not have NSAttributedString (Linux), or do not have the necessary attributes to test attributed strings (we could find one, be there is no need, really). */
+	 * Other OSes do not have the necessary attributes to test attributed strings (we could find one, be there is no need, really). */
 	
 	func testOneOrderedReplacementAndIdentityAttributeModification1() throws {
 		for _ in 0..<nRepeats {
@@ -413,7 +413,7 @@ final class XibLocTestsSwiftNSAttrStr : XCTestCase {
 		for _ in 0..<nRepeats {
 			let str = "🧒🏻*🧒🏻"
 			let info = try Str2NSAttrStrXibLocInfo(
-				attributesModifications: [OneWordTokens(token: "🧒🏻"): { attrStr, strRange, refStr in AttributesChanger(changes: [.setBold]).nsapply(to: attrStr, range: NSRange(strRange, in: refStr)) }],
+				attributesModifications: [OneWordTokens(token: "🧒🏻"): AttributesChanger_SetBold().apply(on:in:of:)],
 				identityReplacement: { NSMutableAttributedString(string: $0, attributes: Conf.defaultStr2NSAttrStrAttributes!) }
 			).get()
 			let resultStr = "*"
@@ -431,7 +431,7 @@ final class XibLocTestsSwiftNSAttrStr : XCTestCase {
 		for _ in 0..<nRepeats {
 			let str = "🧒🏻👳🏿‍♀️🧒🏻"
 			let info = try Str2NSAttrStrXibLocInfo(
-				attributesModifications: [OneWordTokens(token: "🧒🏻"): { attrStr, strRange, refStr in AttributesChanger(changes: [.setBold]).nsapply(to: attrStr, range: NSRange(strRange, in: refStr)) }],
+				attributesModifications: [OneWordTokens(token: "🧒🏻"): AttributesChanger_SetBold().apply(on:in:of:)],
 				identityReplacement: { NSMutableAttributedString(string: $0, attributes: Conf.defaultStr2NSAttrStrAttributes!) }
 			).get()
 			let resultStr = "👳🏿‍♀️"
@@ -488,9 +488,9 @@ final class XibLocTestsSwiftNSAttrStr : XCTestCase {
 				.str2NSAttrStrXibLocInfo
 				.changingDefaultPluralityDefinition(to: PluralityDefinition(string: "(1)(*)"))
 				.addingSimpleReturnTypeReplacement(tokens: .init(token: "^"), replacement: { val in val })!
-				.addingStringAttributesChange(
+				.addingStringAttributesChanges(
 					tokens: .init(token: "_"),
-					change: .changeFont(newFont: .preferredFont(forTextStyle: .caption1), preserveSizes: false, preserveBold: false, preserveItalic: false),
+					changer: AttributesChanger_Font(newFont: { .preferredFont(forTextStyle: .caption1) }, preserveSizes: false, preserveBold: false, preserveItalic: false),
 					allowReplace: true
 				)!
 			let result = NSMutableAttributedString(string: title + "\n1 result", attributes: Conf.defaultStr2NSAttrStrAttributes)
@@ -510,9 +510,9 @@ final class XibLocTestsSwiftNSAttrStr : XCTestCase {
 			let info = CommonTokensGroup(simpleReplacement1: title, simpleReplacement2: nil, number: nResults)
 				.str2NSAttrStrXibLocInfo
 				.addingSimpleSourceTypeReplacement(tokens: .init(token: "^"), replacement: { val in "" })!
-				.addingStringAttributesChange(
+				.addingStringAttributesChanges(
 					tokens: .init(token: "_"),
-					change: .changeFont(newFont: .preferredFont(forTextStyle: .caption1), preserveSizes: false, preserveBold: false, preserveItalic: false),
+					changer: AttributesChanger_Font(newFont: { .preferredFont(forTextStyle: .caption1) }, preserveSizes: false, preserveBold: false, preserveItalic: false),
 					allowReplace: true
 				)!
 			let result = NSMutableAttributedString(string: "yolo", attributes: Conf.defaultStr2NSAttrStrAttributes)
