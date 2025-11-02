@@ -416,7 +416,7 @@
 				BuildIndependentTargetsInParallel = YES;
 				CLASSPREFIX = FRZ;
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 1620;
+				LastUpgradeCheck = 2610;
 				ORGANIZATIONNAME = Frizlab;
 				TargetAttributes = {
 					7B8BD01920026E8C009BE667 = {
@@ -629,6 +629,7 @@
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "c11 c++17";
 				ONLY_ACTIVE_ARCH = YES;
 				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SUPPORTED_PLATFORMS = "xrsimulator xros watchsimulator watchos macosx iphonesimulator iphoneos driverkit appletvsimulator appletvos";
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -697,6 +698,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "c11 c++17";
 				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SUPPORTED_PLATFORMS = "xrsimulator xros watchsimulator watchos macosx iphonesimulator iphoneos driverkit appletvsimulator appletvos";
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
