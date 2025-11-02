@@ -47,7 +47,7 @@ final class ObjCXibLoc : NSObject {
 			simpleSourceTypeReplacements: [:],
 			orderedReplacements: [:],
 			pluralGroups: [],
-			attributesModifications: [OneWordTokens(token: boldToken): { attrStr, strRange, refStr in StringAttributesChangesDescription(changes: [.setBold]).nsapply(to: attrStr, range: NSRange(strRange, in: refStr)) }],
+			attributesModifications: [OneWordTokens(token: boldToken): AttributesChanger_SetBold().apply(on:in:of:)],
 			simpleReturnTypeReplacements: [:], identityReplacement: { NSMutableAttributedString(string: $0, attributes: [.font: baseFont, .foregroundColor: baseColor]) }
 		).get())
 	}

@@ -45,20 +45,12 @@ extension XibLocResolvingInfo where SourceType == String, ReturnType == NSMutabl
 		)!
 	}
 	
-	public mutating func addStringAttributesChanges(tokens: OneWordTokens, changes: StringAttributesChangesDescription, allowReplace: Bool = false) -> Bool {
-		return addAttributesModification(tokens: tokens, attributesModification: changes.nsattributesModifications, allowReplace: allowReplace)
+	public mutating func addStringAttributesChanges(tokens: OneWordTokens, changer: NSAttributedStringAttributesChanger, allowReplace: Bool = false) -> Bool {
+		return addAttributesModification(tokens: tokens, attributesModification: changer.apply(on:in:of:), allowReplace: allowReplace)
 	}
 	
-	public func addingStringAttributesChanges(tokens: OneWordTokens, changes: StringAttributesChangesDescription, allowReplace: Bool = false) -> Self? {
-		return addingAttributesModification(tokens: tokens, attributesModification: changes.nsattributesModifications, allowReplace: allowReplace)
-	}
-	
-	public mutating func addStringAttributesChange(tokens: OneWordTokens, change: StringAttributesChangesDescription.StringAttributesChangeDescription, allowReplace: Bool = false) -> Bool {
-		return addAttributesModification(tokens: tokens, attributesModification: StringAttributesChangesDescription(change: change).nsattributesModifications, allowReplace: allowReplace)
-	}
-	
-	public func addingStringAttributesChange(tokens: OneWordTokens, change: StringAttributesChangesDescription.StringAttributesChangeDescription, allowReplace: Bool = false) -> Self? {
-		return addingAttributesModification(tokens: tokens, attributesModification: StringAttributesChangesDescription(change: change).nsattributesModifications, allowReplace: allowReplace)
+	public func addingStringAttributesChanges(tokens: OneWordTokens, changer: NSAttributedStringAttributesChanger, allowReplace: Bool = false) -> Self? {
+		return addingAttributesModification(tokens: tokens, attributesModification: changer.apply(on:in:of:), allowReplace: allowReplace)
 	}
 	
 }

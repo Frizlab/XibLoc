@@ -28,20 +28,24 @@ extension NSMutableAttributedString {
 	
 	func setFont(_ font: XibLocFont, range: NSRange? = nil) {
 		let range = range ?? NSRange(location: 0, length: length)
-		removeAttribute(.font, range: range) /* Work around an Apple leak (according to OHAttributedLabel) */
+		removeAttribute(.font, range: range) /* Work around an Apple leak (according to OHAttributedLabel; probably very obsolete now). */
 		addAttribute(.font, value: font, range: range)
 	}
 	
-	func setTextColor(_ color: XibLocColor, range: NSRange? = nil) {
+	func setTextColor(_ color: XibLocColor?, range: NSRange? = nil) {
 		let range = range ?? NSRange(location: 0, length: length)
-		removeAttribute(.foregroundColor, range: range) /* Work around an Apple leak (according to OHAttributedLabel) */
-		addAttribute(.foregroundColor, value: color, range: range)
+		removeAttribute(.foregroundColor, range: range) /* Work around an Apple leak (according to OHAttributedLabel; probably very obsolete now). */
+		if let color {
+			addAttribute(.foregroundColor, value: color, range: range)
+		}
 	}
 	
-	func setBackgroundColor(_ color: XibLocColor, range: NSRange? = nil) {
+	func setBackgroundColor(_ color: XibLocColor?, range: NSRange? = nil) {
 		let range = range ?? NSRange(location: 0, length: length)
-		removeAttribute(.backgroundColor, range: range) /* Work around an Apple leak (according to OHAttributedLabel) */
-		addAttribute(.backgroundColor, value: color, range: range)
+		removeAttribute(.backgroundColor, range: range) /* Work around an Apple leak (according to OHAttributedLabel; probably very obsolete now). */
+		if let color {
+			addAttribute(.backgroundColor, value: color, range: range)
+		}
 	}
 	
 	/**

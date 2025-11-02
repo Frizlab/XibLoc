@@ -34,7 +34,7 @@ import GlobalConfModule
   you can even extend `XibLocResolvingInfo` to create a custom init if you prefer,
   though you must remember to call `initParsingInfo` at the end of your init).
  
- The default init of this group will set `defaultBoldAttrsChangesDescription` and `defaultItalicAttrsChangesDescription` resp. to the `*` and `_` tokens.
+ The default init of this group will set `defaultBoldAttrsChanger` and `defaultItalicAttrsChanger` resp. to the `*` and `_` tokens.
  If you don’t want bold or italic, you must explicitly disable it, whether when initing the group, or by setting the defaults in the `Conf`.
  
  List of tokens:
@@ -102,9 +102,9 @@ public struct CommonTokensGroup : TokensGroup {
 	public var baseNSAttributes: [NSAttributedString.Key: Any]?
 	
 	/** Token is `*` */
-	public var boldAttrsChangesDescription: StringAttributesChangesDescription?
+	public var boldAttrsChanger: AttributesChanger?
 	/** Token is `_` */
-	public var italicAttrsChangesDescription: StringAttributesChangesDescription?
+	public var italicAttrsChanger: AttributesChanger?
 	
 	@_disfavoredOverload
 	public init(
@@ -116,8 +116,8 @@ public struct CommonTokensGroup : TokensGroup {
 		baseFont f: XibLocFont? = nil,
 		baseColor c: XibLocColor? = nil,
 		baseNSAttributes nsattrs: [NSAttributedString.Key: Any]? = Conf[\.xibLoc.defaultStr2NSAttrStrAttributes],
-		boldAttrsChangesDescription boldAttrsChanges: StringAttributesChangesDescription? = Conf[\.xibLoc.defaultBoldAttrsChangesDescription],
-		italicAttrsChangesDescription italicAttrsChanges: StringAttributesChangesDescription? = Conf[\.xibLoc.defaultItalicAttrsChangesDescription]
+		boldAttrsChanger boldAttrsChanges: AttributesChanger? = Conf[\.xibLoc.defaultBoldAttrsChanger],
+		italicAttrsChanger italicAttrsChanges: AttributesChanger? = Conf[\.xibLoc.defaultItalicAttrsChanger]
 	) {
 		simpleReplacement1 = r1
 		simpleReplacement2 = r2
@@ -129,8 +129,8 @@ public struct CommonTokensGroup : TokensGroup {
 		baseColor = c
 		baseNSAttributes = nsattrs?.unwrappingSendableWrappers
 		
-		boldAttrsChangesDescription = boldAttrsChanges
-		italicAttrsChangesDescription = italicAttrsChanges
+		boldAttrsChanger = boldAttrsChanges
+		italicAttrsChanger = italicAttrsChanges
 	}
 	
 	@available(macOS 12, iOS 15, tvOS 15, watchOS 8, *)
@@ -143,8 +143,8 @@ public struct CommonTokensGroup : TokensGroup {
 		baseFont f: XibLocFont? = nil,
 		baseColor c: XibLocColor? = nil,
 		baseAttributes attrs: AttributeContainer = Conf[\.xibLoc.defaultStr2AttrStrAttributes],
-		boldAttrsChangesDescription boldAttrsChanges: StringAttributesChangesDescription? = Conf[\.xibLoc.defaultBoldAttrsChangesDescription],
-		italicAttrsChangesDescription italicAttrsChanges: StringAttributesChangesDescription? = Conf[\.xibLoc.defaultItalicAttrsChangesDescription]
+		boldAttrsChanger boldAttrsChanges: AttributesChanger? = Conf[\.xibLoc.defaultBoldAttrsChanger],
+		italicAttrsChanger italicAttrsChanges: AttributesChanger? = Conf[\.xibLoc.defaultItalicAttrsChanger]
 	) {
 		simpleReplacement1 = r1
 		simpleReplacement2 = r2
@@ -156,8 +156,8 @@ public struct CommonTokensGroup : TokensGroup {
 		baseColor = c
 		_baseAttributes = attrs
 		
-		boldAttrsChangesDescription = boldAttrsChanges
-		italicAttrsChangesDescription = italicAttrsChanges
+		boldAttrsChanger = boldAttrsChanges
+		italicAttrsChanger = italicAttrsChanges
 	}
 	
 	public var str2StrXibLocInfo: Str2StrXibLocInfo {
@@ -188,6 +188,8 @@ public struct CommonTokensGroup : TokensGroup {
 		if let c = baseColor {defaultAttributes.foregroundColor = c}
 #endif
 		
+		let boldAttrsChanger   = boldAttrsChanger   as? AttributedStringAttributesChanger
+		let italicAttrsChanger = italicAttrsChanger as? AttributedStringAttributesChanger
 		return Str2AttrStrXibLocInfo(
 			defaultPluralityDefinition: Conf.defaultPluralityDefinition,
 			escapeToken: Self.escapeToken,
@@ -202,8 +204,8 @@ public struct CommonTokensGroup : TokensGroup {
 			].compactMapValues{ $0 },
 			pluralGroups: [number.flatMap{ (MultipleWordsTokens(leftToken: "<", interiorToken: ":", rightToken: ">"), $0.pluralValue) }].compactMap{ $0 },
 			attributesModifications: [
-				OneWordTokens(token: "*"):   boldAttrsChangesDescription.flatMap{ c in { attrStr, strRange, refStr in assert(refStr == String(attrStr.characters)); c.apply(to: &attrStr, range: Range(strRange, in: attrStr)!) } },
-				OneWordTokens(token: "_"): italicAttrsChangesDescription.flatMap{ c in { attrStr, strRange, refStr in assert(refStr == String(attrStr.characters)); c.apply(to: &attrStr, range: Range(strRange, in: attrStr)!) } },
+				OneWordTokens(token: "*"):   boldAttrsChanger?.apply(on:in:of:),
+				OneWordTokens(token: "_"): italicAttrsChanger?.apply(on:in:of:),
 			].compactMapValues{ $0 },
 			simpleReturnTypeReplacements: [:],
 			identityReplacement: { AttributedString($0, attributes: defaultAttributes) }
@@ -217,6 +219,8 @@ public struct CommonTokensGroup : TokensGroup {
 		if let c = baseColor {defaultAttributes[.foregroundColor] = c}
 #endif
 		
+		let boldAttrsChanger   = boldAttrsChanger   as? NSAttributedStringAttributesChanger
+		let italicAttrsChanger = italicAttrsChanger as? NSAttributedStringAttributesChanger
 		return Str2NSAttrStrXibLocInfo(
 			defaultPluralityDefinition: Conf.defaultPluralityDefinition,
 			escapeToken: Self.escapeToken,
@@ -231,8 +235,8 @@ public struct CommonTokensGroup : TokensGroup {
 			].compactMapValues{ $0 },
 			pluralGroups: [number.flatMap{ (MultipleWordsTokens(leftToken: "<", interiorToken: ":", rightToken: ">"), $0.pluralValue) }].compactMap{ $0 },
 			attributesModifications: [
-				OneWordTokens(token: "*"):   boldAttrsChangesDescription.flatMap{ c in { attrStr, strRange, refStr in assert(refStr == attrStr.string); c.nsapply(to: attrStr, range: NSRange(strRange, in: refStr)) } },
-				OneWordTokens(token: "_"): italicAttrsChangesDescription.flatMap{ c in { attrStr, strRange, refStr in assert(refStr == attrStr.string); c.nsapply(to: attrStr, range: NSRange(strRange, in: refStr)) } },
+				OneWordTokens(token: "*"):   boldAttrsChanger?.apply(on:in:of:),
+				OneWordTokens(token: "_"): italicAttrsChanger?.apply(on:in:of:),
 			].compactMapValues{ $0 },
 			simpleReturnTypeReplacements: [:],
 			identityReplacement: { NSMutableAttributedString(string: $0, attributes: defaultAttributes) }
@@ -287,8 +291,8 @@ extension String {
 		baseFont: XibLocFont? = nil,
 		baseColor: XibLocColor? = nil,
 		baseAttributes: AttributeContainer = Conf[\.xibLoc.defaultStr2AttrStrAttributes],
-		boldAttrsChangesDescription: StringAttributesChangesDescription? = Conf[\.xibLoc.defaultBoldAttrsChangesDescription],
-		italicAttrsChangesDescription: StringAttributesChangesDescription? = Conf[\.xibLoc.defaultItalicAttrsChangesDescription]
+		boldAttrsChanger: AttributesChanger? = Conf[\.xibLoc.defaultBoldAttrsChanger],
+		italicAttrsChanger: AttributesChanger? = Conf[\.xibLoc.defaultItalicAttrsChanger]
 	) -> AttributedString {
 		return applying(xibLocInfo: CommonTokensGroup(
 			simpleReplacement1: simpleReplacement1,
@@ -299,8 +303,8 @@ extension String {
 			baseFont: baseFont,
 			baseColor: baseColor,
 			baseAttributes: baseAttributes,
-			boldAttrsChangesDescription: boldAttrsChangesDescription,
-			italicAttrsChangesDescription: italicAttrsChangesDescription
+			boldAttrsChanger: boldAttrsChanger,
+			italicAttrsChanger: italicAttrsChanger
 		).str2AttrStrXibLocInfo)
 	}
 	
@@ -312,8 +316,8 @@ extension String {
 	 - parameter number: Tokens are `#` (number value), `<` `:` `>` (plural)
 	 - parameter genderMeIsMale: Tokens are `{` `₋` `}`
 	 - parameter genderOtherIsMale: Tokens are \` `¦` `´`
-	 - parameter boldAttrsChangesDescription: Token is `*`
-	 - parameter italicAttrsChangesDescription: Token is `_` */
+	 - parameter boldAttrsChanger: Token is `*`
+	 - parameter italicAttrsChanger: Token is `_` */
 	@available(macOS,   deprecated: 12, message: "Use AttributedString")
 	@available(iOS,     deprecated: 15, message: "Use AttributedString")
 	@available(tvOS,    deprecated: 15, message: "Use AttributedString")
@@ -327,8 +331,8 @@ extension String {
 		baseFont: XibLocFont? = nil,
 		baseColor: XibLocColor? = nil,
 		baseNSAttributes: [NSAttributedString.Key: Any]? = Conf[\.xibLoc.defaultStr2NSAttrStrAttributes],
-		boldAttrsChangesDescription: StringAttributesChangesDescription? = Conf[\.xibLoc.defaultBoldAttrsChangesDescription],
-		italicAttrsChangesDescription: StringAttributesChangesDescription? = Conf[\.xibLoc.defaultItalicAttrsChangesDescription]
+		boldAttrsChanger: AttributesChanger? = Conf[\.xibLoc.defaultBoldAttrsChanger],
+		italicAttrsChanger: AttributesChanger? = Conf[\.xibLoc.defaultItalicAttrsChanger]
 	) -> NSMutableAttributedString {
 		return applying(xibLocInfo: CommonTokensGroup(
 			simpleReplacement1: simpleReplacement1,
@@ -339,8 +343,8 @@ extension String {
 			baseFont: baseFont,
 			baseColor: baseColor,
 			baseNSAttributes: baseNSAttributes,
-			boldAttrsChangesDescription: boldAttrsChangesDescription,
-			italicAttrsChangesDescription: italicAttrsChangesDescription
+			boldAttrsChanger: boldAttrsChanger,
+			italicAttrsChanger: italicAttrsChanger
 		).str2NSAttrStrXibLocInfo)
 	}
 	

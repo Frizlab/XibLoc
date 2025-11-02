@@ -42,8 +42,8 @@ final class XibLocTestsSwiftNSAttrStr : XCTestCase {
 			.foregroundColor: XibLocColor.black,
 		]
 		
-		Conf[rootValueFor: \.xibLoc.defaultBoldAttrsChangesDescription] = StringAttributesChangesDescription(changes: [.setBold])
-		Conf[rootValueFor: \.xibLoc.defaultItalicAttrsChangesDescription] = nil
+		Conf[rootValueFor: \.xibLoc.defaultBoldAttrsChanger] = AttributesChanger_SetBold()
+		Conf[rootValueFor: \.xibLoc.defaultItalicAttrsChanger] = nil
 		
 #if canImport(os)
 		if #available(macOS 10.12, tvOS 10.0, iOS 10.0, watchOS 3.0, *) {
@@ -62,12 +62,12 @@ final class XibLocTestsSwiftNSAttrStr : XCTestCase {
 		for _ in 0..<nRepeats {
 			/* Set needed defaults like in the doc. */
 			Conf[rootValueFor: \.xibLoc.defaultEscapeToken] = "~"
-			Conf[rootValueFor: \.xibLoc.defaultItalicAttrsChangesDescription] = StringAttributesChangesDescription(changes: [.setItalic])
+			Conf[rootValueFor: \.xibLoc.defaultItalicAttrsChanger] = AttributesChanger_SetItalic()
 			let info = CommonTokensGroup().str2NSAttrStrXibLocInfo
 			
 			let result = NSMutableAttributedString(string: "helloworldhowareyou", attributes: Conf.defaultStr2NSAttrStrAttributes!)
-			Conf.defaultItalicAttrsChangesDescription?.nsapply(to: result, range: NSRange(location: 5, length: 5))
-			Conf.defaultItalicAttrsChangesDescription?.nsapply(to: result, range: NSRange(location: 13, length: 3))
+			(Conf.defaultItalicAttrsChanger as? NSAttributedStringAttributesChanger)?.apply(on: result, NSRange(location: 5,  length: 5))
+			(Conf.defaultItalicAttrsChanger as? NSAttributedStringAttributesChanger)?.apply(on: result, NSRange(location: 13, length: 3))
 			
 			XCTAssertEqual(
 				"hello_world_how_are_you".applying(xibLocInfo: info),
@@ -413,7 +413,7 @@ final class XibLocTestsSwiftNSAttrStr : XCTestCase {
 		for _ in 0..<nRepeats {
 			let str = "🧒🏻*🧒🏻"
 			let info = try Str2NSAttrStrXibLocInfo(
-				attributesModifications: [OneWordTokens(token: "🧒🏻"): { attrStr, strRange, refStr in StringAttributesChangesDescription(changes: [.setBold]).nsapply(to: attrStr, range: NSRange(strRange, in: refStr)) }],
+				attributesModifications: [OneWordTokens(token: "🧒🏻"): { attrStr, strRange, refStr in AttributesChanger(changes: [.setBold]).nsapply(to: attrStr, range: NSRange(strRange, in: refStr)) }],
 				identityReplacement: { NSMutableAttributedString(string: $0, attributes: Conf.defaultStr2NSAttrStrAttributes!) }
 			).get()
 			let resultStr = "*"
@@ -431,7 +431,7 @@ final class XibLocTestsSwiftNSAttrStr : XCTestCase {
 		for _ in 0..<nRepeats {
 			let str = "🧒🏻👳🏿‍♀️🧒🏻"
 			let info = try Str2NSAttrStrXibLocInfo(
-				attributesModifications: [OneWordTokens(token: "🧒🏻"): { attrStr, strRange, refStr in StringAttributesChangesDescription(changes: [.setBold]).nsapply(to: attrStr, range: NSRange(strRange, in: refStr)) }],
+				attributesModifications: [OneWordTokens(token: "🧒🏻"): { attrStr, strRange, refStr in AttributesChanger(changes: [.setBold]).nsapply(to: attrStr, range: NSRange(strRange, in: refStr)) }],
 				identityReplacement: { NSMutableAttributedString(string: $0, attributes: Conf.defaultStr2NSAttrStrAttributes!) }
 			).get()
 			let resultStr = "👳🏿‍♀️"
