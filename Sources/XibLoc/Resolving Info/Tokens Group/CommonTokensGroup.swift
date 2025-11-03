@@ -252,6 +252,7 @@ extension String {
 	 - parameter genderMeIsMale: Tokens are `{` `₋` `}`
 	 - parameter genderOtherIsMale: Tokens are ``` ` ``` `¦` `´` */
 	public func applyingCommonTokens(
+		defaultPluralityDefinition: PluralityDefinition = Conf[\.xibLoc.defaultPluralityDefinition],
 		simpleReplacement1: String? = nil,
 		simpleReplacement2: String? = nil,
 		number: XibLocNumber? = nil,
@@ -259,6 +260,7 @@ extension String {
 		genderOtherIsMale: Bool? = nil
 	) -> String {
 		return applying(xibLocInfo: CommonTokensGroup(
+			defaultPluralityDefinition: defaultPluralityDefinition,
 			simpleReplacement1: simpleReplacement1,
 			simpleReplacement2: simpleReplacement2,
 			number: number,
@@ -279,6 +281,7 @@ extension String {
 	 - parameter italicAttrsChangesDescription: Token is `_` */
 	@available(macOS 12, iOS 15, tvOS 15, watchOS 8, *)
 	public func applyingCommonTokensAttributed(
+		defaultPluralityDefinition: PluralityDefinition = Conf[\.xibLoc.defaultPluralityDefinition],
 		simpleReplacement1: String? = nil,
 		simpleReplacement2: String? = nil,
 		number: XibLocNumber? = nil,
@@ -291,6 +294,7 @@ extension String {
 		italicAttrsChanger: AttributesChanger? = Conf[\.xibLoc.defaultItalicAttrsChanger]
 	) -> AttributedString {
 		return applying(xibLocInfo: CommonTokensGroup(
+			defaultPluralityDefinition: defaultPluralityDefinition,
 			simpleReplacement1: simpleReplacement1,
 			simpleReplacement2: simpleReplacement2,
 			number: number,
@@ -319,6 +323,7 @@ extension String {
 	@available(tvOS,    deprecated: 15, message: "Use AttributedString")
 	@available(watchOS, deprecated: 8,  message: "Use AttributedString")
 	public func applyingCommonTokensNSAttributed(
+		defaultPluralityDefinition: PluralityDefinition = Conf[\.xibLoc.defaultPluralityDefinition],
 		simpleReplacement1: String? = nil,
 		simpleReplacement2: String? = nil,
 		number: XibLocNumber? = nil,
@@ -331,6 +336,7 @@ extension String {
 		italicAttrsChanger: AttributesChanger? = Conf[\.xibLoc.defaultItalicAttrsChanger]
 	) -> NSMutableAttributedString {
 		return applying(xibLocInfo: CommonTokensGroup(
+			defaultPluralityDefinition: defaultPluralityDefinition,
 			simpleReplacement1: simpleReplacement1,
 			simpleReplacement2: simpleReplacement2,
 			number: number,
