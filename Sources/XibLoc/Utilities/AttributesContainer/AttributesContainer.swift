@@ -14,6 +14,11 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 import Foundation
+#if canImport(os)
+import os.log
+#endif
+
+import GlobalConfModule
 
 
 
@@ -32,7 +37,15 @@ public protocol AttributedStringAttributesContainer : AttributesContainer {
 public extension AttributesContainer {
 	
 	var attributedStringAttributes: AttributeContainer {
-		(self as? AttributedStringAttributesContainer)?.attributedStringAttributes ?? .init()
+		guard let container = self as? AttributedStringAttributesContainer else {
+#if canImport(os)
+			if #available(macOS 10.12, tvOS 10.0, iOS 10.0, watchOS 3.0, *) {
+				Conf.oslog.flatMap{ os_log("Asked attributedStringAttributes on an attributes container which is not an AttributedStringAttributesContainer. Returning an empty container.", log: $0, type: .info) }}
+#endif
+			Conf.logger?.warning("Asked attributedStringAttributes on an attributes container which is not an AttributedStringAttributesContainer. Returning an empty container.")
+			return .init()
+		}
+		return container.attributedStringAttributes
 	}
 	
 }
@@ -46,7 +59,15 @@ public protocol NSAttributedStringAttributesContainer : AttributesContainer {
 public extension AttributesContainer {
 	
 	var nsAttributedStringAttributes: [NSAttributedString.Key: Any] {
-		(self as? NSAttributedStringAttributesContainer)?.nsAttributedStringAttributes ?? [:]
+		guard let container = self as? NSAttributedStringAttributesContainer else {
+#if canImport(os)
+			if #available(macOS 10.12, tvOS 10.0, iOS 10.0, watchOS 3.0, *) {
+				Conf.oslog.flatMap{ os_log("Asked nsAttributedStringAttributes on an attributes container which is not an NSAttributedStringAttributesContainer. Returning an empty container.", log: $0, type: .info) }}
+#endif
+			Conf.logger?.warning("Asked nsAttributedStringAttributes on an attributes container which is not an NSAttributedStringAttributesContainer. Returning an empty container.")
+			return [:]
+		}
+		return container.nsAttributedStringAttributes
 	}
 	
 }

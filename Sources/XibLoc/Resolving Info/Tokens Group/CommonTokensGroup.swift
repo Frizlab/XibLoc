@@ -14,7 +14,9 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 import Foundation
-
+#if canImport(os)
+import os.log
+#endif
 #if os(macOS)
 import AppKit
 #elseif canImport(UIKit)
@@ -149,8 +151,21 @@ public struct CommonTokensGroup : TokensGroup {
 		if let c = baseColor {defaultAttributes.foregroundColor = c}
 #endif
 		
-		let boldAttrsChanger   = boldAttrsChanger   as? AttributedStringAttributesChanger
+		let   boldAttrsChanger =   boldAttrsChanger as? AttributedStringAttributesChanger
 		let italicAttrsChanger = italicAttrsChanger as? AttributedStringAttributesChanger
+		if boldAttrsChanger == nil && self.boldAttrsChanger != nil {
+#if canImport(os)
+			Conf.oslog.flatMap{ os_log("Ignoring a bold attributes changer which is not an AttributedStringAttributesChanger when asked for a Str2AttrStrXibLocInfo.", log: $0, type: .info) }
+#endif
+			Conf.logger?.warning("Ignoring a bold attributes changer which is not an AttributedStringAttributesChanger when asked for a Str2AttrStrXibLocInfo.")
+		}
+		if italicAttrsChanger == nil && self.italicAttrsChanger != nil {
+#if canImport(os)
+			Conf.oslog.flatMap{ os_log("Ignoring an italic attributes changer which is not an AttributedStringAttributesChanger when asked for a Str2AttrStrXibLocInfo.", log: $0, type: .info) }
+#endif
+			Conf.logger?.warning("Ignoring an italic attributes changer which is not an AttributedStringAttributesChanger when asked for a Str2AttrStrXibLocInfo.")
+		}
+		
 		return Str2AttrStrXibLocInfo(
 			defaultPluralityDefinition: Conf.defaultPluralityDefinition,
 			escapeToken: Self.escapeToken,
@@ -180,8 +195,23 @@ public struct CommonTokensGroup : TokensGroup {
 		if let c = baseColor {defaultAttributes[.foregroundColor] = c}
 #endif
 		
-		let boldAttrsChanger   = boldAttrsChanger   as? NSAttributedStringAttributesChanger
+		let   boldAttrsChanger =   boldAttrsChanger as? NSAttributedStringAttributesChanger
 		let italicAttrsChanger = italicAttrsChanger as? NSAttributedStringAttributesChanger
+		if boldAttrsChanger == nil && self.boldAttrsChanger != nil {
+#if canImport(os)
+			if #available(macOS 10.12, tvOS 10.0, iOS 10.0, watchOS 3.0, *) {
+				Conf.oslog.flatMap{ os_log("Ignoring a bold attributes changer which is not an NSAttributedStringAttributesChanger when asked for a Str2NSAttrStrXibLocInfo.", log: $0, type: .info) }}
+#endif
+			Conf.logger?.warning("Ignoring a bold attributes changer which is not an NSAttributedStringAttributesChanger when asked for a Str2NSAttrStrXibLocInfo.")
+		}
+		if italicAttrsChanger == nil && self.italicAttrsChanger != nil {
+#if canImport(os)
+			if #available(macOS 10.12, tvOS 10.0, iOS 10.0, watchOS 3.0, *) {
+				Conf.oslog.flatMap{ os_log("Ignoring an italic attributes changer which is not an NSAttributedStringAttributesChanger when asked for a Str2NSAttrStrXibLocInfo.", log: $0, type: .info) }}
+#endif
+			Conf.logger?.warning("Ignoring an italic attributes changer which is not an NSAttributedStringAttributesChanger when asked for a Str2NSAttrStrXibLocInfo.")
+		}
+		
 		return Str2NSAttrStrXibLocInfo(
 			defaultPluralityDefinition: Conf.defaultPluralityDefinition,
 			escapeToken: Self.escapeToken,
