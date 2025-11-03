@@ -24,35 +24,9 @@ import GlobalConfModule
 #if os(macOS)
 import AppKit
 public typealias XibLocFont = NSFont
-public extension XibLocFont {
-	var sendableFont: some Sendable {
-		return SendableFont(self)
-	}
-}
-/* Unless I’m mistaken, this is Sendable because we copy the font for storage and restitution. */
-internal struct SendableFont : @unchecked Sendable {
-	internal init(_ font: NSFont) {
-		self._font = font.copy() as! NSFont
-	}
-	internal var font: NSFont {
-		return _font.copy() as! NSFont
-	}
-	private let _font: NSFont
-}
 #else
 import UIKit
 public typealias XibLocFont = UIFont
-public extension XibLocFont {
-	var sendableFont: some Sendable {
-		return self
-	}
-}
-internal struct SendableFont : Sendable {
-	internal let font: UIFont
-	internal init(_ font: UIFont) {
-		self.font = font
-	}
-}
 #endif
 
 
@@ -117,5 +91,9 @@ extension XibLocFont {
 	}
 	
 }
+
+#else
+
+public typealias XibLocFont = Never
 
 #endif

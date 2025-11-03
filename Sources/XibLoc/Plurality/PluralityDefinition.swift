@@ -160,7 +160,7 @@ public struct PluralityDefinition : CustomDebugStringConvertible, Sendable {
 	 Returns an empty plurality definition, which will always return the latest plural version.
 	 (Faster) equivalent of `init(string: "")` or `init(string: " ")`. */
 	public init(matchingNothing: Void) {
-		zones = []
+		self.zones = []
 	}
 	
 	/**
@@ -168,7 +168,7 @@ public struct PluralityDefinition : CustomDebugStringConvertible, Sendable {
 	 Will always return the first plural version.
 	 (Faster) equivalent of `init(string: "(*)")`.*/
 	public init(matchingAnything: Void) {
-		zones = [PluralityDefinitionZone()]
+		self.zones = [PluralityDefinitionZone()]
 	}
 	
 	/**
@@ -221,7 +221,7 @@ public struct PluralityDefinition : CustomDebugStringConvertible, Sendable {
 		} while !scanner.isAtEnd
 		
 		/* We sort the zones in order to optimize the removal of zones if needed when computing the version index to use for a given value. */
-		zones = zonesBuilding.reversed().stableSorted{ (obj1, obj2) -> Bool? in
+		self.zones = zonesBuilding.reversed().stableSorted{ (obj1, obj2) -> Bool? in
 			if obj1.optionalityLevel > obj2.optionalityLevel {return true}
 			if obj1.optionalityLevel < obj2.optionalityLevel {return false}
 			return nil

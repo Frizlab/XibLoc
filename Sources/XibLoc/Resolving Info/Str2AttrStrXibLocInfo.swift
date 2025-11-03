@@ -13,8 +13,6 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 
-#if canImport(Darwin)
-
 import Foundation
 
 import GlobalConfModule
@@ -31,7 +29,7 @@ extension XibLocResolvingInfo where SourceType == String, ReturnType == Attribut
 	 Convenience init for an Str2AttrStrXibLocInfo.
 	 
 	 Takes an str2str xib loc info and convert it to an str2attrstr xib loc info with no additional tokens. */
-	public init(strResolvingInfo: Str2StrXibLocInfo = Str2StrXibLocInfo(), defaultAttributes: AttributeContainer = Conf[\.xibLoc.defaultStr2AttrStrAttributes]) {
+	public init(strResolvingInfo: Str2StrXibLocInfo = Str2StrXibLocInfo(), defaultAttributes: AttributeContainer = Conf[\.xibLoc.defaultAttributes].attributedStringAttributes) {
 		let simpleSourceTypeReplacements = strResolvingInfo.simpleSourceTypeReplacements.merging(strResolvingInfo.simpleReturnTypeReplacements, uniquingKeysWith: { _, _ in
 			fatalError("The given str2str xib loc info was not valid: it had source and return type replacements which had the same tokens!")
 		})
@@ -48,22 +46,12 @@ extension XibLocResolvingInfo where SourceType == String, ReturnType == Attribut
 		)!
 	}
 	
-	public mutating func addStringAttributesChanges(tokens: OneWordTokens, changes: StringAttributesChangesDescription, allowReplace: Bool = false) -> Bool {
-		return addAttributesModification(tokens: tokens, attributesModification: changes.attributesModifications, allowReplace: allowReplace)
+	public mutating func addStringAttributesChanges(tokens: OneWordTokens, changer: AttributedStringAttributesChanger, allowReplace: Bool = false) -> Bool {
+		return addAttributesModification(tokens: tokens, attributesModification: changer.apply(on:in:of:), allowReplace: allowReplace)
 	}
 	
-	public func addingStringAttributesChanges(tokens: OneWordTokens, changes: StringAttributesChangesDescription, allowReplace: Bool = false) -> Self? {
-		return addingAttributesModification(tokens: tokens, attributesModification: changes.attributesModifications, allowReplace: allowReplace)
-	}
-	
-	public mutating func addStringAttributesChange(tokens: OneWordTokens, change: StringAttributesChangesDescription.StringAttributesChangeDescription, allowReplace: Bool = false) -> Bool {
-		return addAttributesModification(tokens: tokens, attributesModification: StringAttributesChangesDescription(change: change).attributesModifications, allowReplace: allowReplace)
-	}
-	
-	public func addingStringAttributesChange(tokens: OneWordTokens, change: StringAttributesChangesDescription.StringAttributesChangeDescription, allowReplace: Bool = false) -> Self? {
-		return addingAttributesModification(tokens: tokens, attributesModification: StringAttributesChangesDescription(change: change).attributesModifications, allowReplace: allowReplace)
+	public func addingStringAttributesChanges(tokens: OneWordTokens, changer: AttributedStringAttributesChanger, allowReplace: Bool = false) -> Self? {
+		return addingAttributesModification(tokens: tokens, attributesModification: changer.apply(on:in:of:), allowReplace: allowReplace)
 	}
 	
 }
-
-#endif

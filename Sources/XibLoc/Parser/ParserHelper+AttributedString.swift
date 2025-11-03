@@ -13,9 +13,6 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 
-/* To check later, but for now AttributedString is _not_ available on Linux. */
-#if canImport(Darwin)
-
 import Foundation
 
 
@@ -57,5 +54,3 @@ struct AttributedStringParserHelper : ParserHelper {
 	}
 	
 }
-
-#endif

@@ -26,9 +26,9 @@ public struct OneWordTokens : Hashable {
 		self.init(leftToken: token, rightToken: token)
 	}
 	
-	public init(leftToken lt: String, rightToken rt: String) {
-		leftToken = lt
-		rightToken = rt
+	public init(leftToken: String, rightToken: String) {
+		self.leftToken = leftToken
+		self.rightToken = rightToken
 	}
 	
 	/**

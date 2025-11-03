@@ -26,4 +26,8 @@ import UIKit
 public typealias XibLocColor = UIColor
 #endif
 
+#else
+
+public typealias XibLocColor = Never
+
 #endif

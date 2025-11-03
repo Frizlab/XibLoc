@@ -53,12 +53,13 @@ extension ConfKeys.XibLoc {
 	#declareConfKey("defaultEscapeToken",                      String.self, defaultValue: "~")
 	#declareConfKey("defaultPluralityDefinition", PluralityDefinition.self, defaultValue: PluralityDefinition(matchingNothing: ()))
 	
-#if canImport(Darwin)
-	@available(macOS 12, iOS 15, tvOS 15, watchOS 8, *)
-	#declareConfKey("defaultStr2AttrStrAttributes", AttributeContainer.self, defaultValue: .init())
-	#declareConfKey("defaultStr2NSAttrStrAttributes", [NSAttributedString.Key: Sendable]?.self, defaultValue: nil)
-	#declareConfKey("defaultBoldAttrsChangesDescription", StringAttributesChangesDescription?.self, defaultValue: .init(change: .setBold))
-	#declareConfKey("defaultItalicAttrsChangesDescription", StringAttributesChangesDescription?.self, defaultValue: .init(change: .setItalic))
+	#declareConfKey("defaultAttributes", AttributesContainer.self, defaultValue: AttributesContainer_Foundation())
+#if canImport(AppKit) || canImport(UIKit)
+	#declareConfKey("defaultBoldAttrsChanger",   AttributesChanger?.self, defaultValue: AttributesChanger_SetBold())
+	#declareConfKey("defaultItalicAttrsChanger", AttributesChanger?.self, defaultValue: AttributesChanger_SetItalic())
+#else
+	#declareConfKey("defaultBoldAttrsChanger",   AttributesChanger?.self, defaultValue: nil)
+	#declareConfKey("defaultItalicAttrsChanger", AttributesChanger?.self, defaultValue: nil)
 #endif
 	
 	/**
@@ -91,15 +92,17 @@ extension Conf {
 	#declareConfAccessor(\.xibLoc.defaultEscapeToken,                      String.self)
 	#declareConfAccessor(\.xibLoc.defaultPluralityDefinition, PluralityDefinition.self)
 	
-#if canImport(Darwin)
+	#declareConfAccessor(\.xibLoc.defaultAttributes, AttributesContainer.self)
+	#declareConfAccessor(\.xibLoc.defaultBoldAttrsChanger,   AttributesChanger?.self)
+	#declareConfAccessor(\.xibLoc.defaultItalicAttrsChanger, AttributesChanger?.self)
+	
 	@available(macOS 12, iOS 15, tvOS 15, watchOS 8, *)
-	#declareConfAccessor(\.xibLoc.defaultStr2AttrStrAttributes,                          AttributeContainer.self)
-	internal static var defaultStr2NSAttrStrAttributes: [NSAttributedString.Key: Any]? {
-		Conf[\.xibLoc.defaultStr2NSAttrStrAttributes]?.unwrappingSendableWrappers
+	static var defaultStr2AttrStrAttributes: AttributeContainer {
+		defaultAttributes.attributedStringAttributes
 	}
-	#declareConfAccessor(\.xibLoc.defaultBoldAttrsChangesDescription,   StringAttributesChangesDescription?.self)
-	#declareConfAccessor(\.xibLoc.defaultItalicAttrsChangesDescription, StringAttributesChangesDescription?.self)
-#endif
+	static var defaultStr2NSAttrStrAttributes: [NSAttributedString.Key: Any] {
+		defaultAttributes.nsAttributedStringAttributes
+	}
 	
 //	#declareConfAccessor(\.xibLoc.cache, NSCache<ErasedParsedXibLocInitInfoWrapper, ParsedXibLocWrapper>?.self)
 	internal static var cache: NSCache<ErasedParsedXibLocInitInfoWrapper, ParsedXibLocWrapper>? {

@@ -13,7 +13,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 
-#if canImport(Darwin)
+#if canImport(AppKit) || canImport(UIKit)
 
 import Foundation
 import XCTest
@@ -37,15 +37,19 @@ final class XibLocTestsSwiftAttrStr : XCTestCase {
 		Conf[rootValueFor: \.xibLoc.defaultEscapeToken] = #"\"#
 		Conf[rootValueFor: \.xibLoc.defaultPluralityDefinition] = PluralityDefinition()
 		
-		Conf[rootValueFor: \.xibLoc.defaultStr2AttrStrAttributes] = {
+		Conf[rootValueFor: \.xibLoc.defaultAttributes] = AttributesContainer_Foundation(attributedStringAttributes: {
 			var ret = AttributeContainer()
 			ret[keyPath: \.font] = .systemFont(ofSize: 14)
-			ret.foregroundColor = .black
+#if os(macOS)
+			ret.appKit.foregroundColor = XibLocColor.black
+#elseif canImport(UIKit)
+			ret.uiKit.foregroundColor = XibLocColor.black
+#endif
 			return ret
-		}()
+		}())
 		
-		Conf[rootValueFor: \.xibLoc.defaultBoldAttrsChangesDescription] = StringAttributesChangesDescription(changes: [.setBold])
-		Conf[rootValueFor: \.xibLoc.defaultItalicAttrsChangesDescription] = nil
+		Conf[rootValueFor: \.xibLoc.defaultBoldAttrsChanger] = AttributesChanger_SetBold()
+		Conf[rootValueFor: \.xibLoc.defaultItalicAttrsChanger] = nil
 		
 #if canImport(os)
 		Conf[rootValueFor: \.xibLoc.oslog] = nil
@@ -62,12 +66,12 @@ final class XibLocTestsSwiftAttrStr : XCTestCase {
 		for _ in 0..<nRepeats {
 			/* Set needed defaults like in the doc. */
 			Conf[rootValueFor: \.xibLoc.defaultEscapeToken] = "~"
-			Conf[rootValueFor: \.xibLoc.defaultItalicAttrsChangesDescription] = StringAttributesChangesDescription(changes: [.setItalic])
+			Conf[rootValueFor: \.xibLoc.defaultItalicAttrsChanger] = AttributesChanger_SetItalic()
 			let info = CommonTokensGroup().str2AttrStrXibLocInfo
 			
 			var result = AttributedString("helloworldhowareyou", attributes: Conf.defaultStr2AttrStrAttributes)
-			Conf.defaultItalicAttrsChangesDescription?.apply(to: &result, range: result.range(of: "world")!)
-			Conf.defaultItalicAttrsChangesDescription?.apply(to: &result, range: result.range(of: "are")!)
+			(Conf.defaultItalicAttrsChanger as? AttributedStringAttributesChanger)?.apply(on: &result, result.range(of: "world")!)
+			(Conf.defaultItalicAttrsChanger as? AttributedStringAttributesChanger)?.apply(on: &result, result.range(of: "are")!)
 			
 			XCTAssertEqual(
 				"hello_world_how_are_you".applying(xibLocInfo: info),
@@ -406,7 +410,7 @@ final class XibLocTestsSwiftAttrStr : XCTestCase {
 		for _ in 0..<nRepeats {
 			let str = "🧒🏻*🧒🏻"
 			let info = try Str2AttrStrXibLocInfo(
-				attributesModifications: [OneWordTokens(token: "🧒🏻"): { attrStr, strRange, refStr in StringAttributesChangesDescription(changes: [.setBold]).apply(to: &attrStr, range: Range(strRange, in: attrStr)!) }],
+				attributesModifications: [OneWordTokens(token: "🧒🏻"): AttributesChanger_SetBold().apply(on:in:of:)],
 				identityReplacement: { AttributedString($0, attributes: Conf.defaultStr2AttrStrAttributes) }
 			).get()
 			var result = AttributedString("*", attributes: Conf.defaultStr2AttrStrAttributes)
@@ -423,7 +427,7 @@ final class XibLocTestsSwiftAttrStr : XCTestCase {
 		for _ in 0..<nRepeats {
 			let str = "🧒🏻👳🏿‍♀️🧒🏻"
 			let info = try Str2AttrStrXibLocInfo(
-				attributesModifications: [OneWordTokens(token: "🧒🏻"): { attrStr, strRange, refStr in StringAttributesChangesDescription(changes: [.setBold]).apply(to: &attrStr, range: Range(strRange, in: attrStr)!) }],
+				attributesModifications: [OneWordTokens(token: "🧒🏻"): AttributesChanger_SetBold().apply(on:in:of:)],
 				identityReplacement: { AttributedString($0, attributes: Conf.defaultStr2AttrStrAttributes) }
 			).get()
 			var result = AttributedString("👳🏿‍♀️", attributes: Conf.defaultStr2AttrStrAttributes)
@@ -477,9 +481,9 @@ final class XibLocTestsSwiftAttrStr : XCTestCase {
 				.str2AttrStrXibLocInfo
 				.changingDefaultPluralityDefinition(to: PluralityDefinition(string: "(1)(*)"))
 				.addingSimpleReturnTypeReplacement(tokens: .init(token: "^"), replacement: { val in val })!
-				.addingStringAttributesChange(
+				.addingStringAttributesChanges(
 					tokens: .init(token: "_"),
-					change: .changeFont(newFont: .preferredFont(forTextStyle: .caption1), preserveSizes: false, preserveBold: false, preserveItalic: false),
+					changer: AttributesChanger_Font(newFont: { .preferredFont(forTextStyle: .caption1) }, preserveSizes: false, preserveBold: false, preserveItalic: false),
 					allowReplace: true
 				)!
 			var result = AttributedString(title + "\n1 result", attributes: Conf.defaultStr2AttrStrAttributes)
@@ -499,9 +503,9 @@ final class XibLocTestsSwiftAttrStr : XCTestCase {
 			let info = CommonTokensGroup(simpleReplacement1: title, simpleReplacement2: nil, number: nResults)
 				.str2AttrStrXibLocInfo
 				.addingSimpleSourceTypeReplacement(tokens: .init(token: "^"), replacement: { val in "" })!
-				.addingStringAttributesChange(
+				.addingStringAttributesChanges(
 					tokens: .init(token: "_"),
-					change: .changeFont(newFont: .preferredFont(forTextStyle: .caption1), preserveSizes: false, preserveBold: false, preserveItalic: false),
+					changer: AttributesChanger_Font(newFont: { .preferredFont(forTextStyle: .caption1) }, preserveSizes: false, preserveBold: false, preserveItalic: false),
 					allowReplace: true
 				)!
 			let result = AttributedString("yolo", attributes: Conf.defaultStr2AttrStrAttributes)
@@ -720,7 +724,11 @@ final class XibLocTestsSwiftAttrStr : XCTestCase {
 	private lazy var docCasesInfo: (Str2AttrStrXibLocInfo, AttributeContainer) = {
 		var baseAttributes = AttributeContainer()
 		baseAttributes[keyPath: \.font] = XibLocFont.systemFont(ofSize: 14)
-		baseAttributes.foregroundColor = XibLocColor.black
+#if os(macOS)
+		baseAttributes.appKit.foregroundColor = XibLocColor.black
+#elseif canImport(UIKit)
+		baseAttributes.uiKit.foregroundColor = XibLocColor.black
+#endif
 		let info = Str2AttrStrXibLocInfo(
 			escapeToken: nil,
 			simpleSourceTypeReplacements: [OneWordTokens(token: "|"): { _ in "replacement_value" }],
