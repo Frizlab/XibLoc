@@ -88,6 +88,8 @@ public struct CommonTokensGroup : TokensGroup {
 	/** Tokens: ``` ` ``` `¦` `´` */
 	public var genderOtherIsMale: Bool?
 	
+	public var defaultPluralityDefinition: PluralityDefinition
+	
 	public var baseFont: XibLocFont?
 	public var baseColor: XibLocColor?
 	public var baseAttributes: AttributesContainer
@@ -98,6 +100,7 @@ public struct CommonTokensGroup : TokensGroup {
 	public var italicAttrsChanger: AttributesChanger?
 	
 	public init(
+		defaultPluralityDefinition: PluralityDefinition = Conf[\.xibLoc.defaultPluralityDefinition],
 		simpleReplacement1: String? = nil,
 		simpleReplacement2: String? = nil,
 		number: XibLocNumber? = nil,
@@ -109,6 +112,8 @@ public struct CommonTokensGroup : TokensGroup {
 		boldAttrsChanger: AttributesChanger? = Conf[\.xibLoc.defaultBoldAttrsChanger],
 		italicAttrsChanger: AttributesChanger? = Conf[\.xibLoc.defaultItalicAttrsChanger]
 	) {
+		self.defaultPluralityDefinition = defaultPluralityDefinition
+		
 		self.simpleReplacement1 = simpleReplacement1
 		self.simpleReplacement2 = simpleReplacement2
 		self.number = number
@@ -125,7 +130,7 @@ public struct CommonTokensGroup : TokensGroup {
 	
 	public var str2StrXibLocInfo: Str2StrXibLocInfo {
 		return Str2StrXibLocInfo(
-			defaultPluralityDefinition: Conf.defaultPluralityDefinition,
+			defaultPluralityDefinition: defaultPluralityDefinition,
 			escapeToken: Self.escapeToken,
 			simpleSourceTypeReplacements: [:],
 			orderedReplacements: [
@@ -167,7 +172,7 @@ public struct CommonTokensGroup : TokensGroup {
 		}
 		
 		return Str2AttrStrXibLocInfo(
-			defaultPluralityDefinition: Conf.defaultPluralityDefinition,
+			defaultPluralityDefinition: defaultPluralityDefinition,
 			escapeToken: Self.escapeToken,
 			simpleSourceTypeReplacements: [
 				OneWordTokens(token: "|"): simpleReplacement1.flatMap{ r in { _ in r } },
@@ -213,7 +218,7 @@ public struct CommonTokensGroup : TokensGroup {
 		}
 		
 		return Str2NSAttrStrXibLocInfo(
-			defaultPluralityDefinition: Conf.defaultPluralityDefinition,
+			defaultPluralityDefinition: defaultPluralityDefinition,
 			escapeToken: Self.escapeToken,
 			simpleSourceTypeReplacements: [
 				OneWordTokens(token: "|"): simpleReplacement1.flatMap{ r in { _ in r } },
