@@ -68,8 +68,8 @@ extension ConfKeys.XibLoc {
 	 
 	 To disable the cache, set this property to `nil`.
 	 
-	 - Important: Do **not** modify the objects in this cache. The property should
-	  only be modified if needed when your app starts, to customize the cache. */
+	 - Important: Do **not** modify the objects in this cache.
+	 The property should only be modified if needed when your app starts, to customize the cache. */
 	#declareConfKey("cache", NSCache<ErasedParsedXibLocInitInfoWrapper, ParsedXibLocWrapper>?.self, unsafeNonIsolated: true, defaultValue: {
 		let c = NSCache<ErasedParsedXibLocInitInfoWrapper, ParsedXibLocWrapper>()
 		c.countLimit = 1500
