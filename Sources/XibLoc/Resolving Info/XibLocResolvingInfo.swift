@@ -109,8 +109,8 @@ public struct XibLocResolvingInfo<SourceType, ReturnType> {
 		}
 	}
 	
-	public init(identityReplacement ir: @escaping (_ source: SourceType) -> ReturnType) {
-		self.init(identityReplacement: ir)!
+	public init(identityReplacement: @escaping (_ source: SourceType) -> ReturnType) {
+		self.init(identityReplacement: identityReplacement)!
 	}
 	
 	public func changingDefaultPluralityDefinition(to newDefaultPluralityDefinition: PluralityDefinition) -> Self {

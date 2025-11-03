@@ -48,13 +48,13 @@ public struct PluralValue : Sendable {
 		var forceDecimalSeparator: Bool
 		var zeroIsNegative: Bool
 		
-		public init(minFractionDigits min: Int, maxFractionDigits max: Int, forceDecimalSeparator forceSep: Bool = false, zeroIsNegative negativeZero: Bool = false) {
-			assert(max >= min && min >= 0)
-			minFractionDigits = min
-			maxFractionDigits = max
+		public init(minFractionDigits: Int, maxFractionDigits: Int, forceDecimalSeparator: Bool = false, zeroIsNegative: Bool = false) {
+			assert(maxFractionDigits >= minFractionDigits && minFractionDigits >= 0)
+			self.minFractionDigits = minFractionDigits
+			self.maxFractionDigits = maxFractionDigits
 			
-			forceDecimalSeparator = forceSep
-			zeroIsNegative = negativeZero
+			self.forceDecimalSeparator = forceDecimalSeparator
+			self.zeroIsNegative = zeroIsNegative
 		}
 		
 		public init(numberFormatter: NumberFormatter) {
@@ -216,12 +216,12 @@ public struct PluralValue : Sendable {
 		)
 	}
 	
-	public init?(intPart i: String, fractionPart f: String?) {
-		let negative = (i.first == "-")
-		let i = (negative ? String(i.dropFirst()) : i)
+	public init?(intPart: String, fractionPart: String?) {
+		let negative = (intPart.first == "-")
+		let intPart = (negative ? String(intPart.dropFirst()) : intPart)
 		self.init(
-			intPart: i,
-			fractionPart: f,
+			intPart: intPart,
+			fractionPart: fractionPart,
 			isNegative: negative
 		)
 	}
@@ -263,11 +263,11 @@ public struct PluralValue : Sendable {
 		return (i == "0" && !f.contains(where: { $0 != "0" }))
 	}
 	
-	private init?(intPart i: String, fractionPart f: String, forceDecimalSeparator: Bool, forceNegativeZero: Bool) {
-		let addMinusSign = (forceNegativeZero && PluralValue.isZero(intPart: i, fractionPart: f))
+	private init?(intPart: String, fractionPart: String, forceDecimalSeparator: Bool, forceNegativeZero: Bool) {
+		let addMinusSign = (forceNegativeZero && PluralValue.isZero(intPart: intPart, fractionPart: fractionPart))
 		self.init(
-			intPart: (addMinusSign ? "-" : "") + i,
-			fractionPart: (!f.isEmpty || forceDecimalSeparator) ? f : nil
+			intPart: (addMinusSign ? "-" : "") + intPart,
+			fractionPart: (!fractionPart.isEmpty || forceDecimalSeparator) ? fractionPart : nil
 		)
 	}
 	

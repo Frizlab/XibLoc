@@ -32,11 +32,11 @@ struct PluralityDefinitionZone : CustomDebugStringConvertible, Sendable {
 	let priorityDecreaseLevel: Int /* 0 is standard priority; higher is lower priority */
 	
 	/** Returns a zone that matches anything and have the given index. */
-	init(index i: Int = 0, optionalityLevel o: Int = 0, priorityDecreaseLevel p: Int = 0) {
-		index = i
-		optionalityLevel = o
-		priorityDecreaseLevel = p
-		zoneValues = [PluralityDefinitionZoneValueGlob(forAnyNumber: ())]
+	init(index: Int = 0, optionalityLevel: Int = 0, priorityDecreaseLevel: Int = 0) {
+		self.index = index
+		self.optionalityLevel = optionalityLevel
+		self.priorityDecreaseLevel = priorityDecreaseLevel
+		self.zoneValues = [PluralityDefinitionZoneValueGlob(forAnyNumber: ())]
 	}
 	
 	init?(string: String, index i: Int) {
@@ -65,11 +65,11 @@ struct PluralityDefinitionZone : CustomDebugStringConvertible, Sendable {
 			Conf.logger?.warning("Got garbage after end of plurality definition zone string: \(String(scanner.string[scanner.currentIndex...]))")
 		}
 		
-		index = i
-		optionalityLevel = optionalities?.count ?? 0
-		priorityDecreaseLevel = priorityDecreases?.count ?? 0
+		self.index = i
+		self.optionalityLevel = optionalities?.count ?? 0
+		self.priorityDecreaseLevel = priorityDecreases?.count ?? 0
 		
-		zoneValues = zoneContent.components(separatedBy: ":").compactMap{
+		self.zoneValues = zoneContent.components(separatedBy: ":").compactMap{
 			let ret: PluralityDefinitionZoneValue?
 			if      let v = PluralityDefinitionZoneValueNumber(string: $0)           {ret = v}
 			else if let v = PluralityDefinitionZoneValueIntervalOfInts(string: $0)   {ret = v}

@@ -70,7 +70,7 @@ public class ErasedParsedXibLocInitInfoWrapper : NSObject {
 	private let initInfo: ErasedParsedXibLocInitInfo
 	
 	fileprivate init(_ info: ErasedParsedXibLocInitInfo) {
-		initInfo = info
+		self.initInfo = info
 	}
 	
 	public override var hash: Int {

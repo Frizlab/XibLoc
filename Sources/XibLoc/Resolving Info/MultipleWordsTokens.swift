@@ -27,10 +27,10 @@ public struct MultipleWordsTokens : Hashable {
 		self.init(leftToken: exteriorToken, interiorToken: interiorToken, rightToken: exteriorToken)
 	}
 	
-	public init(leftToken lt: String, interiorToken it: String, rightToken rt: String) {
-		leftToken = lt
-		interiorToken = it
-		rightToken = rt
+	public init(leftToken: String, interiorToken: String, rightToken: String) {
+		self.leftToken = leftToken
+		self.interiorToken = interiorToken
+		self.rightToken = rightToken
 	}
 	
 	/**

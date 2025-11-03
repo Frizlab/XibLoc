@@ -30,23 +30,23 @@ public struct XibLocNumber {
 	public let pluralValue: PluralValue
 	
 	public init(_ i: Int, formatter: NumberFormatter = Conf[\.xibLoc.defaultNumberFormatterForInts]) {
-		localizedString = formatter.xl_string(from: NSNumber(value: i))
-		pluralValue = PluralValue(int: i, format: PluralValue.NumberFormat(numberFormatter: formatter))
+		self.localizedString = formatter.xl_string(from: NSNumber(value: i))
+		self.pluralValue = PluralValue(int: i, format: PluralValue.NumberFormat(numberFormatter: formatter))
 	}
 	
 	public init(_ f: Float, formatter: NumberFormatter = Conf[\.xibLoc.defaultNumberFormatterForFloats]) {
-		localizedString = formatter.xl_string(from: NSNumber(value: f))
-		pluralValue = PluralValue(float: f, format: PluralValue.NumberFormat(numberFormatter: formatter))
+		self.localizedString = formatter.xl_string(from: NSNumber(value: f))
+		self.pluralValue = PluralValue(float: f, format: PluralValue.NumberFormat(numberFormatter: formatter))
 	}
 	
 	public init(_ d: Double, formatter: NumberFormatter = Conf[\.xibLoc.defaultNumberFormatterForFloats]) {
-		localizedString = formatter.xl_string(from: NSNumber(value: d))
-		pluralValue = PluralValue(double: d, format: PluralValue.NumberFormat(numberFormatter: formatter))
+		self.localizedString = formatter.xl_string(from: NSNumber(value: d))
+		self.pluralValue = PluralValue(double: d, format: PluralValue.NumberFormat(numberFormatter: formatter))
 	}
 	
-	public init(localizedString str: String, pluralValue v: PluralValue) {
-		localizedString = str
-		pluralValue = v
+	public init(localizedString: String, pluralValue: PluralValue) {
+		self.localizedString = localizedString
+		self.pluralValue = pluralValue
 	}
 	
 }

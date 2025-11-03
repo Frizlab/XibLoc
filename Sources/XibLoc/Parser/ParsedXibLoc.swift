@@ -78,7 +78,7 @@ public struct ParsedXibLoc<SourceTypeHelper : ParserHelper> {
 					let contentRange = ParsedXibLoc.contentRange(from: r, in: stringSource, leftSep: sep.leftToken, rightSep: sep.rightToken)
 					var startIndex = contentRange.lowerBound
 					let endIndex = contentRange.upperBound
-					let count = ReplacementValue.MutableCount(v: 1)
+					let count = ReplacementValue.MutableCount(value: 1)
 					
 					var idx = 0
 					while let sepRange = ParsedXibLoc.range(of: sep.interiorToken, escapeToken: parsingInfo.escapeToken, baseString: stringSource, in: startIndex..<endIndex) {
@@ -126,11 +126,11 @@ public struct ParsedXibLoc<SourceTypeHelper : ParserHelper> {
 		
 		/* Let’s finish the init */
 		
-		sourceTypeHelperType = parserHelper
+		self.sourceTypeHelperType = parserHelper
 		
-		replacements = replacementsBuilding
-		untokenizedSource = untokenizedSourceBuilding
-		untokenizedStringSource = untokenizedStringSourceBuilding
+		self.replacements = replacementsBuilding
+		self.untokenizedSource = untokenizedSourceBuilding
+		self.untokenizedStringSource = untokenizedStringSourceBuilding
 		
 		/* Plurality definitions overrides */
 		var pluralityDefinitionsBuilding = [MultipleWordsTokens: PluralityDefinition]()
@@ -138,7 +138,7 @@ public struct ParsedXibLoc<SourceTypeHelper : ParserHelper> {
 			guard let pluralityDefinition = pluralityDefinition else {continue}
 			pluralityDefinitionsBuilding[pluralGroup] = pluralityDefinition
 		}
-		pluralityDefinitions = pluralityDefinitionsBuilding
+		self.pluralityDefinitions = pluralityDefinitionsBuilding
 	}
 	
 	public func resolve<ReturnTypeHelper : ParserHelper>(xibLocResolvingInfo: XibLocResolvingInfo<SourceType, ReturnTypeHelper.ParsedType>, returnTypeHelperType: ReturnTypeHelper.Type) -> ReturnTypeHelper.ParsedType {
@@ -261,7 +261,7 @@ public struct ParsedXibLoc<SourceTypeHelper : ParserHelper> {
 		
 		class MutableCount {
 			var value: Int
-			init(v: Int) {value = v}
+			init(value: Int) {self.value = value}
 		}
 		
 		case simpleSourceTypeReplacement(OneWordTokens)
@@ -332,10 +332,10 @@ public struct ParsedXibLoc<SourceTypeHelper : ParserHelper> {
 		var refString: String
 		var adjustedReplacements: [Replacement]
 		
-		init(refString rs: String, adjustedReplacements r: [Replacement]) {
+		init(refString: String, adjustedReplacements: [Replacement]) {
 //			print("RESET I")
-			refString = rs
-			adjustedReplacements = r
+			self.refString = refString
+			self.adjustedReplacements = adjustedReplacements
 		}
 		
 		func next() -> Replacement? {

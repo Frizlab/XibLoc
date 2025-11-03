@@ -32,7 +32,7 @@ struct PluralityDefinitionZoneValueGlob : PluralityDefinitionZoneValue {
 	 
 	 An argument is required because we can’t create an init method that has no argument and a name… */
 	init(forAnyNumber: Void) {
-		value = .anyNumber
+		self.value = .anyNumber
 	}
 	
 	/**
@@ -42,13 +42,13 @@ struct PluralityDefinitionZoneValueGlob : PluralityDefinitionZoneValue {
 	 
 	 An argument is required because we can’t create an init method that has no argument and a name… */
 	init(forAnyFloat: Void) {
-		value = .anyFloat
+		self.value = .anyFloat
 	}
 	
 	init?(string: String) {
 		switch string {
-			case "*", "^*{.*}$": value = .anyNumber
-			case "*.", "^*.*$":  value = .anyFloat
+			case "*", "^*{.*}$": self.value = .anyNumber
+			case "*.", "^*.*$":  self.value = .anyFloat
 				
 			default:
 				guard string.hasPrefix("^") && string.hasSuffix("$") else {return nil}
@@ -69,7 +69,7 @@ struct PluralityDefinitionZoneValueGlob : PluralityDefinitionZoneValue {
 #endif
 				Conf.logger?.debug("Glob language to regex conversion: “\(string)” --> “\(transformedString)”")
 				
-				do {value = .regex(try NSRegularExpression(pattern: transformedString, options: []))}
+				do {self.value = .regex(try NSRegularExpression(pattern: transformedString, options: []))}
 				catch {
 #if canImport(os)
 					if #available(macOS 10.12, tvOS 10.0, iOS 10.0, watchOS 3.0, *) {
