@@ -27,7 +27,7 @@ public struct AttributesChanger_Font : AttributesChanger {
 	public var preserveBold: Bool
 	public var preserveItalic: Bool
 	
-	init(newFont: @escaping @Sendable () -> XibLocFont, preserveSizes: Bool, preserveBold: Bool, preserveItalic: Bool) {
+	public init(newFont: @escaping @Sendable () -> XibLocFont, preserveSizes: Bool, preserveBold: Bool, preserveItalic: Bool) {
 		self.newFont = newFont
 		self.preserveSizes = preserveSizes
 		self.preserveBold = preserveBold
