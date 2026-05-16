@@ -19,7 +19,9 @@ import Foundation
 
 
 
-public struct AttributesChanger_SetBold : AttributesChanger {}
+public struct AttributesChanger_SetBold : AttributesChanger {
+	public init() {}
+}
 
 extension AttributesChanger_SetBold : AttributedStringAttributesChanger {
 	@available(macOS 12, iOS 15, tvOS 15, watchOS 8, *)
@@ -34,7 +36,9 @@ extension AttributesChanger_SetBold : NSAttributedStringAttributesChanger {
 }
 
 
-public struct AttributesChanger_RemoveBold : AttributesChanger {}
+public struct AttributesChanger_RemoveBold : AttributesChanger {
+	public init() {}
+}
 
 extension AttributesChanger_RemoveBold : AttributedStringAttributesChanger {
 	@available(macOS 12, iOS 15, tvOS 15, watchOS 8, *)

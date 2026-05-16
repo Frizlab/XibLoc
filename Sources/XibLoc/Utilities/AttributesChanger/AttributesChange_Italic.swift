@@ -19,7 +19,9 @@ import Foundation
 
 
 
-public struct AttributesChanger_SetItalic : AttributesChanger {}
+public struct AttributesChanger_SetItalic : AttributesChanger {
+	public init() {}
+}
 
 extension AttributesChanger_SetItalic : AttributedStringAttributesChanger {
 	@available(macOS 12, iOS 15, tvOS 15, watchOS 8, *)
@@ -34,7 +36,9 @@ extension AttributesChanger_SetItalic : NSAttributedStringAttributesChanger {
 }
 
 
-public struct AttributesChanger_RemoveItalic : AttributesChanger {}
+public struct AttributesChanger_RemoveItalic : AttributesChanger {
+	public init() {}
+}
 
 extension AttributesChanger_RemoveItalic : AttributedStringAttributesChanger {
 	@available(macOS 12, iOS 15, tvOS 15, watchOS 8, *)
