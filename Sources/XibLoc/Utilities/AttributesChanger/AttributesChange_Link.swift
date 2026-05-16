@@ -31,11 +31,11 @@ extension AttributesChanger_Link : AttributedStringAttributesChanger {
 }
 
 /* The link attribute exists on the OpenSource Foundation, but only for AttributedString, not for NSAttributedString. */
-#if os(Darwin)
+#if canImport(Darwin)
 extension AttributesChanger_Link : NSAttributedStringAttributesChanger {
 	public func apply(on modified: NSMutableAttributedString, _ range: NSRange /* An ObjC range */) {
-		if let newStyle {attrStr.addAttribute(   .link, value: newURL, range: range)}
-		else            {attrStr.removeAttribute(.link,                range: range)}
+		if let newURL {modified.addAttribute(   .link, value: newURL, range: range)}
+		else          {modified.removeAttribute(.link,                range: range)}
 	}
 }
 #endif
