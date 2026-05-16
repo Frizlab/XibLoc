@@ -26,28 +26,38 @@ import UIKit
 
 
 
-public struct AttributesChanger_UnderlineStyle : AttributesChanger {
-	/** The new style to apply. If `nil`, removes the underline. */
+public struct AttributesChanger_Underline : AttributesChanger {
+	
+	public var newColor: XibLocColor?
 	public var newStyle: NSUnderlineStyle?
-	public init(newStyle: NSUnderlineStyle? = nil) {self.newStyle = newStyle}
+	
+	public init(newColor: XibLocColor? = nil, newStyle: NSUnderlineStyle? = nil) {
+		self.newColor = newColor
+		self.newStyle = newStyle
+	}
+	
 }
 
-extension AttributesChanger_UnderlineStyle : AttributedStringAttributesChanger {
+extension AttributesChanger_Underline : AttributedStringAttributesChanger {
 	@available(macOS 12, iOS 15, tvOS 15, watchOS 8, *)
 	public func apply(on modified: inout AttributedString, _ range: Range<AttributedString.Index>) {
 #if os(macOS)
+		modified[range].appKit.underlineColor = newColor
 		modified[range].appKit.underlineStyle = newStyle
 #elseif canImport(UIKit)
+		modified[range] .uiKit.underlineColor = newColor
 		modified[range] .uiKit.underlineStyle = newStyle
 #else
 		#error("This should not be possible because importing AppKit on macOS should always be possible.")
 #endif
 	}
 }
-extension AttributesChanger_UnderlineStyle : NSAttributedStringAttributesChanger {
+extension AttributesChanger_Underline : NSAttributedStringAttributesChanger {
 	public func apply(on modified: NSMutableAttributedString, _ range: NSRange /* An ObjC range */) {
 		if let newStyle {modified.addAttribute(   .underlineStyle, value: newStyle, range: range)}
 		else            {modified.removeAttribute(.underlineStyle,                  range: range)}
+		if let newColor {modified.addAttribute(   .underlineColor, value: newColor, range: range)}
+		else            {modified.removeAttribute(.underlineColor,                  range: range)}
 	}
 }
 
