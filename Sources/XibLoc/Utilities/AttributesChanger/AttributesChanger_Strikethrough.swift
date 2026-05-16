@@ -29,7 +29,7 @@ import UIKit
 public struct AttributesChanger_Strikethrough : AttributesChanger {
 	
 	public var newColor: XibLocColor?
-	public var newStyle: NSUnderlineStyle? /* This is correct, strikethrough style expect an underline style. */
+	public var newStyle: NSUnderlineStyle? /* This is correct, strikethrough style expects an underline style. */
 	
 	public init(newColor: XibLocColor? = nil, newStyle: NSUnderlineStyle? = nil) {
 		self.newColor = newColor
